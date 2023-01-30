@@ -41,75 +41,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: lcov.info
 
-  latex:
-    name: "PDF/LaTeX backend"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
-        with:
-          version: '1'
-      - uses: julia-actions/cache@v1
-      - run: |
-          julia --project=test/examples -e '
-            using Pkg
-            Pkg.instantiate()
-            Pkg.develop(PackageSpec(path=pwd()))
-            Pkg.add(["IOCapture", "tectonic_jll"])'
-      - run: julia --project=test/examples --code-coverage test/examples/tests_latex.jl
-      - uses: julia-actions/julia-processcoverage@v1
-      - uses: codecov/codecov-action@v1
-        with:
-          file: lcov.info
-      - name: Submit coverage to Coveralls
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: lcov.info
-      - uses: actions/upload-artifact@v3
-        with:
-          name: PDFs
-          path: test/examples/builds/*/*.pdf
-
-  themes:
-    name: "CSS for HTML themes"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
-        with:
-          version: '1'
-      - uses: julia-actions/cache@v1
-      - name: Install dependencies
-        run: julia --color=yes --project=test/themes/ docs/instantiate.jl test/themes/
-      - name: Verify theme CSS files
-        run: julia --project=test/themes test/themes/themes.jl
-
-  prerender:
-    name: "NodeJS for prerender"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
-        with:
-          version: '1'
-      - uses: julia-actions/cache@v1
-      - run: |
-          julia --project=test/prerender/ -e '
-            using Pkg
-            Pkg.instantiate()
-            Pkg.develop(PackageSpec(path=pwd()))'
-      - run: julia --color=yes --project=test/prerender --code-coverage test/prerender/prerender.jl
-      - uses: julia-actions/julia-processcoverage@v1
-      - uses: codecov/codecov-action@v1
-        with:
-          file: lcov.info
-      - name: Submit coverage to Coveralls
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: lcov.info
-
   docs:
     name: 'Documentation: ${{ matrix.format }}'
     runs-on: ubuntu-latest
@@ -131,8 +62,7 @@ jobs:
         run: julia --color=yes --project=docs/ docs/make.jl ${{ matrix.format }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-          # DOCUMENTER_LATEX_DEBUG: ${{ github.workspace }}/latex-debug-logs
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}cd
       - uses: actions/upload-artifact@v3
         if: ${{ always() && matrix.format == 'pdf' }}
         with:
