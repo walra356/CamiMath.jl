@@ -61,7 +61,7 @@ jobs:
         run: julia --color=yes --project=docs/ docs/make.jl ${{ matrix.format }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}cd
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
 
   changelog:
     name: "Verify CHANGELOG"
