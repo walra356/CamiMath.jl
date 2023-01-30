@@ -63,30 +63,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}cd
 
-  linkcheck:
-    name: "Linkcheck: online tests"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@latest
-        with:
-          version: '1.8'
-      - name: Run online linkcheck tests
-        run: julia --color=yes test/run_docchecks.jl
-
-  linkcheck-manual:
-    name: "Linkcheck: Documenter manual"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@latest
-        with:
-          version: '1.8'
-      - name: Install dependencies
-        run: julia --color=yes --project=docs/ docs/instantiate.jl
-      - name: Build and check documentation
-        run: julia --color=yes --project=docs/ docs/make.jl linkcheck
-
   changelog:
     name: "Verify CHANGELOG"
     runs-on: ubuntu-latest
