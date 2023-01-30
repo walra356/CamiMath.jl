@@ -49,7 +49,6 @@ jobs:
       matrix:
         format:
           - html
-          - pdf
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
@@ -63,11 +62,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}cd
-      - uses: actions/upload-artifact@v3
-        if: ${{ always() && matrix.format == 'pdf' }}
-        with:
-          name: PDF build logs
-          path: ${{ github.workspace }}/latex-debug-logs
 
   linkcheck:
     name: "Linkcheck: online tests"
