@@ -69,7 +69,7 @@ jobs:
             using CamMath;
             Documenter.doctest(CamMath)'
       - name: Build the manual
-        run: julia --color=yes --project=docs/ docs/make.jl ${{ matrix.format }}
+        run: julia --color=yes --project=docs/ docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
