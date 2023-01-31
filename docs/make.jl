@@ -4,7 +4,7 @@ using CamMath
 makedocs(;
     modules=[CamMath],
     authors="= <walra356@planet.nl> and contributors",
-    repo="https://github.com/walra356/CamMath.jl/blob/{commit}{path}#L{line}",
+    #repo="https://github.com/walra356/CamMath.jl/blob/{commit}{path}#L{line}",
     sitename="CamMath.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
