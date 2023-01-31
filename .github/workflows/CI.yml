@@ -60,10 +60,8 @@ jobs:
           version: '1'
       - uses: julia-actions/cache@v1
       - name: Install dependencies
-        run: julia --project=docs/ -e '
-            using Documenter
-            using CamMath
-            Documenter.doctest(CamMath)'
+        run: julia --project=docs/ -e 'using Pkg; 
+                Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build the manual
         run: julia --color=yes --project=docs/ docs/make.jl
         env:
