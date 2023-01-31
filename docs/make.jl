@@ -8,7 +8,7 @@ makedocs(;
     sitename="CamMath.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://walra356.github.io/CamMath.jl",
+        #canonical="https://walra356.github.io/CamMath.jl",
         assets=String[]
     ),
     pages=[
