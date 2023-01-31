@@ -1,10 +1,11 @@
 name: CI
 on:
   push:
+    paths-ignore:
+      - 'LICENSE.md'
+      - 'README.md'
     branches:
       - main
-      - release-*
-      - runci/*
     tags: '*'
   pull_request:
 jobs:
