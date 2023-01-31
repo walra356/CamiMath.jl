@@ -61,12 +61,12 @@ jobs:
       - uses: julia-actions/cache@v1
       - name: Install dependencies
         run: julia --project=docs/ -e '
-            using Pkg
-            Pkg.upgrade_manifest()
-            Pkg.develop(PackageSpec(path=pwd()))
-            Pkg.instantiate()
-            using Documenter
-            using CamMath
+            using Pkg;
+            Pkg.upgrade_manifest();
+            Pkg.develop(PackageSpec(path=pwd()));
+            Pkg.instantiate();
+            using Documenter;
+            using CamMath;
             Documenter.doctest(CamMath)'
       - name: Build the manual
         run: julia --color=yes --project=docs/ docs/make.jl ${{ matrix.format }}
