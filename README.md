@@ -1,8 +1,7 @@
 # CamMath
 | **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|[![(https://img.shields.io/badge/docs-stable-blue.svg)](https://walra356.github.io/CamiXon.jl/stable)
-[![(https://img.shields.io/badge/docs-latest-blue.svg)](https://walra356.github.io/CamiXon.jl/dev)
+| [![Stable](https://img.shields.io/badge/docs-v1-blue.svg)](https://walra356.github.io/CamiXon.jl/stable)[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://walra356.github.io/CamiXon.jl/dev)
 |[![CI](https://github.com/walra356/CamMath.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/walra356/CamMath.jl/actions/workflows/CI.yml)
 |[![CompatHelper](https://github.com/walra356/CamMath.jl/actions/workflows/CompatHelper.yml/badge.svg)](https://github.com/walra356/CamMath.jl/actions/workflows/CompatHelper.yml)
 [![TagBot](https://github.com/walra356/CamMath.jl/actions/workflows/TagBot.yml/badge.svg)](https://github.com/walra356/CamMath.jl/actions/workflows/TagBot.yml)
