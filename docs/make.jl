@@ -17,6 +17,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/walra356/CamMath.jl",
-    devbranch="main"
+    repo="github.com/walra356/CamMath.jl.git",
+    #devbranch="main"
 )
