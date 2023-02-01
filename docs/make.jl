@@ -3,7 +3,7 @@ using CamMath
 
 makedocs(;
     modules=[CamMath],
-    authors="= <walra356@planet.nl> and contributors",
+    authors="<walra356@planet.nl> and contributors",
     #repo="https://github.com/walra356/CamMath.jl/blob/{commit}{path}#L{line}",
     sitename="CamMath.jl",
     format=Documenter.HTML(;
@@ -18,5 +18,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/walra356/CamMath.jl.git",
-    #devbranch="main"
+    devbranch="main"
 )
