@@ -3,6 +3,8 @@ using Test
 
 @testset "CamMath.jl" begin
 
+    bernoulliB(60; msg=false)
+
     @test bernoulliB_array(8) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30] 
     @test bernoulliB(0) == 1 // 1
     @test bernoulliB(1) == -1 // 2
