@@ -1,6 +1,8 @@
 module CamMath
 
 # Write your package code here.
-println("Hello World")
+export fA
+
+include("functions.jl")
 
 end
