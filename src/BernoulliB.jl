@@ -85,7 +85,7 @@ end
 
 function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 
-    msg = "Integer-overflow protection: bernoulliB converted to Rational{BigInt}"
+    str = "Integer-overflow protection: bernoulliB converted to Rational{BigInt}"
 
     n = Int(nmax)
     nc = 35
@@ -94,7 +94,7 @@ function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
         o = T == Int ? glBn_Int[1:1+n] : glBn_BigInt[1:1+n]
     else
         o = _bn_BigInt(n, nc)
-        msg && T == Int && println()
+        msg && T == Int && println(str)
     end
 
     return o
