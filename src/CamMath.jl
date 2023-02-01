@@ -1,8 +1,16 @@
+# SPDX-License-Identifier: MIT
+
+# =============================================================================
+#                               CamMath.jl
+# =============================================================================
+
 module CamMath
 
-# Write your package code here.
-export fA
 
-include("functions.jl")
+export bernoulliB
+export bernoulliB_array
+
+
+include("BernoulliB.jl")
 
 end
