@@ -122,7 +122,7 @@ true
 """
 function bernoulliB(n::T; msg=true) where {T<:Integer}
 
-    o = CamiXon.bernoulliB_array(n; msg)[end]
+    o = CamMath.bernoulliB_array(n; msg)[end]
 
     return o
 
@@ -241,8 +241,8 @@ function faulhaber_polynom(k::Int; T=Int)
     k < 1 && return 0
     k > 1 || return 1//1
 
-    P = CamiXon.pascal_triangle(k)[end][1:end-1]
-    B = CamiXon.bernoulliB_array(k-1); B[2]=-B[2]  # was bernoulliB_array(k-1; T)
+    P = CamMath.pascal_triangle(k)[end][1:end-1]
+    B = CamMath.bernoulliB_array(k-1); B[2]=-B[2]  # was bernoulliB_array(k-1; T)
 
     F = (B .* P)  // k
 
@@ -275,7 +275,7 @@ function faulhaber_summation(n::Int, p::Int; T=Int)
 
     n ≠ 0 || return nothing
 
-    F = CamiXon.faulhaber_polynom(p+1; T)
+    F = CamMath.faulhaber_polynom(p+1; T)
     o = 0
     for k=1:p+1
         for i=1:k
@@ -293,7 +293,7 @@ function faulhaber_summation(n::Int, p::Int)   # short argument: better performa
 
     n ≠ 0 || return 0
 
-    F = CamiXon.faulhaber_polynom(p+1)
+    F = CamMath.faulhaber_polynom(p+1)
     o = 0
     for k=1:p+1
         for i=1:k
@@ -380,7 +380,7 @@ Warning: fibonacciF autoconverted to BigInt
 """
 function fibonacciF(n::T; msg=true) where {T<:Integer}
 
-    o = CamiXon.fibonacciF_array(n; msg)[end]
+    o = CamMath.fibonacciF_array(n; msg)[end]
 
     return o
 
@@ -528,7 +528,7 @@ true
 """
 function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
-    o = CamiXon.harmonicNumber_array(n; msg)[end]
+    o = CamMath.harmonicNumber_array(n; msg)[end]
 
     return o
 
@@ -634,7 +634,7 @@ function _hn_BigInt(n::Int, nc::Int, p::Int)
     nul = big(0)
     one = big(1)
 
-    o = CamiXon.Hn_BigInt(p, nc)[1:nc]
+    o = CamMath.Hn_BigInt(p, nc)[1:nc]
 
     b = nul // one
     for m = 1:n
@@ -698,7 +698,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
  #       end
     else
         p = -p
-        F = CamiXon.faulhaber_polynom(p + 1; T)
+        F = CamMath.faulhaber_polynom(p + 1; T)
         o = 0
         for k = 1:p+1
             for i = 1:k
