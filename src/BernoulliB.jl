@@ -90,6 +90,9 @@ the highest Bernoulli number of the array (*not* the array length).
 julia> o = bernoulliB_array(8); println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
 
+julia> o = bernoulliB_array(big(8)); println(o)
+Rational{BigInt}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
+
 julia> n = 60; msg = false;
 julia>  bernoulliB(n; msg) == bernoulliB_array(n; msg)[end]            
 true
