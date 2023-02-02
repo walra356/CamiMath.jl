@@ -95,7 +95,7 @@ true
 """
 function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
-    o = CamiXon.harmonicNumber_array(n; msg)[end]
+    o = CamMath.harmonicNumber_array(n; msg)[end]
 
     return o
 
@@ -196,7 +196,7 @@ function _hn_BigInt(n::Int, nc::Int, p::Int)
     nul = big(0)
     one = big(1)
 
-    o = CamiXon.Hn_BigInt(p, nc)[1:nc]
+    o = CamMath.Hn_BigInt(p, nc)[1:nc]
 
     b = nul // one
     for m = 1:n
@@ -254,7 +254,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         end
     else
         p = -p
-        F = CamiXon.faulhaber_polynom(p + 1; T)
+        F = CamMath.faulhaber_polynom(p + 1; T)
         o = 0
         for k = 1:p+1
             for i = 1:k

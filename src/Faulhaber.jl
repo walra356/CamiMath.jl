@@ -33,8 +33,8 @@ function faulhaber_polynom(k::Int; T=Int)
     k < 1 && return 0
     k > 1 || return 1 // 1
 
-    P = CamiXon.pascal_triangle(k)[end][1:end-1]
-    B = CamiXon.bernoulliB_array(k - 1)
+    P = CamMath.pascal_triangle(k)[end][1:end-1]
+    B = CamMath.bernoulliB_array(k - 1)
     B[2] = -B[2]  # was bernoulliB_array(k-1; T)
 
     F = (B .* P) // k
@@ -68,7 +68,7 @@ function faulhaber_summation(n::Int, p::Int)   # short argument: better performa
 
     n ≠ 0 || return 0
 
-    F = CamiXon.faulhaber_polynom(p + 1)
+    F = CamMath.faulhaber_polynom(p + 1)
     o = 0
     for k = 1:p+1
         for i = 1:k
@@ -86,7 +86,7 @@ function faulhaber_summation(n::Int, p::Int; T=Int)
 
     n ≠ 0 || return nothing
 
-    F = CamiXon.faulhaber_polynom(p + 1; T)
+    F = CamMath.faulhaber_polynom(p + 1; T)
     o = 0
     for k = 1:p+1
         for i = 1:k
