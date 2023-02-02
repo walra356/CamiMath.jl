@@ -62,7 +62,7 @@ julia> o = [bernoulliB(n) for n=0:5]; println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
 
 julia> bernoulliB(60)
-"Warning: IOP - bernoulliB converted to Rational{BigInt}"
+Warning: IOP - bernoulliB converted to Rational{BigInt}
 -1215233140483755572040304994079820246041491//56786730
 
 julia> n = 60;
