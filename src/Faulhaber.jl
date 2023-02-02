@@ -1,4 +1,6 @@
-# ==================================== faulhaber_polynom(p) ====================
+# ==============================================================================
+#                          Faulhaber.jl
+# ==============================================================================
 
 @doc raw"""
     faulhaber_polynom(p [, T=Int])
@@ -29,14 +31,15 @@ faulhaber_polynom(6)
 function faulhaber_polynom(k::Int; T=Int)
 
     k < 1 && return 0
-    k > 1 || return 1//1
+    k > 1 || return 1 // 1
 
     P = CamiXon.pascal_triangle(k)[end][1:end-1]
-    B = CamiXon.bernoulliB_array(k-1); B[2]=-B[2]  # was bernoulliB_array(k-1; T)
+    B = CamiXon.bernoulliB_array(k - 1)
+    B[2] = -B[2]  # was bernoulliB_array(k-1; T)
 
-    F = (B .* P)  // k
+    F = (B .* P) // k
 
-    F = Base.append!(F,0//1)   # add polynomial constant (zero in this case)
+    F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
 
     return Base.reverse(F)     # reverse to standard order
 
@@ -65,10 +68,10 @@ function faulhaber_summation(n::Int, p::Int; T=Int)
 
     n ≠ 0 || return nothing
 
-    F = CamiXon.faulhaber_polynom(p+1; T)
+    F = CamiXon.faulhaber_polynom(p + 1; T)
     o = 0
-    for k=1:p+1
-        for i=1:k
+    for k = 1:p+1
+        for i = 1:k
             F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
         o += F[k+1]
@@ -83,10 +86,10 @@ function faulhaber_summation(n::Int, p::Int)   # short argument: better performa
 
     n ≠ 0 || return 0
 
-    F = CamiXon.faulhaber_polynom(p+1)
+    F = CamiXon.faulhaber_polynom(p + 1)
     o = 0
-    for k=1:p+1
-        for i=1:k
+    for k = 1:p+1
+        for i = 1:k
             F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
         o += F[k+1]

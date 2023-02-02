@@ -1,4 +1,6 @@
-# =================================== harmonic number(n;T) ===============
+# ==============================================================================
+#                          harmonicNumber.jl
+# ==============================================================================
 
 global glHn_Int = Vector{Rational{Int64}}[
     [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280, 7129 // 2520, 7381 // 2520,
@@ -116,38 +118,6 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
     return o
 
 end
-#function harmonicNumber1(n::T; msg=true) where {T<:Integer}
-#
-#    n = Int(n)
-#    nc = 46
-#
-#    if T == Int
-#        o = n > nc ? _hn_BigInt(n, nc)[end] : glHn_Int[1][n]
-#        msg && n > nc && println("Warning: harmonicNumber(n) autoconverted to Rational{BigInt}")
-#    else
-#        o = n > nc ? _hn_BigInt(n, nc)[end] : glHn_BigInt[1][n]
-#    end
-#
-#
-#    return o
-#
-#end
-# ..............................................................................
-#function harmonicNumber_array1(nmax::T; msg=true) where {T<:Integer}
-#
-#    n = Int(nmax)
-#    nc = 46
-#
-#    if T == Int
-#        o = n > nc ? _hn_BigInt(n, nc) : glHn_Int[1][1:n]
-#        msg && n > nc && println("Warning: harmonicNumber(n) autoconverted to Rational{BigInt}")
-#    else
-#        o = n > nc ? _hn_BigInt(n, nc) : glHn_BigInt[1][1:n]
-#    end
-#
-#    return o
-#
-#end
 
 # ======================= harmonic number(n, p [; msg=false]) ==========================
 
@@ -234,7 +204,7 @@ julia> o = [harmonicNumber(47,1; msg=true)]; println(o)
 Warning: harmonicNumber autoconverted to Rational{BigInt}"
 Rational{BigInt}[280682601097106968469//63245806209101973600]
 
-julia> o = [harmonicNumber6(47,1)]; println(o)
+julia> o = [harmonicNumber(47,1)]; println(o)
 Rational{BigInt}[280682601097106968469//63245806209101973600]
 
 harmonicNumber(12, -3) == faulhaber_summation(12, 3)
@@ -256,12 +226,6 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
             o = _hn_BigInt(n, nc, p)[end]
             msg && T == Int && println("Warning: harmonicNumber autoconverted to Rational{BigInt}")
         end
- #       if T == Int
- #           o = n > nc ? _hn_BigInt(n, nc, p)[end] : Hn_Int(p, nc)[n]
- #           msg && n > nc && println("Warning: harmonicNumber(n, p) autoconverted to Rational{BigInt}")
- #       else
- #           o = n > nc ? _hn_BigInt(n, nc, p)[end] : Hn_BigInt(p, nc)[n]
- #       end
     else
         p = -p
         F = CamiXon.faulhaber_polynom(p + 1; T)
