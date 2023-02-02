@@ -12,7 +12,6 @@ export bigfactorial
 export faulhaber_polynom
 export faulhaber_summation
 export harmonicNumber
-export harmonicNumber
 export harmonicNumber_array
 
 include("Bernoulli.jl")
