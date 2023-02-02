@@ -9,9 +9,9 @@
 
 The product of all *positive* integers less than or equal to `n`,
 ```math
-n!=n(n-1)(n-2)⋯1,
+n!=n(n-1)(n-2)⋯1.
 ```
-with ``0!=1`` (by definition).
+In addition ``0!=1`` by definition.
 For *negative* integers the factorial is zero. Integer-overflow protection 
 (IOP): for `n` > 20 the output is autoconverted to `BigInt`.
 #### Examples:
