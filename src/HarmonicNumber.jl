@@ -95,8 +95,6 @@ true
 """
 function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
-    n > 1 || error(raw"Error: harmonic number defined for ``n>0``")
-
     o = CamMath.harmonicNumber_array(n; msg)[end]
 
     return o
@@ -132,6 +130,10 @@ true
 ```
 """
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
+
+    str = raw"Error: harmonic numbers defined for positive integers"
+
+    nmax > 1 || error(str)
 
     n = Int(nmax)
     nc = 46
