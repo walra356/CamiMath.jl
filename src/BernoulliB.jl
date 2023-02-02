@@ -85,8 +85,8 @@ end
 @doc raw"""
     bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
 
-Bernoulli number array ``[B_0,\cdots\ B_{nmax}]``. NB.: `nmax` is the index of 
-the highest Bernoulli number of the array (*not* the array length).
+Bernoulli number array ``[B_0,\cdots\ B_{nmax}]``, where `nmax` is the index of 
+the highest Bernoulli number of the array (NB.: *not* the array length).
 ### Examples:
 ```
 julia> o = bernoulliB_array(8); println(o)
