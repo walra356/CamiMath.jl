@@ -12,9 +12,10 @@ A package for image analysis of backscattered light
 ## Bernoulli number
 
 ```@docs
-bernoulliB(n::T; msg=true) where {T<:Integer}
+bernoulliB(n::T; msg=true) where {T<:Integer}   
 bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 ```
-
-
-
+## Factorial
+```@docs
+bigfactorial(n::T; msg=true) where {T<:Integer}
+```

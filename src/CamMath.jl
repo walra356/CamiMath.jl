@@ -6,11 +6,11 @@
 
 module CamMath
 
-
 export bernoulliB
 export bernoulliB_array
-
+export bigfactorial
 
 include("BernoulliB.jl")
+include("bigfactorial")
 
 end
