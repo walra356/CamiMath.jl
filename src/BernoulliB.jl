@@ -51,7 +51,7 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
     B_n = - \frac{1}{n+1}\sum_{k=0}^{n-1}\frac{(n+1)!}{k!(n+1-k)}B_k,
 ```
 with ``B_0=1`` and ``B_1=-1/2``. Starting at ``B_0`` is called the *even index 
-convention* (B_{2n+1}=0\ \rm{for}\ n>1)``.
+convention* ``(B_{2n+1}=0\ \rm{for}\ n>1)``.
 
 Integer-overflow protection (IOP): for `n > 35` the output is autoconverted to 
 `Rational{BigInt}`. By default the capture message is activated: 
@@ -83,7 +83,7 @@ end
 @doc raw"""
     bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
 
-Bernoulli number array ``[B_0,\cdots\ B_nmax]``. NB.: `nmax` is the index of 
+Bernoulli number array ``[B_0,\cdots\ B_{nmax}]``. NB.: `nmax` is the index of 
 the highest Bernoulli number of the array (*not* the array length).
 ### Examples:
 ```
