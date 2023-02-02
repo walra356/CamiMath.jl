@@ -18,26 +18,26 @@ By definition
 For *negative* integers the factorial is zero. Integer-overflow protection: 
 for `n` > 20 the output is autoconverted to `BigInt`. 
 By default the capture message is activated: 
-"Warning (IOP): bigfactorial converted to Rational{BigInt}".
+"Warning (IOP): bigfactorial converted to BigInt".
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)
 true
 
 julia> bigfactorial(21)
-Warning (IOP): bigfactorial converted to Rational{BigInt}
+Warning (IOP): bigfactorial converted to BigInt
 51090942171709440000
 
 julia> bigfactorial(21; msg=false)
 51090942171709440000
 
 julia> factorial(21)
-Warning (IOP): bigfactorial converted to Rational{BigInt}
+Warning (IOP): bigfactorial converted to BigInt
 ```
 """
 function bigfactorial(n::T; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): bigfactorial converted to Rational{BigInt}"
+    str = "Warning (IOP): bigfactorial converted to BigInt"
 
     T == Int || return factorial(n)
 
