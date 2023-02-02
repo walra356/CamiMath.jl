@@ -16,6 +16,7 @@ bernoulliB(n::T; msg=true) where {T<:Integer}
 bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 ```
 ## Factorial
+
 ```@docs
 bigfactorial(n::T; msg=true) where {T<:Integer}
 ```
