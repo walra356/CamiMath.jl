@@ -1,7 +1,6 @@
 # CamMath.jl
 
-
-A package for image analysis of backscattered light
+Mathematics library with integer-overload protection
 
 ---
 ## Table of contents
