@@ -10,7 +10,8 @@
 Vector representation ``c=[c_0,⋯\ c_p]`` of the Faulhaber polynomial of 
 degree ``p``,
 ```math
-    F(n,p)=\frac{1}{p}\sum_{j=1}^{p}{\binom {p}{p-j}}B_{p-j}n^{j}=\sum_{j=1}^{p}c_{jn^{j},
+    F(n,p)=\frac{1}{p}\sum_{j=1}^{p}{\binom {p}{p-j}}B_{p-j}n^{j}
+    =\sum_{j=1}^{p}c_{j}n^{j},
 ```
 where
 ```math
