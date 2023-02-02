@@ -18,6 +18,6 @@ export harmonicNumber_array
 include("Bernoulli.jl")
 include("Factorial.jl")
 include("Faulhaber.jl")
-include("HarmonicNumber")
+include("HarmonicNumber.jl")
 
 end
