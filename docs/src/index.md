@@ -31,5 +31,6 @@ faulhaber_summation(n::Int, p::Int)
 
 ```@docs
 harmonicNumber(n::T; msg=true) where {T<:Integer}
+harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 ```
