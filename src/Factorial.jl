@@ -27,7 +27,8 @@ julia> bigfactorial(21; msg=false)
 51090942171709440000
 
 julia> factorial(21)
-Warning: bigfactorial converted to BigInt
+ERROR: OverflowError: 21 is too large to look up in the table; consider using 
+`factorial(big(21))` instead
 ```
 """
 function bigfactorial(n::T; msg=true) where {T<:Integer}
