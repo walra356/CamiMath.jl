@@ -45,19 +45,16 @@ end
 
 @doc raw"""
     bernoulliB(n::T [; msg=true]) where {T<:Integer}
-    bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
 
-Bernoulli number array, ``[B_0,⋯\ B_{nmax}]``. This is the *even index convention* 
-(odd-indexed numbers vanish - except B[1]=-1/2). The array is calculated by 
-repetative use of the recurrence relation.
+Bernoulli numbers are defined by the recurrence relation
 ```math
-    B_n = - \frac{1}{n+1}\sum_{k=0}^{n-1}\frac{(n+1)!}{k!(n+1-k)}B_k.
+    B_n = - \frac{1}{n+1}\sum_{k=0}^{n-1}\frac{(n+1)!}{k!(n+1-k)}B_k,
 ```
-Special numbers: ``B_0=1,\ B_1=-1/2,\ B_{2n+1}=0\ (\rm{for}\ n>1)``. Starting 
-at ``B_0`` is called the *even index convention*.
+with ``B_0=1`` and ``B_1=-1/2``. Starting at ``B_0`` is called the *even index 
+convention* since ``B_{2n+1}=0`` for ``n>1``.
 
-Integer-overflow protection: for `n > 35` the output is autoconverted to `Rational{BigInt}`. 
-By default the capture message is activated: 
+Integer-overflow protection: for `n > 35` the output is autoconverted to 
+`Rational{BigInt}`. By default the capture message is activated: 
 "Warning: bernoulliB autoconverted to Rational{BigInt}". 
 ### Examples:
 ```
@@ -83,9 +80,38 @@ end
 
 # ..............................................................................
 
+@doc raw"""
+    bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
+
+Bernoulli number array, ``[B_0,⋯\ B_{nmax}]``. This is the *even index 
+convention* (odd-indexed numbers vanish - except B[1]=-1/2). The array is 
+calculated by repetative use of the recurrence relation.
+```math
+    B_n = - \frac{1}{n+1}\sum_{k=0}^{n-1}\frac{(n+1)!}{k!(n+1-k)}B_k.
+```
+Special numbers: ``B_0=1,\ B_1=-1/2,\ B_{2n+1}=0\ (\rm{for}\ n>1)``. Starting 
+at ``B_0`` is called the *even index convention*.
+
+Integer-overflow protection (IOP): for `n > 35` the output is autoconverted to 
+`Rational{BigInt}`. By default the capture message is activated: 
+"Integer-overflow protection: bernoulliB converted to Rational{BigInt}"
+### Examples:
+```
+julia> "Integer-overflow protection: bernoulliB converted to Rational{BigInt}"
+"Warning: bernoulliB autoconverted to Rational{BigInt}"
+-1215233140483755572040304994079820246041491//56786730
+
+julia> o = bernoulliB_array(8); println(o)
+Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
+
+julia> n = 60;
+julia> bernoulliB(n) == bernoulliB_array(n)[end]             
+true
+```
+"""
 function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 
-    str = "Integer-overflow protection: bernoulliB converted to Rational{BigInt}"
+    str = "Warning: IOP - bernoulliB converted to Rational{BigInt}"
 
     n = Int(nmax)
     nc = 35

@@ -9,11 +9,11 @@ A package for image analysis of backscattered light
 ```@contents
 ```
 
-## BernoulliB
+## Bernoulli number
 
 ```@docs
 bernoulliB(n::T; msg=true) where {T<:Integer}
-
+bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 ```
 
 
