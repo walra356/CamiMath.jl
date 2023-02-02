@@ -83,10 +83,10 @@ end
 @doc raw"""
     bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
 
-Bernoulli number array for the indices ``0,\cdots\ nmax``. 
+Bernoulli number array ``[B_0,\cdots\ B_nmax]``. NB.: `nmax` is the index of 
+the highest Bernoulli number of the array (*not* the array length).
 ### Examples:
 ```
-
 julia> o = bernoulliB_array(8); println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
 
