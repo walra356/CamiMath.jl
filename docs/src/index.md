@@ -34,3 +34,10 @@ harmonicNumber(n::T; msg=true) where {T<:Integer}
 harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 ```
+
+## Pascal triangle
+
+```@docs
+pascal_triangle(nmax::T) where {T<:Integer}
+pascal_next(a::Vector{Int})
+```
