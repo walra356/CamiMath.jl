@@ -11,6 +11,6 @@ export bernoulliB_array
 export bigfactorial
 
 include("BernoulliB.jl")
-include("bigfactorial")
+include("Bigfactorial.jl")
 
 end
