@@ -57,14 +57,14 @@ convention* ``(B_{2n+1}=0\ \rm{for}\ n>1)``.
 
 Integer-overflow protection (IOP): for `n > 35` the output is autoconverted to 
 `Rational{BigInt}`. By default the capture message is activated: 
-"Warning (IOP): bernoulliB converted to Rational{BigInt}".
+"Warning: bernoulliB converted to Rational{BigInt}".
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
 
 julia> bernoulliB(60)
-Warning (IOP): bernoulliB converted to Rational{BigInt}
+Warning: bernoulliB converted to Rational{BigInt}
 -1215233140483755572040304994079820246041491//56786730
 
 julia> n = 60;
@@ -102,7 +102,7 @@ true
 """
 function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): bernoulliB converted to Rational{BigInt}"
+    str = "Warning: bernoulliB converted to Rational{BigInt}"
 
     n = Int(nmax)
     nc = 35

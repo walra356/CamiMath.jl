@@ -95,6 +95,8 @@ true
 """
 function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
+    n > 1 || error(raw"Error: harmonic number defined for ``n>0``")
+
     o = CamMath.harmonicNumber_array(n; msg)[end]
 
     return o
@@ -239,7 +241,7 @@ harmonicNumber(12, -3) == faulhaber_summation(12, 3)
 """
 function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}"
+    str = "Warning: harmonicNumber autoconverted to Rational{BigInt}"
 
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
