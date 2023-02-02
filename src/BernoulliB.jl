@@ -4,7 +4,7 @@
 #                            BernoulliB.jl
 # ==============================================================================
 
-global glBn_Int = [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42,
+global gl_bernoulli_Int = [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42,
     0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730, 0 // 1,
     7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
     -174611 // 330, 0 // 1, 854513 // 138, 0 // 1, -236364091 // 2730,
@@ -14,16 +14,16 @@ global glBn_Int = [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42,
 
 # ..............................................................................
 
-global glBn_BigInt = convert(Vector{Rational{BigInt}}, glBn_Int)
+global gl_bernoulli_BigInt = convert(Vector{Rational{BigInt}}, gl_bernoulli_Int)
 
 # ..............................................................................
 
-function _bn_BigInt(n::Int, nc::Int)
+function _bernoulli_BigInt(n::Int, nc::Int)
 
     nul = big(0)
     one = big(1)
 
-    o = glBn_BigInt[1:1+nc]
+    o = gl_bernoulli_BigInt[1:1+nc]
     for m = nc+2:n+1
         a = nul
         if Base.isodd(m)
@@ -106,9 +106,9 @@ function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
     nc = 35
 
     if n ≤ nc
-        o = T == Int ? glBn_Int[1:1+n] : glBn_BigInt[1:1+n]
+        o = T == Int ? gl_bernoulli_Int[1:1+n] : gl_bernoulli_BigInt[1:1+n]
     else
-        o = _bn_BigInt(n, nc)
+        o = _bernoulli_BigInt(n, nc)
         msg && T == Int && println(str)
     end
 
