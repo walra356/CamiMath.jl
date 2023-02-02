@@ -133,7 +133,7 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     str = raw"Error: harmonic numbers defined for positive integers"
 
-    nmax > 1 || error(str)
+    nmax > 0 || error(str)
 
     n = Int(nmax)
     nc = 46
