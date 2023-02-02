@@ -64,11 +64,11 @@ faulhaber_summation(3,60; T=BigInt)
   42391158276369125018901280178
 ```
 """
-function faulhaber_summation(n::Int, p::Int; T=Int)
+function faulhaber_summation(n::Int, p::Int)   # short argument: better performance
 
-    n ≠ 0 || return nothing
+    n ≠ 0 || return 0
 
-    F = CamiXon.faulhaber_polynom(p + 1; T)
+    F = CamiXon.faulhaber_polynom(p + 1)
     o = 0
     for k = 1:p+1
         for i = 1:k
@@ -82,11 +82,11 @@ function faulhaber_summation(n::Int, p::Int; T=Int)
     return Base.numerator(o)
 
 end
-function faulhaber_summation(n::Int, p::Int)   # short argument: better performance
+function faulhaber_summation(n::Int, p::Int; T=Int)
 
-    n ≠ 0 || return 0
+    n ≠ 0 || return nothing
 
-    F = CamiXon.faulhaber_polynom(p + 1)
+    F = CamiXon.faulhaber_polynom(p + 1; T)
     o = 0
     for k = 1:p+1
         for i = 1:k

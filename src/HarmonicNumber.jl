@@ -69,8 +69,7 @@ end
 # ..............................................................................
 @doc raw"""
     harmonicNumber(n::T [; msg=true]) where {T<:Integer} 
-    harmonicNumber_array(nmax::T [; msg=true]) where {T<:Integer} 
-
+   
 Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
@@ -103,6 +102,33 @@ function harmonicNumber(n::T; msg=true) where {T<:Integer}
 end
 
 # ..............................................................................
+# ..............................................................................
+@doc raw"""
+    harmonicNumber_array(nmax::T [; msg=true]) where {T<:Integer} 
+
+Sum of the reciprocals of the first ``n`` natural numbers
+```math
+    H_n=\sum_{k=1}^{n}\frac{1}{k}.
+```
+Integer-overflow protection: for `n > 46` the output is autoconverted to Rational{BigInt}.
+By default the capture message is activated: 
+"Warning: harmonicNumber autoconverted to Rational{BigInt}". 
+### Examples:
+```
+julia> o = harmonicNumber_array(9); println(o)
+Rational{Int64}[1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280, 7129//2520]
+
+julia> o = [harmonicNumber(46; msg=true)]; println(o)
+Rational{Int64}[5943339269060627227//1345655451257488800]
+
+julia> o = [harmonicNumber(47; msg=true)]; println(o)
+Warning: harmonicNumber autoconverted to Rational{BigInt}
+Rational{BigInt}[282057509927739620069//63245806209101973600]
+
+julia> harmonicNumber(12) == harmonicNumber(12, 1)
+true
+```
+"""
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     n = Int(nmax)
