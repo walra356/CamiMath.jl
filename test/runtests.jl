@@ -8,5 +8,11 @@ using Test
     @test bernoulliB(60; msg=false) == -1215233140483755572040304994079820246041491 // 56786730
     @test bernoulliB(60; msg=false) == bernoulliB_array(60; msg=false)[end]
     @test bigfactorial(21; msg=false) == 51090942171709440000
+    @test faulhaber_polynom(6) == [0 // 1, 0 // 1, -1 // 12, 0 // 1, 5 // 12, 1 // 2, 1 // 6]
+    @test faulhaber_summation(3, 5) == 276
+    @test harmonicNumber(1) == 1 // 1
+    @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600
+    @test harmonicNumber(12, 3) == 25535765062457 // 21300003648000
+    @test harmonicNumber_array(9) == [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280, 7129 // 2520]
 
 end
