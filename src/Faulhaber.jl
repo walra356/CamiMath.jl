@@ -19,6 +19,26 @@ global gl_faulhaber_Int = [
 global gl_faulhaber_BigInt = convert.(Rational{BigInt}, gl_faulhaber_Int)
 
 # ..............................................................................
+function _faulhaber_BigInt(p::T) where {T<:Integer}
+
+    nul = big(0)
+    one = big(1)
+
+    p = big(p)
+
+    P = CamMath.pascal_triangle(p)[end][1:end-1]
+    B = CamMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
+    B[2] = -B[2]
+
+    F = (B .* P) // p
+
+    F = Base.append!(F, nul // one)  # add polynomial constant: c_0 = 0//1
+
+    return Base.reverse(F)     # reverse to standard order
+
+end
+
+# ..............................................................................
 @doc raw"""
     faulhaber_polynom(p::T) where {T<:Integer}
 
@@ -46,20 +66,21 @@ faulhaber_polynom(6)
   1//6
 ```
 """
-function faulhaber_polynom(p::T) where {T<:Integer}
+function faulhaber_polynom1(p::T; msg=true) where {T<:Integer}
 
-    p < 1 && return 0
-    p > 1 || return 1 // 1
+    str = "Warning: faulhaber_polynom converted to Rational{BigInt}"
 
-    P = CamMath.pascal_triangle(p)[end][1:end-1]
-    B = CamMath.bernoulliB_array(p - 1)  # was bernoulliB_array(p-1; T)
-    B[2] = -B[2]
+    n = Int(p)
+    nc = 36
 
-    F = (B .* P) // p
+    if n ≤ nc
+        o = T == Int ? gl_faulhaber_Int[1:1+n] : gl_faulhaber_BigInt[1:1+n]
+    else
+        o = _faulhaber_BigInt(p)
+        msg && T == Int && println(str)
+    end
 
-    F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
-
-    return Base.reverse(F)     # reverse to standard order
+    return o
 
 end
 
@@ -124,40 +145,19 @@ function faulhaber_summation(n::T, p::T) where {T<:Integer}
 
 end
 
-# ..............................................................................
-function _faulhaber_BigInt(p::T) where {T<:Integer}
+function faulhaber_polynom(p::T) where {T<:Integer}
 
-    nul = big(0)
-    one = big(1)
-
-    p = big(p)
+    p < 1 && return 0
+    p > 1 || return 1 // 1
 
     P = CamMath.pascal_triangle(p)[end][1:end-1]
-    B = CamMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
+    B = CamMath.bernoulliB_array(p - 1)  # was bernoulliB_array(p-1; T)
     B[2] = -B[2]
 
     F = (B .* P) // p
 
-    F = Base.append!(F, nul // one) # add polynomial constant: c_0=0
+    F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
 
     return Base.reverse(F)     # reverse to standard order
-
-end
-
-function faulhaber_polynom1(p::T; msg=true) where {T<:Integer}
-
-    str = "Warning: faulhaber_polynom converted to Rational{BigInt}"
-
-    n = Int(p)
-    nc = 36
-
-    if n ≤ nc
-        o = T == Int ? gl_faulhaber_Int[1:1+n] : gl_faulhaber_BigInt[1:1+n]
-    else
-        o = _faulhaber_BigInt(p)
-        msg && T == Int && println(str)
-    end
-
-    return o
 
 end
