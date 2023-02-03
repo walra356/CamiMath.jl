@@ -87,11 +87,11 @@ end
 @doc raw"""
     faulhaber_summation(n::T, p::T) where {T<:Integer}
 
-Sum of powers of natural numbers ``1,⋯\ n``,
+Sum of powers of natural numbers ``1,⋯\ n`` as given by the *Faulhaber formula*
 ```math
-    FS(n,p)=\sum_{k=1}^{n}k^{p}=F(n,p+1).
+    \sum_{k=1}^{n}k^{p}=F(n,p+1).
 ```
-where ``F(n,p)`` is the Faulhamer polynomial of degree ``p``.
+where ``F(n,p)`` is the [`faulhamer_polynomial'](@ref) of degree ``p``.
 ### Examples:
 ```
 faulhaber_summation(5,1)
