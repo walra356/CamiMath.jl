@@ -57,7 +57,7 @@ Faulhaber polynomial of degree `p`
     F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
 ```
 where the coefficients are contained in the vector 
-[`faulhaber_polynom(k::T) where {T<:Integer}`]@(ref).
+[`faulhaber_polynom(k::T) where {T<:Integer}`](@ref).
 ### Example:
 ```
 ```
