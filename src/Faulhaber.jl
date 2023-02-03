@@ -14,7 +14,7 @@ of degree `p`
 ```
 with vector elements
 ```math
-    c_0=0,\ c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
+    c_0=0\ \rm{and}\ c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
 ```
 where ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
@@ -57,7 +57,7 @@ Faulhaber polynomial of degree `p`
 ```math
     F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
 ```
-where the coefficients are contained in the vector 
+where the coefficients are contained in the coefficient vector 
 [`faulhaber_polynom`](@ref).
 ### Example:
 ```
@@ -69,11 +69,11 @@ function faulhaber_polynomial(n::T, p::T) where {T<:Integer}
 
     F = CamMath.faulhaber_polynom(p)
     o = 0
-    for k = 0:p
-        for i = 0:k-1
-            F[k+1] *= n
+    for k = 1:p
+        for i = 1:k
+            F[k] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
-        o += F[k+1]
+        o += F[k]
     end
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
