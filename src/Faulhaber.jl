@@ -41,7 +41,7 @@ global gl_faulhaber_Int = [
 ]
 
 # ..............................................................................
-global gl_faulhaber_BigInt = convert.(Rational{BigInt}, gl_faulhaber_Int)
+global gl_faulhaber_BigInt = convert.(Vector{Rational{BigInt}}, gl_faulhaber_Int)
 
 # ..............................................................................
 function _faulhaber_BigInt(p::T) where {T<:Integer}
