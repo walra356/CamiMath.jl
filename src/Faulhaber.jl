@@ -16,7 +16,7 @@ global gl_faulhaber_Int = [
 ]
 
 # ..............................................................................
-global gl_faulhaber_BigInt = convert(Rational{BigInt}, gl_faulhaber_Int)
+global gl_faulhaber_BigInt = convert.(Rational{BigInt}, gl_faulhaber_Int)
 
 # ..............................................................................
 @doc raw"""
