@@ -103,7 +103,7 @@ faulhaber_polynom(6)
   1//6
 ```
 """
-function faulhaber_polynom1(p::T; msg=true) where {T<:Integer}
+function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
 
     str = "Warning: faulhaber_polynom converted to Rational{BigInt}"
 
@@ -182,7 +182,7 @@ function faulhaber_summation(n::T, p::T) where {T<:Integer}
 
 end
 
-function faulhaber_polynom(p::T) where {T<:Integer}
+function faulhaber_polynom_kanweg(p::T) where {T<:Integer}
 
     p < 1 && return 0
     p > 1 || return 1 // 1
