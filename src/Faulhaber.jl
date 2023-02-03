@@ -14,7 +14,7 @@ of degree `p`
 ```
 with vector elements
 ```math
-    c_0=0\ \rm{and}\ c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
+    c_0=0\ \ {\rm{and}}\ \c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
 ```
 where ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
@@ -55,7 +55,7 @@ end
 
 Faulhaber polynomial of degree `p` 
 ```math
-    F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
+    F(n,p)=\sum_{j=0}^{p}c_{j}n^{j},
 ```
 where the coefficients are contained in the coefficient vector 
 [`faulhaber_polynom`](@ref).
