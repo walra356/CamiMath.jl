@@ -9,6 +9,7 @@ using Test
     @test bernoulliB(60; msg=false) == bernoulliB_array(60; msg=false)[end]
     @test bigfactorial(21; msg=false) == 51090942171709440000
     @test faulhaber_polynom(6) == [0 // 1, 0 // 1, -1 // 12, 0 // 1, 5 // 12, 1 // 2, 1 // 6]
+    @test faulhaber_polynomial(3, 6) == 276
     @test faulhaber_summation(3, 5) == 276
     @test harmonicNumber(1) == 1 // 1
     @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600

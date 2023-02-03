@@ -102,7 +102,7 @@ function harmonicNumber(n::T; msg=true) where {T<:Integer}
 end
 
 # ..............................................................................
-# ..............................................................................
+
 @doc raw"""
     harmonicNumber_array(nmax::T [; msg=true]) where {T<:Integer} 
 
@@ -148,6 +148,8 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
     return o
 
 end
+
+
 
 # ======================= harmonic number(n, p [; msg=false]) ==========================
 

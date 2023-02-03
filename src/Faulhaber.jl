@@ -4,6 +4,21 @@
 #                          Faulhaber.jl
 # ==============================================================================
 
+global gl_faulhaber_Int = [
+    0 // 1, 0 // 1, 90219075042845 // 12, 0 // 1, -593617720173709 // 24,
+    0 // 1, 292938603384170 // 9, 0 // 1, -137675625585113 // 6,
+    0 // 1, 10065214632473 // 1, 0 // 1, -18061762013765 // 6,
+    0 // 1, 652976108950 // 1, 0 // 1, -429641365993 // 4,
+    0 // 1, 249435438725 // 18, 0 // 1, -5758730593 // 4,
+    0 // 1, 123028150 // 1, 0 // 1, -52802765 // 6, 0 // 1, 534905 // 1,
+    0 // 1, -168113 // 6, 0 // 1, 11594 // 9, 0 // 1, -1309 // 24,
+    0 // 1, 35 // 12, 1 // 2, 1 // 36
+]
+
+# ..............................................................................
+global gl_faulhaber_BigInt = convert(Rational{BigInt}, gl_faulhaber_Int)
+
+# ..............................................................................
 @doc raw"""
     faulhaber_polynom(p::T) where {T<:Integer}
 
@@ -103,19 +118,46 @@ faulhaber_summation(3,60; T=BigInt)
 """
 function faulhaber_summation(n::T, p::T) where {T<:Integer}
 
-    n ≠ 0 || return 0
+    o = faulhaber_polynomial(n, p + 1)
 
-    F = CamMath.faulhaber_polynom(p+1)
-    o = 0
-    for k = 1:p+1
-        for i = 1:k
-            F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        end
-        o += F[k+1]
+    return o
+
+end
+
+# ..............................................................................
+function _faulhaber_BigInt(p::T) where {T<:Integer}
+
+    nul = big(0)
+    one = big(1)
+
+    p = big(p)
+
+    P = CamMath.pascal_triangle(p)[end][1:end-1]
+    B = CamMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
+    B[2] = -B[2]
+
+    F = (B .* P) // p
+
+    F = Base.append!(F, nul // one) # add polynomial constant: c_0=0
+
+    return Base.reverse(F)     # reverse to standard order
+
+end
+
+function faulhaber_polynom1(p::T) where {T<:Integer}
+
+    str = "Warning: faulhaber_polynom converted to Rational{BigInt}"
+
+    n = Int(p)
+    nc = 36
+
+    if n ≤ nc
+        o = T == Int ? gl_faulhaber_Int[1:1+n] : gl_faulhaber_BigInt[1:1+n]
+    else
+        o = _faulhaber_BigInt(p)
+        msg && T == Int && println(str)
     end
 
-    Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
-
-    return Base.numerator(o)
+    return o
 
 end
