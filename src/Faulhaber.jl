@@ -69,14 +69,16 @@ function faulhaber_polynomial(n::T, p::T) where {T<:Integer}
 
     F = CamMath.faulhaber_polynom(p)
     o = 0
-    for k = 1:p
+    for k = 1:p+1
         for i = 1:k
-            F[k] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+            F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
-        o += F[k]
+        o += F[k+1]
     end
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
+
+    return Base.numerator(o)
 
 end
 
@@ -103,7 +105,7 @@ function faulhaber_summation(n::T, p::T) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    F = CamMath.faulhaber_polynom(p + 1)
+    F = CamMath.faulhaber_polynom(p+1)
     o = 0
     for k = 1:p+1
         for i = 1:k
