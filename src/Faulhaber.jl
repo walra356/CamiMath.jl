@@ -30,16 +30,16 @@ faulhaber_polynom(6)
   1//6
 ```
 """
-function faulhaber_polynom(k::T) where {T<:Integer}
+function faulhaber_polynom(p::T) where {T<:Integer}
 
-    k < 1 && return 0
-    k > 1 || return 1 // 1
+    p < 1 && return 0
+    p > 1 || return 1 // 1
 
-    P = CamMath.pascal_triangle(k)[end][1:end-1]
-    B = CamMath.bernoulliB_array(k - 1)
-    B[2] = -B[2]  # was bernoulliB_array(k-1; T)
+    P = CamMath.pascal_triangle(p)[end][1:end-1]
+    B = CamMath.bernoulliB_array(p-1)  # was bernoulliB_array(p-1; T)
+    B[2] = -B[2]  
 
-    F = (B .* P) // k
+    F = (B .* P) // p
 
     F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
 
@@ -57,7 +57,7 @@ Faulhaber polynomial of degree `p`
     F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
 ```
 where the coefficients are contained in the vector 
-[`faulhaber_polynom(k::T) where {T<:Integer}`](@ref).
+[`faulhaber_polynom`](@ref).
 ### Example:
 ```
 ```
