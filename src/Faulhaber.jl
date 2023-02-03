@@ -5,7 +5,7 @@
 # ==============================================================================
 
 @doc raw"""
-    faulhaber_polynom(p [, T=Int])
+    faulhaber_polynom(k::T) where {T<:Integer}
 
 Vector representation of the Faulhaber polynomial of degree `p` 
 ```math
@@ -30,7 +30,7 @@ faulhaber_polynom(6)
   1//6
 ```
 """
-function faulhaber_polynom(k::Int; T=Int)
+function faulhaber_polynom(k::T) where {T<:Integer}
 
     k < 1 && return 0
     k > 1 || return 1 // 1
@@ -57,7 +57,7 @@ Faulhaber polynomial of degree `p`
     F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
 ```
 where the coefficients are contained in the vector 
-[`faulhaber_polynom`]@(ref).
+[`faulhaber_polynom(k::T) where {T<:Integer}`]@(ref).
 ### Example:
 ```
 ```
