@@ -5,13 +5,14 @@
 # ==============================================================================
 
 @doc raw"""
-    faulhaber_polynom(k::T) where {T<:Integer}
+    faulhaber_polynom(p::T) where {T<:Integer}
 
-Vector representation of the Faulhaber polynomial of degree `p` 
+Vector representation of the coefficients of the [`faulhaber_polynomial`](@ref) 
+of degree `p` 
 ```math
    c=[c_0,⋯\ c_p]
 ```
-with ekements
+with vector elements
 ```math
     c_0=0,\ c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
 ```
@@ -36,8 +37,8 @@ function faulhaber_polynom(p::T) where {T<:Integer}
     p > 1 || return 1 // 1
 
     P = CamMath.pascal_triangle(p)[end][1:end-1]
-    B = CamMath.bernoulliB_array(p-1)  # was bernoulliB_array(p-1; T)
-    B[2] = -B[2]  
+    B = CamMath.bernoulliB_array(p - 1)  # was bernoulliB_array(p-1; T)
+    B[2] = -B[2]
 
     F = (B .* P) // p
 
@@ -50,7 +51,7 @@ end
 # ==================== faulhaber_polynomial(n,p) ===============================
 
 @doc raw"""
-    faulhaber_polynomial(n, p)
+    faulhaber_polynomial(n::T, p::T) where {T<:Integer}
 
 Faulhaber polynomial of degree `p` 
 ```math
@@ -66,11 +67,11 @@ function faulhaber_polynomial(n::T, p::T) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    F = CamMath.faulhaber_polynom(p + 1)
+    F = CamMath.faulhaber_polynom(p)
     o = 0
-    for k = 1:p+1
-        for i = 1:k
-            F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+    for k = 0:p
+        for i = 0:k-1
+            F[k+1] *= n
         end
         o += F[k+1]
     end
@@ -84,7 +85,7 @@ end
 # =================================== faulhaber_summation(n,p;T) ===============
 
 @doc raw"""
-    faulhaber_summation(n, p [, T=Int])
+    faulhaber_summation(n::T, p::T) where {T<:Integer}
 
 Sum of powers of natural numbers ``1,⋯\ n``,
 ```math
@@ -100,29 +101,11 @@ faulhaber_summation(3,60; T=BigInt)
   42391158276369125018901280178
 ```
 """
-function faulhaber_summation(n::Int, p::Int)   # short argument: better performance
+function faulhaber_summation(n::T, p::T) where {T<:Integer}
 
     n ≠ 0 || return 0
 
     F = CamMath.faulhaber_polynom(p + 1)
-    o = 0
-    for k = 1:p+1
-        for i = 1:k
-            F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        end
-        o += F[k+1]
-    end
-
-    Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
-
-    return Base.numerator(o)
-
-end
-function faulhaber_summation(n::Int, p::Int; T=Int)
-
-    n ≠ 0 || return nothing
-
-    F = CamMath.faulhaber_polynom(p + 1; T)
     o = 0
     for k = 1:p+1
         for i = 1:k
