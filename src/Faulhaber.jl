@@ -144,7 +144,7 @@ function _faulhaber_BigInt(p::T) where {T<:Integer}
 
 end
 
-function faulhaber_polynom1(p::T) where {T<:Integer}
+function faulhaber_polynom1(p::T; msg=true) where {T<:Integer}
 
     str = "Warning: faulhaber_polynom converted to Rational{BigInt}"
 
