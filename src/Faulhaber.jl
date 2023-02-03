@@ -7,17 +7,15 @@
 @doc raw"""
     faulhaber_polynom(p [, T=Int])
 
-Vector representation ``c=[c_0,⋯\ c_p]`` of the Faulhaber polynomial of 
-degree `p`,
+Vector representation of the Faulhaber polynomial of degree `p` 
 ```math
-    F(n,p)=\frac{1}{p}\sum_{j=1}^{p}{\binom {p}{p-j}}B_{p-j}n^{j}
-    →\sum_{j=1}^{p}c_{j}n^{j},
+   c=[c_0,⋯\ c_p]
 ```
-with coefficients
+with ekements
 ```math
     c_0=0,\ c_j=\frac{1}{p}{\binom {p}{p-j}}B_{p-j},
 ```
-where ``j∈\{ 1,⋯\ p\}``. THe ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
+where ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 ### Example:
 ```
@@ -46,6 +44,40 @@ function faulhaber_polynom(k::Int; T=Int)
     F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
 
     return Base.reverse(F)     # reverse to standard order
+
+end
+
+# ==================== faulhaber_polynomial(n,p) ===============================
+
+@doc raw"""
+    faulhaber_polynomial(n, p)
+
+Faulhaber polynomial of degree `p` 
+```math
+    F(n,p)=\sum_{j=1}^{p}c_{j}n^{j},
+```
+where the coefficients are contained in the vector 
+[`faulhaber_polynom`]@(ref).
+### Example:
+```
+```
+"""
+function faulhaber_polynomial(n::T, p::T) where {T<:Integer}
+
+    n ≠ 0 || return 0
+
+    F = CamMath.faulhaber_polynom(p + 1)
+    o = 0
+    for k = 1:p+1
+        for i = 1:k
+            F[k+1] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+        end
+        o += F[k+1]
+    end
+
+    Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
+
+    return Base.numerator(o)
 
 end
 

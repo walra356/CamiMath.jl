@@ -10,6 +10,7 @@ export bernoulliB
 export bernoulliB_array
 export bigfactorial
 export faulhaber_polynom
+export faulhaber_polynomial(n::T, p::T)
 export faulhaber_summation
 export harmonicNumber
 export harmonicNumber_array
