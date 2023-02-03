@@ -181,20 +181,3 @@ function faulhaber_summation(n::T, p::T) where {T<:Integer}
     return o
 
 end
-
-function faulhaber_polynom_kanweg(p::T) where {T<:Integer}
-
-    p < 1 && return 0
-    p > 1 || return 1 // 1
-
-    P = CamMath.pascal_triangle(p)[end][1:end-1]
-    B = CamMath.bernoulliB_array(p - 1)  # was bernoulliB_array(p-1; T)
-    B[2] = -B[2]
-
-    F = (B .* P) // p
-
-    F = Base.append!(F, 0 // 1)   # add polynomial constant (zero in this case)
-
-    return Base.reverse(F)     # reverse to standard order
-
-end
