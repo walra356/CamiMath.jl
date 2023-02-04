@@ -243,7 +243,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
         U = BigInt
     end
 
-    msg && (T == Int & U == BigInt) && println(str)
+    msg && (T == Int) & (U == BigInt) && println(str)
 
     F = CamMath.faulhaber_polynom(U(p); msg=false)
     o = 0
