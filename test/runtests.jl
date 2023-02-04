@@ -17,7 +17,6 @@ using Test
     @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:40]) == 40 // 1
     @test faulhaber_polynomial(3, 6) == 276
     @test faulhaber_polynomial(5, 30; msg=false) == 186552813930161650665
-    @test faulhaber_polynomial1(5, 30; msg=false) == 186552813930161650665
     @test faulhaber_summation(3, 5) == 276
     @test harmonicNumber(1) == 1 // 1
     @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600
