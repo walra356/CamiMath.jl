@@ -268,7 +268,7 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    F = gl_faulhaberBigFloat
+    F = gl_faulhaberBigFloat[n]
     n = convert(BigFloat, n)
     o = big(0.0)
     for k = 1:p
