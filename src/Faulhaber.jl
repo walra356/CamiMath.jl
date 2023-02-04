@@ -220,16 +220,10 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     end
 
     F = CamMath.faulhaber_polynom(W(p))
-    np = W[]
-    a = W(1)
-    for k=1:p
-        a *= n
-        push!(np, a)
-    end
+
     o = 0
     for k = 1:p
-         # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        o += (np[k] // denominator(F[1+k])) * numerator(F[1+k])
+        o += F[1+k] * n^k
     end
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
