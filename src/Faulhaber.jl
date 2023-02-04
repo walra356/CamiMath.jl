@@ -256,7 +256,7 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
         o += F[1+k]
     end
 
-    o = round(Int, o)
+    o = round(BigInt, o)
 
     return o
 
