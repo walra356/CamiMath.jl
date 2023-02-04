@@ -220,10 +220,38 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     end
 
     F = CamMath.faulhaber_polynom(W(p))
+    o = 0
+    for k = 1:p
+        for i = 1:k
+            F[1+k] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+        end
+        o += F[1+k]
+    end
+
+    Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
+
+    return Base.numerator(o)
+
+end
+
+function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
+
+    str = "Warning: faulhaber_polynomial converted to Rational{BigInt}"
+
+    n ≠ 0 || return 0
+
+    if float(n)^p < 9.223372036854776e15
+        W = T
+    else
+        W = BigInt
+        msg && T == Int && println(str)
+    end
+
+    F = CamMath.faulhaber_polynom(W(p))
 
     o = 0
     for k = 1:p
-        o += F[1+k] * n^k
+        o += (F[1+k] *= n^k)
     end
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
