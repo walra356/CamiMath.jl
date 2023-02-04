@@ -240,25 +240,27 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    if float(n)^p < 9.223372036854776e15
-        W = T
+    if float(n)^p < 9.223372036854776e18
+        U = T
+        V = Float64
     else
-        W = BigInt
+        U = BigInt
+        V = BigFloat
         msg && T == Int && println(str)
     end
 
-    F = convert.(BigFloat, CamMath.faulhaber_polynom(W(p)))
+    F = convert.(V, CamMath.faulhaber_polynom(U(p)))
     o = 0
     for k = 1:p
         for i = 1:k
-            F[1+k] *= n # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+            F[1+k] *= n    # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
         o += F[1+k]
     end
 
     o - round(o) < 0.001 || error("Error: faulhaber polynomial must be integer")
 
-    o = round(W, o)
+    o = round(U, o)
 
     return o
 
