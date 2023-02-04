@@ -5,9 +5,10 @@
 # ==============================================================================
 
 global gl_faulhaberInt = [
-    [1 // 1], [0 // 1, 1 // 2, 1 // 2], [0 // 1, 1 // 6, 1 // 2, 1 // 3],
-    [0 // 1, 0 // 1, 1 // 4, 1 // 2, 1 // 4], [0 // 1, -1 // 30, 0 // 1, 
-    1 // 3, 1 // 2, 1 // 5],
+    [0 // 1, 1 // 1], [0 // 1, 1 // 2, 1 // 2], 
+    [0 // 1, 1 // 6, 1 // 2, 1 // 3],
+    [0 // 1, 0 // 1, 1 // 4, 1 // 2, 1 // 4], 
+    [0 // 1, -1 // 30, 0 // 1, 1 // 3, 1 // 2, 1 // 5],
     [0 // 1, 0 // 1, -1 // 12, 0 // 1, 5 // 12, 1 // 2, 1 // 6],
     [0 // 1, 1 // 42, 0 // 1, -1 // 6, 0 // 1, 1 // 2, 1 // 2, 1 // 7],
     [0 // 1, 0 // 1, 1 // 12, 0 // 1, -7 // 24, 0 // 1, 7 // 12, 1 // 2,
@@ -257,33 +258,6 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
 
     return Base.numerator(o)
-
-end
-
-function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
-
-    str = "Warning: faulhaber_polynomial converted to Rational{BigInt}"
-
-    n ≠ 0 || return 0
-
-    nc = 36
-    F = p ≤ nc ? CamMath.faulhaber_polynom(p) : 
-                 CamMath.faulhaber_polynom(big(p))
-    F = convert.(BigFloat, F)
-    n = convert(BigFloat, n)
-    o = 0
-    for k = 1:p
-        for i = 1:k
-            F[1+k] *= n    # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        end
-        o += F[1+k]
-    end
-
-    o - round(o) < 0.001 || error("Error: faulhaber polynomial must be integer")
-
-    o = o < typemax(Int) ? round(Int, o) : round(BigInt, o)
-
-    return o
 
 end
 
