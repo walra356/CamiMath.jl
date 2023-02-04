@@ -268,10 +268,10 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    F = gl_faulhaberBigFloat[n+1]
+    F = gl_faulhaberBigFloat[n]
     n = convert(BigFloat, n)
     o = big(0.0)
-    for k = 1:p
+    for k = 1:p+1
         for i = 1:k
             F[1+k] *= n    # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
         end
