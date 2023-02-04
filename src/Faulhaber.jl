@@ -247,7 +247,7 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
         msg && T == Int && println(str)
     end
 
-    F = convert.(Float64, CamMath.faulhaber_polynom(W(p)))
+    F = convert.(BigFloat, CamMath.faulhaber_polynom(W(p)))
     o = 0
     for k = 1:p
         for i = 1:k
