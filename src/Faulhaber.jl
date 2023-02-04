@@ -227,7 +227,7 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math
     \sum_{k=1}^{n}k^{p}=F(n,p+1).
 ```
-where ``F(n,p)`` is the [`faulhamer_polynomial`](@ref) of degree `p`.
+where ``F(n,p)`` is the [`faulhaber_polynomial`](@ref) of degree `p`.
 ### Examples:
 ```
 julia> faulhaber_summation(3,5)
