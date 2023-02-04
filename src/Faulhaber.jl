@@ -242,15 +242,13 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
 
     if float(n)^p < 9.223372036854776e18
         U = T
-        V = Float64
     else
         U = BigInt
-        V = BigFloat
         msg && T == Int && println(str)
     end
 
-    F = convert.(V, CamMath.faulhaber_polynom(U(p)))
-    n = convert(V, n)
+    F = convert.(BigFloat, CamMath.faulhaber_polynom(U(p)))
+    n = convert(BigFloat, n)
     o = 0
     for k = 1:p
         for i = 1:k
