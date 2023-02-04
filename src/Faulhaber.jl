@@ -228,8 +228,8 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     end
     o = 0
     for k = 1:p
-        F[1+k] *= np[k] # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        o += F[1+k]
+         # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
+        o += (np[k] // denominator(F[1+k])) * numerator(F[1+k])
     end
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
