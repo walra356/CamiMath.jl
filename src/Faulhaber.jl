@@ -250,6 +250,7 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
     end
 
     F = convert.(V, CamMath.faulhaber_polynom(U(p)))
+    n = convert(V, n)
     o = 0
     for k = 1:p
         for i = 1:k
