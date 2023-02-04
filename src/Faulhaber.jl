@@ -176,7 +176,7 @@ end
 # ==================== faulhaber_polynomial(n,p) ===============================
 
 @doc raw"""
-    faulhaber_polynomial(n::T, p::T; msg=true) where {T<:Integer}
+    faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
 Faulhaber polynomial of degree `p` 
 ```math
@@ -197,7 +197,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     n ≠ 0 || return 0
 
     if n^p < 9e18
-        W = T 
+        W = T
     else
         W = BigInt
         msg && T == Int && println(str)
@@ -221,7 +221,7 @@ end
 # =================================== faulhaber_summation(n,p;T) ===============
 
 @doc raw"""
-    faulhaber_summation(n::T, p::T) where {T<:Integer}
+    faulhaber_summation(n::T, p::Int) where {T<:Integer}
 
 Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math

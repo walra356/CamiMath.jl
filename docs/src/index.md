@@ -23,9 +23,9 @@ bigfactorial(n::T; msg=true) where {T<:Integer}
 ## Faulhaber polynomial
 
 ```@docs
-faulhaber_polynom(k::Int; T=Int)
-faulhaber_polynomial(n::T, p::T) where {T<:Integer}
-faulhaber_summation(n::Int, p::Int)
+faulhaber_polynom(p::T; msg=true) where {T<:Integer}
+faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
+faulhaber_summation(n::T, p::Int) where {T<:Integer}
 ```
 ## HarmonicNumber
 
