@@ -238,7 +238,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
     n ≠ 0 || return 0
 
     if  p ≤ 36 
-        U = (float(n)^p < 9.223372036854776e12) ? T : BigInt
+        U = (float(n)^p < 9.223372036854776e15) ? T : BigInt
     else
         U = BigInt
     end
