@@ -196,7 +196,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    if n^p < 9e18
+    if float(n)^p < 9e18
         W = T
     else
         W = BigInt
