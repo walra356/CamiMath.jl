@@ -237,14 +237,15 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return 0
 
-    if float(n)^p < 9.223372036854776e12
-        W = T
+    if  p ≤ 36 
+        U = (float(n)^p < 9.223372036854776e12) ? T : BigInt
     else
-        W = BigInt
-        msg && T == Int && println(str)
+        U = BigIntend
     end
 
-    F = CamMath.faulhaber_polynom(W(p))
+    msg && (T == Int & U == BigInt) && println(str)
+
+    F = CamMath.faulhaber_polynom(U(p); msg=false)
     o = 0
     for k = 1:p
         for i = 1:k
