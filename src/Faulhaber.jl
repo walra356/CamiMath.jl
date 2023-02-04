@@ -256,9 +256,11 @@ function faulhaber_polynomial1(n::T, p::Int; msg=true) where {T<:Integer}
         o += F[1+k]
     end
 
-    o1 = round(BigInt, o)
+    o - round(o) < 0.001 || error("Error: faulhaber polynomial must be integer")
 
-    return o1, o-o1
+    o = round(W, o)
+
+    return o
 
 end
 
