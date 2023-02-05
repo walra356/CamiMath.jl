@@ -159,7 +159,7 @@ true
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     str1 = "Error: harmonic numbers defined for positive integers"
-    str2 = "Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}"
+    str2 = "Warning (IOP): harmonicNumber($n) autoconverted to Rational{BigInt}"
 
     nmax > 0 || error(str1)
 
@@ -210,7 +210,6 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     c = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
     o = copy(c)
 
-    #b = nul // one
     b = o[nc]
     for m = nc+1:n
         a = one
@@ -221,7 +220,6 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
         Base.push!(o, b)
     end
 
-    println(copy(o))
     return o
 
 end
@@ -253,7 +251,8 @@ harmonicNumber(12, -3) == faulhaber_summation(12, 3)
 """
 function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}"
+    str = "Warning (IOP): harmonicNumber($n, $p) autoconverted to 
+    Rational{BigInt}"
 
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
