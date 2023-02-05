@@ -262,7 +262,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         if n ≤ nc
             o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
-            o = _harmonicNumber_p_BigInt(n, nc, p)[end]
+            o = _harmonicNumber_p_BigInt(n, nc, p)[n]
             msg && T == Int && println(str)
         end
     else
