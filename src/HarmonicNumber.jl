@@ -208,13 +208,12 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     one = big(1)
 
     o = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
-    println("hoi")
 
     b = nul // one
-    for k = 1:n
+    for m = nc+1:n
         a = one
         for i = 1:p
-            a *= big(k)
+            a *= big(m)
         end
         b += one // a
         Base.push!(o, b)
