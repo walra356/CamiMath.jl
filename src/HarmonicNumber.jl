@@ -254,12 +254,11 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
+    p ≠ 1 || return harmonicNumber(n::T; msg) 
 
     if p > 0
         n = convert(Int, n)
-        nc = p < 11 ? length(gl_harmon_Int[p]) :
-             p < 18 ? 4 :
-             p < 25 ? 3 : 0
+        nc = p < 11 ? length(gl_harmon_Int[p]) : p < 18 ? 4 : p < 25 ? 3 : 0
         if n ≤ nc
             o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
