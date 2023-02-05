@@ -29,7 +29,7 @@ using Test
     @test typeof(harmonicNumber(8)) == Rational{Int}
     @test typeof(harmonicNumber(big(8))) == Rational{BigInt}
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
-    @test typeof(harmonicNumber(big(12), 3)) == Ration
+    @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
 #   ............................................................................
     @test harmonicNumber_array(8) == [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280]
     @test harmonicNumber_array(big(8)) == [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280]
