@@ -281,9 +281,9 @@ Warning: faulhaber_polynom converted to Rational{BigInt}
 42391158276369125018901280178
 ```
 """
-function faulhaber_summation(n::T, p::Int) where {T<:Integer}
+function faulhaber_summation(n::T, p::Int; msg=true) where {T<:Integer}
 
-    o = faulhaber_polynomial(n, p + 1)
+    o = faulhaber_polynomial(n, p + 1; msg)
 
     return o
 
