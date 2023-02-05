@@ -218,7 +218,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
         b += one // a
         Base.push!(o, b)
     end
-    println(raw"n = $n nc = $(nc) p = $p l = $(length(o))")
+    println("n = $n nc = $(nc) p = $p l = $(length(o))")
 
     return o
 
