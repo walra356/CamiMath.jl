@@ -193,7 +193,8 @@ faulhaber_polynom(6)
 """
 function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}"
+    str = "Integer overflow: "
+    str *= "faulhaber_polynomial autoconverted to Rational{BigInt}"
 
     n = Int(p)
     nc = 36
@@ -235,8 +236,8 @@ Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}
 """
 function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: faulhaber_polynomial 
-                             autoconverted to Rational{BigInt}"
+    str = "Integer overflow: "
+    str *= "faulhaber_polynomial($n, $p) autoconverted to Rational{BigInt}"
 
     n ≥ 0 || return 0
 
