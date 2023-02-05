@@ -207,11 +207,11 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     nul = big(0)
     one = big(1)
 
-    o = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
-    o = copy(o)
+    a = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
+    o = copy(a)
 
     b = nul // one
-    for m = 1:n
+    for m = nc+1:n
         a = one
         for i = 1:p
             a *= big(m)
