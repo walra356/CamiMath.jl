@@ -166,10 +166,12 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
     nc = 46
 
     if n ≤ nc
-        o = T == Int ? gl_harmonicNumber_Int[1][1:n] : gl_harmonicNumber_BigInt[1][1:n]
+        o = T == Int ? gl_harmonicNumber_Int[1][1:n] : 
+                       gl_harmonicNumber_BigInt[1][1:n]
     else
         o = _hn_BigInt(n, nc)
-        msg && T == Int && println("Integer overflow: harmonicNumber autoconverted to Rational{BigInt}")
+        msg && T == Int && println("Integer overflow: harmonicNumber 
+                                            autoconverted to Rational{BigInt}")
     end
 
     return o
