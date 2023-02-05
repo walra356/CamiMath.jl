@@ -265,7 +265,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         end
     else
         p = -p
-        o = faulhaber_polynomial(n, p + 1)
+        o = faulhaber_summation(n, p)
     end
 
     return o
