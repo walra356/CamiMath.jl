@@ -250,12 +250,11 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
 
-    n = convert(Int, n)
-    nc = p < 11 ? length(gl_harmonicNumber_Int[p]) : 
-         p < 18 ? 4 : 
-         p < 25 ? 3 : 0
-
     if p > 0
+        n = convert(Int, n)
+        nc = p < 11 ? length(gl_harmonicNumber_Int[p]) : 
+            p < 18 ? 4 : 
+            p < 25 ? 3 : 0
         if n ≤ nc
             o = T == Int ? gl_harmonicNumber_Int[p][n] : 
                            gl_harmonicNumber_BigInt[p][n]
@@ -264,8 +263,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
             msg && T == Int && println(str)
         end
     else
-        p = -p
-        o = faulhaber_summation(n, p)
+        o = faulhaber_summation(n, -p; msg)
     end
 
     return o
