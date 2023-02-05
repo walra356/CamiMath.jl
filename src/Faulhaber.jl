@@ -4,7 +4,7 @@
 #                          Faulhaber.jl
 # ==============================================================================
 
-global gl_faulhaberInt = [
+global gl_faulhab_Int = [
     [0 // 1, 1 // 1], [0 // 1, 1 // 2, 1 // 2],
     [0 // 1, 1 // 6, 1 // 2, 1 // 3],
     [0 // 1, 0 // 1, 1 // 4, 1 // 2, 1 // 4],
@@ -137,7 +137,8 @@ global gl_faulhaberInt = [
 ]
 
 # ..............................................................................
-global gl_faulhaberBigInt = convert.(Vector{Rational{BigInt}}, gl_faulhaberInt)
+global gl_faulhab_BigInt = convert.(Vector{Rational{BigInt}}, 
+    gl_faulhab_Int)
 
 # ..............................................................................
 function _faulhaber_BigInt(p::T) where {T<:Integer}
@@ -198,7 +199,7 @@ function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
     nc = 36
 
     if n ≤ nc
-        o = T == Int ? gl_faulhaberInt[n][1:end] : gl_faulhaberBigInt[n][1:end]
+        o = T == Int ? gl_faulhab_Int[n][1:end] : gl_faulhab_BigInt[n][1:end]
     else
         o = _faulhaber_BigInt(p)
         msg && T == Int && println(str)

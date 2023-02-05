@@ -1,8 +1,10 @@
+# SPDX-License-Identifier: MIT
+
 # ==============================================================================
 #                          harmonicNumber.jl
 # ==============================================================================
 
-global gl_harmonicNumber_Int = Vector{Rational{Int64}}[
+global gl_harmon_Int = Vector{Rational{Int64}}[
     [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140,
         761 // 280, 7129 // 2520, 7381 // 2520, 83711 // 27720, 86021 // 27720,
         1145993 // 360360, 1171733 // 360360, 1195757 // 360360,
@@ -75,15 +77,14 @@ global gl_harmonicNumber_Int = Vector{Rational{Int64}}[
 ]
 
 # ..............................................................................
-global gl_harmonicNumber_BigInt = convert(Vector{Vector{Rational{BigInt}}},
-    gl_harmonicNumber_Int)
+global gl_harmon_BigInt = convert.({Vector{Rational{BigInt}}}, gl_harmon_Int)
 
 # ..............................................................................
-function _hn_BigInt(n::Int, nc::Int)
+function _harmonicNumber_BigInt(n::Int, nc::Int)
 
     one = big(1)
 
-    o = gl_harmonicNumber_BigInt[1][1:nc]
+    o = gl_harmon_BigInt[1][1:nc]
     for m = nc+1:n
         a = o[m-1] + one // big(m)
         Base.push!(o, a)
@@ -106,8 +107,8 @@ By default the capture message is activated:
 "Integer overflow: harmonicNumber autoconverted to Rational{BigInt}". 
 ### Examples:
 ```
-julia> o = harmonicNumber_array(9); println(o)
-Rational{Int64}[1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280, 7129//2520]
+julia> o = harmonicNumber_array(8); println(o)
+Rational{Int64}[1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280]
 
 julia> o = [harmonicNumber(46; msg=true)]; println(o)
 Rational{Int64}[5943339269060627227//1345655451257488800]
@@ -128,8 +129,7 @@ function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
 end
 
-# ..............................................................................
-
+# ==============================================================================
 @doc raw"""
     harmonicNumber_array(nmax::T [; msg=true]) where {T<:Integer} 
 
@@ -167,10 +167,9 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
     nc = 46
 
     if n ≤ nc
-        o = T == Int ? gl_harmonicNumber_Int[1][1:n] : 
-                       gl_harmonicNumber_BigInt[1][1:n]
+        o = T == Int ? gl_harmon_Int[1][1:n] : gl_harmon_BigInt[1][1:n]
     else
-        o = _hn_BigInt(n, nc)
+        o = _harmonicNumber_BigInt(n, nc)
         msg && T == Int && println(str2)
     end
 
@@ -178,29 +177,8 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
 end
 
-# ======================= harmonic number(n, p [; msg=false]) ==========================
-
-function Hn_Int(p::Int, nc::Int)
-
-    o = Rational{Int}[]
-    if p > 10
-        b = 0 // 1
-        for n = 1:nc
-            a = 1
-            for i = 1:p
-                a *= n
-            end
-            b += 1 // a
-            Base.push!(o, b)
-        end
-    else
-        o = gl_harmonicNumber_Int[p]
-    end
-
-    return o
-
-end
-function Hn_BigInt(p::Int, nc::Int)
+# ==============================================================================
+function _harmonicNumber_BigInt_header(p::Int, nc::Int)
 
     nul = big(0)
     one = big(1)
@@ -217,19 +195,19 @@ function Hn_BigInt(p::Int, nc::Int)
             Base.push!(o, b)
         end
     else
-        o = gl_harmonicNumber_BigInt[p]
+        o = gl_harmon_BigInt[p]
     end
 
     return o
 
 end
-# .......................................................................................
-function _hn_BigInt(n::Int, nc::Int, p::Int)
+# ..............................................................................
+function _harmonicNumber_BigInt(n::Int, nc::Int, p::Int)
 
     nul = big(0)
     one = big(1)
 
-    o = CamMath.Hn_BigInt(p, nc)[1:nc]
+    o = CamMath._harmonicNumber_BigInt_header(p, nc)[1:nc]
 
     b = nul // one
     for m = 1:n
@@ -279,14 +257,14 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 
     if p > 0
         n = convert(Int, n)
-        nc = p < 11 ? length(gl_harmonicNumber_Int[p]) :
+        nc = p < 11 ? length(gl_harmon_Int[p]) :
              p < 18 ? 4 :
              p < 25 ? 3 : 0
         if n ≤ nc
-            o = T == Int ? gl_harmonicNumber_Int[p][n] :
-                gl_harmonicNumber_BigInt[p][n]
+            o = T == Int ? gl_harmon_Int[p][n] :
+                gl_harmon_BigInt[p][n]
         else
-            o = _hn_BigInt(n, nc, p)[end]
+            o = _harmonicNumber_BigInt(n, nc, p)[end]
             msg && T == Int && println(str)
         end
     else
