@@ -211,7 +211,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     o = copy(a)
 
     b = nul // one
-    for m = nc+1:n
+    for m = 1:n
         a = one
         for i = 1:p
             a *= big(m)
