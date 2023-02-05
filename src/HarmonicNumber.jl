@@ -167,7 +167,8 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
     nc = 46
 
     if n ≤ nc
-        o = T == Int ? gl_harmon_Int[1][1:n] : gl_harmon_BigInt[1][1:n]
+        o = T == Int ? gl_harmon_Int[1][1:n] : 
+                       gl_harmon_BigInt[1][1:n]
     else
         o = _harmonicNumber_BigInt(n, nc)
         msg && T == Int && println(str2)
