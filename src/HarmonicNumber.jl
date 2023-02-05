@@ -102,9 +102,9 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-NB.: On integer overflow the output is converted to Rational{BigInt}. 
-By default the capture message is activated: 
-"Integer overflow: harmonicNumber autoconverted to Rational{BigInt}". 
+On integer overflow the output is converted to Rational{BigInt}. 
+By default the IOP capture message is activated: 
+"Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}". 
 ### Examples:
 ```
 julia> o = harmonicNumber_array(8); println(o)
@@ -114,7 +114,7 @@ julia> o = [harmonicNumber(46; msg=true)]; println(o)
 Rational{Int64}[5943339269060627227//1345655451257488800]
 
 julia> o = [harmonicNumber(47; msg=true)]; println(o)
-Integer overflow: harmonicNumber autoconverted to Rational{BigInt}
+Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}
 Rational{BigInt}[282057509927739620069//63245806209101973600]
 
 julia> harmonicNumber(12) == harmonicNumber(12, 1)
@@ -137,9 +137,9 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-NB.: On integer overflow the output is converted to 
-Rational{BigInt}. By default the capture message is activated: 
-"Integer overflow: harmonicNumber autoconverted to Rational{BigInt}". 
+On integer overflow the output is converted to 
+Rational{BigInt}. By default the IOP capture message is activated: 
+"Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}". 
 ### Examples:
 ```
 julia> o = harmonicNumber_array(8); println(o)
@@ -149,7 +149,7 @@ julia> o = [harmonicNumber(46; msg=true)]; println(o)
 Rational{Int64}[5943339269060627227//1345655451257488800]
 
 julia> o = [harmonicNumber(47; msg=true)]; println(o)
-Integer overflow: harmonicNumber autoconverted to Rational{BigInt}
+Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}
 Rational{BigInt}[282057509927739620069//63245806209101973600]
 
 julia> harmonicNumber(12) == harmonicNumber(12, 1)
@@ -159,7 +159,7 @@ true
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     str1 = "Error: harmonic numbers defined for positive integers"
-    str2 = "Integer overflow: harmonicNumber autoconverted to Rational{BigInt}"
+    str2 = "Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}"
 
     nmax > 0 || error(str1)
 
@@ -178,7 +178,7 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 end
 
 # ==============================================================================
-function _harmonicNumber_BigInt_header(p::Int, nc::Int)
+function _harmonicNumber_BigInt_header(p::Int, n::Int)
 
     nul = big(0)
     one = big(1)
@@ -210,10 +210,10 @@ function _harmonicNumber_BigInt(n::Int, nc::Int, p::Int)
     o = CamMath._harmonicNumber_BigInt_header(p, nc)[1:nc]
 
     b = nul // one
-    for m = 1:n
+    for k = 1:n
         a = one
         for i = 1:p
-            a *= big(m)
+            a *= big(k)
         end
         b += one // a
         Base.push!(o, b)
@@ -229,16 +229,16 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
     H_{n,p}=\sum_{k=1}^{n}\frac{1}{k^p}.
 ```
-NB.: On integer overflow the output is converted to 
-Rational{BigInt}. By default the capture message is activated: 
-"Integer overflow: harmonicNumber autoconverted to Rational{BigInt}". 
+On integer overflow the output is converted to 
+Rational{BigInt}. By default the IOP capture message is activated: 
+"Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}". 
 ### Examples:
 ```
 julia> o = [harmonicNumber(46,1; msg=true)]; println(o)
 Rational{Int64}[5943339269060627227//1345655451257488800]
 
 julia> o = [harmonicNumber(47,1; msg=true)]; println(o)
-Integer overflow: harmonicNumber autoconverted to Rational{BigInt}
+Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}
 Rational{BigInt}[280682601097106968469//63245806209101973600]
 
 julia> o = [harmonicNumber(47,1)]; println(o)
@@ -250,7 +250,7 @@ harmonicNumber(12, -3) == faulhaber_summation(12, 3)
 """
 function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: harmonicNumber autoconverted to Rational{BigInt}"
+    str = "Warning (IOP): harmonicNumber autoconverted to Rational{BigInt}"
 
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
@@ -261,8 +261,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
              p < 18 ? 4 :
              p < 25 ? 3 : 0
         if n ≤ nc
-            o = T == Int ? gl_harmon_Int[p][n] :
-                gl_harmon_BigInt[p][n]
+            o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
             o = _harmonicNumber_BigInt(n, nc, p)[end]
             msg && T == Int && println(str)
