@@ -158,9 +158,10 @@ true
 """
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
-    str = "Error: harmonic numbers defined for positive integers"
+    str1 = "Error: harmonic numbers defined for positive integers"
+    str2 = "Integer overflow: harmonicNumber autoconverted to Rational{BigInt}"
 
-    nmax > 0 || error(str)
+    nmax > 0 || error(str1)
 
     n = Int(nmax)
     nc = 46
@@ -170,15 +171,12 @@ function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
                        gl_harmonicNumber_BigInt[1][1:n]
     else
         o = _hn_BigInt(n, nc)
-        msg && T == Int && println("Integer overflow: harmonicNumber 
-                                            autoconverted to Rational{BigInt}")
+        msg && T == Int && println(str2)
     end
 
     return o
 
 end
-
-
 
 # ======================= harmonic number(n, p [; msg=false]) ==========================
 

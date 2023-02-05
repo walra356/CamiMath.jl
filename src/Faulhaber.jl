@@ -161,7 +161,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    faulhaber_polynom(p::T; msg=true) where {T<:Integer}
+    faulhaber_polynom(p::T [; msg=true]) where {T<:Integer}
 
 Vector representation of the coefficients of the [`faulhaber_polynomial`](@ref) 
 of degree `p` 
@@ -192,8 +192,7 @@ faulhaber_polynom(6)
 """
 function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: faulhaber_polynomial 
-                             autoconverted to Rational{BigInt}"
+    str = "Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}"
 
     n = Int(p)
     nc = 36
