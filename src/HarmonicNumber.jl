@@ -77,7 +77,7 @@ global gl_harmon_Int = Vector{Rational{Int64}}[
 ]
 
 # ..............................................................................
-global gl_harmon_BigInt = convert.({Vector{Rational{BigInt}}}, gl_harmon_Int)
+global gl_harmon_BigInt = convert.(Vector{Rational{BigInt}}, gl_harmon_Int)
 
 # ..............................................................................
 function _harmonicNumber_BigInt(n::Int, nc::Int)
