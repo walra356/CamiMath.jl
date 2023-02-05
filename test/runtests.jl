@@ -19,7 +19,8 @@ using Test
     @test faulhaber_polynomial(5, 30; msg=false) == 186552813930161650665
     @test faulhaber_summation(3, 5) == 276
     @test harmonicNumber(3, -5) == 276
-    @test harmonicNumber(1) == 1 // 1
+    @test harmonicNumber(8) == 761 // 280
+    @test harmonicNumber(big(8)) == 761 // 280
     @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600
     @test harmonicNumber(12, 3) == 25535765062457 // 21300003648000
     @test harmonicNumber(big(12), 3) == 25535765062457 // 21300003648000
