@@ -1,11 +1,6 @@
 using CamMath
 using Test
 
-
-
-
-
-
 @testset "CamMath.jl" begin
 
     @test bernoulliB_array(10) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]

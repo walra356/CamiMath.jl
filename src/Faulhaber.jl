@@ -193,14 +193,15 @@ faulhaber_polynom(6)
 """
 function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: "
-    str *= "faulhaber_polynomial autoconverted to Rational{BigInt}"
+    str = "Warning (IOP): "
+    str *= "faulhaber_polynomial($p) autoconverted to Rational{BigInt}"
 
     n = Int(p)
     nc = 36
 
     if n ≤ nc
-        o = T == Int ? gl_faulhab_Int[n][1:end] : gl_faulhab_BigInt[n][1:end]
+        o = T == Int ? gl_faulhab_Int[n][1:end] : 
+                       gl_faulhab_BigInt[n][1:end]
     else
         o = _faulhaber_BigInt(p)
         msg && T == Int && println(str)
@@ -236,7 +237,7 @@ Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}
 """
 function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Integer overflow: "
+    str = "Warning (IOP): "
     str *= "faulhaber_polynomial($n, $p) autoconverted to Rational{BigInt}"
 
     n ≥ 0 || return 0
