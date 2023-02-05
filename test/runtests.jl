@@ -20,11 +20,11 @@ using Test
     @test faulhaber_summation(3, 5) == 276
     @test harmonicNumber(3, -5) == 276
     @test harmonicNumber(46) == (5943339269060627227 // 1345655451257488800)
-    @test harmonicNumber(47; msg=false) == (280682601097106968469 // 63245806209101973600)
+    @test harmonicNumber(47; msg=true) == (280682601097106968469 // 63245806209101973600)
     @test harmonicNumber(24, 2) == (187700554334941861 // 117011293467045120)
-    @test harmonicNumber(25, 2; msg=false) == (23485971550561141649 // 14626411683380640000)
+    @test harmonicNumber(25, 2; msg=true) == (23485971550561141649 // 14626411683380640000)
     @test harmonicNumber(2, 10) == (1025//1024)
-    @test harmonicNumber(2, 11; msg=false) == (2049 // 2048)
+    @test harmonicNumber(2, 11; msg=true) == (2049 // 2048)
     @test harmonicNumber(8) == 761 // 280
     @test harmonicNumber(big(8)) == 761 // 280
     @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600
