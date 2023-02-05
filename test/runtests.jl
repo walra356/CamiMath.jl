@@ -25,8 +25,8 @@ using Test
     @test harmonicNumber(25, 2; msg=false) == (23485971550561141649 // 14626411683380640000)
     @test harmonicNumber(2, 10) == (1025//1024)
     @test harmonicNumber(2, 11; msg=false) == (2049 // 2048)
-    @test typeof(harmonicNumber(8)) == Int
-    @test typeof(harmonicNumber(big(8))) == BigInt
+    @test typeof(harmonicNumber(8)) == Rational{Int}
+    @test typeof(harmonicNumber(big(8))) == Rational{BigInt}
     @test harmonicNumber(60) == 15117092380124150817026911 // 3230237388259077233637600
     @test harmonicNumber(12, 3) == 25535765062457 // 21300003648000
     @test harmonicNumber(big(12), 3) == 25535765062457 // 21300003648000
