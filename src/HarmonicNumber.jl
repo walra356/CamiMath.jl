@@ -210,7 +210,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     o = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
 
     b = nul // one
-    for m = 1:n
+    for m = nc+1:n
         a = one
         for i = 1:p
             a *= big(m)
@@ -262,7 +262,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         if n ≤ nc
             o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
-            o = _harmonicNumber_p_BigInt_header(n, p)[end]
+            o = _harmonicNumber_p_BigInt(n, nc, p)[end]
             msg && T == Int && println(str)
         end
     else
