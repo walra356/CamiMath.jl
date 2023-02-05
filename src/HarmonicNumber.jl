@@ -186,10 +186,10 @@ function _harmonicNumber_p_BigInt_header(n::Int, p::Int)
     o = Rational{BigInt}[]
     if p > 10
         b = nul // one
-        for k = 1:n
+        for m = 1:n
             a = one
             for i = 1:p
-                a *= big(k)
+                a *= big(m)
             end
             b += one // a
             Base.push!(o, b)
@@ -262,7 +262,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         if n ≤ nc
             o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
-            o = _harmonicNumber_p_BigInt(n, nc, p)[end]
+            o = _harmonicNumber_p_BigInt_header(n, nc, p)[end]
             msg && T == Int && println(str)
         end
     else
