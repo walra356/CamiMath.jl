@@ -217,8 +217,8 @@ Faulhaber polynomial of degree `p`
 ```math
     F(n,p)=\sum_{j=0}^{p}c_{j}n^{j},
 ```
-where the coefficients are contained in the coefficient vector `c=[c_0,⋯\ c_p]`
-given by [`faulhaber_polynom`](@ref).
+where `n` is a positive integer and the coefficients are contained in the 
+vector `c=[c_0,⋯\ c_p]` given by [`faulhaber_polynom`](@ref).
 Integer-overflow protection: in the event of integer overflow the output is 
 converted to Rational{BigInt} and (by default) the capture message is activated: 
 "Warning: faulhaber_polynomial converted to Rational{BigInt}". 
@@ -236,7 +236,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
     str = "Warning: faulhaber_polynomial converted to Rational{BigInt}"
 
-    n ≠ 0 || return 0
+    n ≥ 0 || return 0
 
     if  p ≤ 36 
         U = (float(n)^p < 9.223372036854776e12) ? T : BigInt

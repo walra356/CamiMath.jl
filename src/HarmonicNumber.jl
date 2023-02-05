@@ -250,28 +250,22 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
     n ≠ 0 || return T(0)
     p ≠ 0 || return n
 
-    n = Int(n)
-    nc = p < 11 ? length(gl_harmonicNumber_Int[p]) : p < 18 ? 4 : p < 25 ? 3 : 0
+    n = convert(Int, n)
+    nc = p < 11 ? length(gl_harmonicNumber_Int[p]) : 
+         p < 18 ? 4 : 
+         p < 25 ? 3 : 0
 
     if p > 0
         if n ≤ nc
-            o = T == Int ? gl_harmonicNumber_Int[p][n] : gl_harmonicNumber_BigInt[p][n]
+            o = T == Int ? gl_harmonicNumber_Int[p][n] : 
+                           gl_harmonicNumber_BigInt[p][n]
         else
             o = _hn_BigInt(n, nc, p)[end]
             msg && T == Int && println(str)
         end
     else
         p = -p
-        F = CamMath.faulhaber_polynom(p + 1; T)
-        o = 0
-        for k = 1:p+1
-            for i = 1:k
-                F[k+1] *= n
-            end
-            o += F[k+1]
-        end
-        Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
-        o = Base.numerator(o)
+        o = faulhaber_polynomial(n, p + 1)
     end
 
     return o
