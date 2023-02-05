@@ -264,7 +264,8 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         nc = p < 11 ? length(gl_harmon_Int[p]) : p < 18 ? 4 : p < 25 ? 3 : 0
         if (n ≤ nc) & (p < 11)
             println("A: n = $n nc = $(nc) p = $p")
-            o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
+            o = T == Int ? gl_harmon_Int[p][n] : 
+                           gl_harmon_BigInt[p][n]
         else
             println("B: n = $n nc = $(nc) p = $p")
             o = _harmonicNumber_p_BigInt(n, nc, p)[n]
