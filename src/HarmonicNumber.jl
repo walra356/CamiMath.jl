@@ -206,8 +206,10 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
 
     nul = big(0)
     one = big(1)
+    println("hoi-1")
 
     o = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
+    println("hoi-2")
 
     b = nul // one
     for m = nc+1:n
@@ -218,6 +220,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
         b += one // a
         Base.push!(o, b)
     end
+    println("hoi-3")
 
     return o
 
