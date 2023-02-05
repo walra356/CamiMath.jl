@@ -218,6 +218,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
         b += one // a
         Base.push!(o, b)
     end
+    println(raw"n = $n nc = $(nc) p = $p l = $(length(o))")
 
     return o
 
@@ -262,7 +263,7 @@ function harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
         if n ≤ nc
             o = T == Int ? gl_harmon_Int[p][n] : gl_harmon_BigInt[p][n]
         else
-            o = _harmonicNumber_p_BigInt(n, nc, p)[n]
+            o = _harmonicNumber_p_BigInt(n, nc, p)[end]
             msg && T == Int && println(str)
         end
     else
