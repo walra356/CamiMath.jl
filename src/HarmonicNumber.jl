@@ -159,7 +159,7 @@ true
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     str1 = "Error: harmonic numbers defined for positive integers"
-    str2 = "Warning (IOP): harmonicNumber($n) autoconverted to Rational{BigInt}"
+    str2 = "Warning (IOP): harmonicNumber($nmax) converted to Rational{BigInt}"
 
     nmax > 0 || error(str1)
 
