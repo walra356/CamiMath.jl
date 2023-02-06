@@ -1,7 +1,7 @@
-using CamMath
+using CamiMath
 using Test
 
-@testset "CamMath.jl" begin
+@testset "CamiMath.jl" begin
 
     @test bernoulliB_array(10) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]
     @test bernoulliB_array(big(8)) == Rational{BigInt}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]

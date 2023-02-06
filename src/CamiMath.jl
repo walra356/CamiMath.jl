@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
 
 # =============================================================================
-#                               CamMath.jl
+#                               CamiMath.jl
 # =============================================================================
 
-module CamMath
+module CamiMath
 
 export bernoulliB
 export bernoulliB_array

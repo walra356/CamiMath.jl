@@ -74,7 +74,7 @@ true
 """
 function bernoulliB(n::T; msg=true) where {T<:Integer}
 
-    o = CamMath.bernoulliB_array(n; msg)[end]
+    o = CamiMath.bernoulliB_array(n; msg)[end]
 
     return o
 

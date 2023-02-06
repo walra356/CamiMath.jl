@@ -123,7 +123,7 @@ true
 """
 function harmonicNumber(n::T; msg=true) where {T<:Integer}
 
-    o = CamMath.harmonicNumber_array(n; msg)[end]
+    o = CamiMath.harmonicNumber_array(n; msg)[end]
 
     return o
 
@@ -208,7 +208,7 @@ function _harmonicNumber_p_BigInt(n::Int, nc::Int, p::Int)
     nul = big(0)
     one = big(1)
 
-    c = CamMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
+    c = CamiMath._harmonicNumber_p_BigInt_header(nc, p)[1:nc]
     o = copy(c)
 
     b = o[nc]

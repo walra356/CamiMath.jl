@@ -148,8 +148,8 @@ function _faulhaber_BigInt(p::T) where {T<:Integer}
 
     p = big(p)
 
-    P = CamMath.pascal_triangle(p)[end][1:end-1]
-    B = CamMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
+    P = CamiMath.pascal_triangle(p)[end][1:end-1]
+    B = CamiMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
     B[2] = -B[2]
 
     F = (B .* P) // p
@@ -250,7 +250,7 @@ function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
     msg && (T == Int) & (U == BigInt) && println(str)
 
-    F = CamMath.faulhaber_polynom(U(p); msg=false)
+    F = CamiMath.faulhaber_polynom(U(p); msg=false)
     o = 0
     for k = 1:p
         for i = 1:k
