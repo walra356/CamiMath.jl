@@ -1,6 +1,6 @@
 # CamMath
 
-*mathematics library with integer-overflow protection*
+*Mathematics library with integer-overflow protection*
 
 | **Documentation**                  | **Build status**                     | **Code coverage**                               | **Tag status**                                | **Compatibility status**                                    
 |:----------------------------------:|:------------------------------------:|:-----------------------------------------------:|:-----------------------------------------:|:----------------------------------------:|
