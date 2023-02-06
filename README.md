@@ -1,4 +1,4 @@
-# CamMath
+# CamiMath
 
 *Mathematics library with integer-overflow protection*
 
