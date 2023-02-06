@@ -1,14 +1,14 @@
 using Documenter
-using CamMath
+using CamiMath
 
 makedocs(;
-    modules = [CamMath],
+    modules = [CamiMath],
     authors = "<walra356@planet.nl> and contributors",
-    #repo = "github.com/walra356/CamMath.jl.git",
-    sitename = "CamMath.jl",
+    #repo = "github.com/walra356/CamiMath.jl.git",
+    sitename = "CamiMath.jl",
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
-        #canonical="https://walra356.github.io/CamMath.jl",
+        #canonical="https://walra356.github.io/CamiMath.jl",
         assets=String[]
     ),
     pages=[
@@ -17,6 +17,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/walra356/CamMath.jl.git",
+    repo = "github.com/walra356/CamiMath.jl.git",
     devbranch = "main"
 )

@@ -1,4 +1,4 @@
-# CamMath.jl
+# CamiMath.jl
 
 Mathematics library with integer-overload protection
 
