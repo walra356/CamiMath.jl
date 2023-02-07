@@ -231,7 +231,7 @@ julia> harmonicNumber(46, 1)
 5943339269060627227//1345655451257488800
 
 julia> harmonicNumber(47, 1)
-Warning: IOP - harmonicNumber(47, 1) converted to Rational{BigInt}
+IOP capture: harmonicNumber(47, 1) converted to Rational{BigInt}
 280682601097106968469//63245806209101973600
 
 harmonicNumber(12, -3) == faulhaber_summation(12, 3)
