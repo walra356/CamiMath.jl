@@ -274,8 +274,8 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math
     \sum_{k=1}^{n}k^{p}=H_{n,-p}=F(n,p+1).
 ```
-where `H_{n,-p}` is a [`harmonicNumber`](@ref)  of power `-p` and ``F(n,p)`` 
-the [`faulhaber_polynomial`](@ref) of power `p`.
+where ``H_{n,-p}`` is a [`harmonicNumber`](@ref)  of power `-p` and ``F(n,p)`` 
+a [`faulhaber_polynomial`](@ref) of power `p`.
 
 Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
