@@ -176,7 +176,7 @@ where
 with ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
-Integer overflow protection (IOP): on integer overflow the output is converted 
+Integer overflow protection (IOP): for `n > 36` the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
