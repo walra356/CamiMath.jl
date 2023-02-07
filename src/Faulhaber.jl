@@ -137,7 +137,7 @@ global gl_faulhab_Int = [
 ]
 
 # ..............................................................................
-global gl_faulhab_BigInt = convert.(Vector{Rational{BigInt}}, 
+global gl_faulhab_BigInt = convert.(Vector{Rational{BigInt}},
     gl_faulhab_Int)
 
 # ..............................................................................
@@ -175,9 +175,9 @@ where
 ```
 with ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
-Integer-overflow protection: for `p > 36` the output is autoconverted to 
-Rational{BigInt}. By default the capture message is activated: 
-"Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}". 
+
+Integer overflow protection (IOP): On integer overflow the output is converted 
+to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
 faulhaber_polynom(6)
@@ -193,15 +193,15 @@ faulhaber_polynom(6)
 """
 function faulhaber_polynom(p::T; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): "
+    str = "IOP capture): "
     str *= "faulhaber_polynomial($p) converted to Rational{BigInt}"
 
     n = Int(p)
     nc = 36
 
     if n ≤ nc
-        o = T == Int ? gl_faulhab_Int[n][1:end] : 
-                       gl_faulhab_BigInt[n][1:end]
+        o = T == Int ? gl_faulhab_Int[n][1:end] :
+            gl_faulhab_BigInt[n][1:end]
     else
         o = _faulhaber_BigInt(p)
         msg && T == Int && println(str)
@@ -222,22 +222,22 @@ Faulhaber polynomial of degree `p`
 ```
 where `n` is a positive integer and the coefficients are contained in the 
 vector `c=[c_0,⋯\ c_p]` given by [`faulhaber_polynom`](@ref).
-NB.: On integer overflow the output is converted to Rational{BigInt}. 
-By default the capture message is activated:  
-"Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}". 
+
+Integer overflow protection (IOP): On integer overflow the output is converted 
+to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
 julia> faulhaber_polynomial(3, 6)
 276
 
 julia> faulhaber_polynomial(5, 30)
-Integer overflow: faulhaber_polynomial autoconverted to Rational{BigInt}
+IOP capture: faulhaber_polynomial(5, 30) autoconverted to Rational{BigInt}
 186552813930161650665
 ```
 """
 function faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
 
-    str = "Warning (IOP): "
+    str = "IOP - capture: "
     str *= "faulhaber_polynomial($n, $p) converted to Rational{BigInt}"
 
     n ≥ 0 || return 0
@@ -275,19 +275,22 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
     \sum_{k=1}^{n}k^{p}=F(n,p+1).
 ```
 where ``F(n,p)`` is the [`faulhaber_polynomial`](@ref) of degree `p`.
+
+Integer overflow protection (IOP): On integer overflow the output is converted 
+to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
 julia> faulhaber_summation(3,5)
 276
 
 julia> faulhaber_summation(3,60)
-Integer overflow: faulhaber_polynom autoconverted to Rational{BigInt}
+IOP capture: faulhaber_polynom autoconverted to Rational{BigInt}
 42391158276369125018901280178
 ```
 """
 function faulhaber_summation(n::T, p::Int; msg=true) where {T<:Integer}
 
-    o = faulhaber_polynomial(n, p + 1; msg)
+    o = CamiMath.faulhaber_polynomial(n, p + 1; msg)
 
     return o
 
