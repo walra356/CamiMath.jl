@@ -173,7 +173,7 @@ where
 ```math
     c_0=0,\ \ c_j=\frac{1}{p}{\binom{p}{p-j}}B_{p-j},
 ```
-with ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
+with ``j∈\{ 1,⋯\ p\}``. The ``B_{p-j}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
 Integer overflow protection (IOP): for `p > 36` the output is converted 
@@ -221,7 +221,7 @@ Faulhaber polynomial of degree `p`
     F(n,p)=\sum_{j=0}^{p}c_{j}n^{j},
 ```
 where `n` is a positive integer and the coefficients are contained in the 
-vector `c=[c_0,⋯\ c_p]` given by [`faulhaber_polynom`](@ref).
+vector ``c=[c_0,⋯\ c_p]`` given by [`faulhaber_polynom`](@ref).
 
 Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
@@ -274,7 +274,8 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math
     \sum_{k=1}^{n}k^{p}=H_{n,-p}=F(n,p+1).
 ```
-where ``F(n,p)`` is the [`faulhaber_polynomial`](@ref) of degree `p`.
+where `H_{n,-p}` is a [`harmonicNumber`](@ref)  of power `-p` and ``F(n,p)`` 
+the [`faulhaber_polynomial`](@ref) of power `p`.
 
 Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
