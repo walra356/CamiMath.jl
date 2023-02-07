@@ -102,7 +102,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
@@ -136,7 +136,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
@@ -150,7 +150,7 @@ true
 function harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
 
     str1 = "Error: harmonic numbers defined for positive integers"
-    str2 = "IOP capture: harmonicNumber_array($nmax) converted to "
+    str2 = "IOP capture: harmonicNumber_array($(nmax)) converted to "
     str2 *= "Rational{BigInt}"
 
     nmax > 0 || error(str1)
@@ -223,7 +223,7 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
     H_{n,p}=\sum_{k=1}^{n}\frac{1}{k^p}.
 ```
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```

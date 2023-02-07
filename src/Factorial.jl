@@ -12,15 +12,16 @@ The product of all *positive* integers less than or equal to `n`,
 n!=n(n-1)(n-2)⋯1.
 ```
 In addition ``0!=1`` by definition.
-For *negative* integers the factorial is zero. Integer-overflow protection 
-(IOP): for `n` > 20 the output is autoconverted to `BigInt`.
+For *negative* integers the factorial is zero. 
+Integer overflow protection (IOP): on integer overflow the output is converted 
+to Rational{BigInt}. By default the IOP capture message is activated.
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)
 true
 
 julia> bigfactorial(21)
-Warning: bigfactorial converted to BigInt
+IOP capture: bigfactorial(21) converted to BigInt
 51090942171709440000
 
 julia> bigfactorial(21; msg=false)
@@ -33,7 +34,7 @@ ERROR: OverflowError: 21 is too large to look up in the table; consider using
 """
 function bigfactorial(n::T; msg=true) where {T<:Integer}
 
-    str = "Warning: bigfactorial converted to BigInt"
+    str = "IOP capture: bigfactorial($n) converted to BigInt"
 
     T == Int || return factorial(n)
 

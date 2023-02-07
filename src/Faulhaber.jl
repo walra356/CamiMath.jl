@@ -176,7 +176,7 @@ where
 with ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
@@ -223,7 +223,7 @@ Faulhaber polynomial of degree `p`
 where `n` is a positive integer and the coefficients are contained in the 
 vector `c=[c_0,⋯\ c_p]` given by [`faulhaber_polynom`](@ref).
 
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
@@ -276,7 +276,7 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```
 where ``F(n,p)`` is the [`faulhaber_polynomial`](@ref) of degree `p`.
 
-Integer overflow protection (IOP): On integer overflow the output is converted 
+Integer overflow protection (IOP): on integer overflow the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```

@@ -55,16 +55,15 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
 with ``B_0=1`` and ``B_1=-1/2``. Starting at ``B_0`` is called the *even index 
 convention* ``(B_{2n+1}=0\ \rm{for}\ n>1)``.
 
-Integer-overflow protection (IOP): for `n > 35` the output is autoconverted to 
-`Rational{BigInt}`. By default the capture message is activated: 
-"Warning: bernoulliB converted to Rational{BigInt}".
+Integer overflow protection (IOP): on integer overflow the output is converted 
+to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
 
 julia> bernoulliB(60)
-Warning: bernoulliB converted to Rational{BigInt}
+IOP capture: bernoulliB(60) converted to Rational{BigInt}
 -1215233140483755572040304994079820246041491//56786730
 
 julia> n = 60;
@@ -102,7 +101,7 @@ true
 """
 function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 
-    str = "Warning: bernoulliB converted to Rational{BigInt}"
+    str = "IOP capture: bernoulliB($(nmax)) converted to Rational{BigInt}"
 
     n = Int(nmax)
     nc = 35
