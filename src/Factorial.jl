@@ -13,8 +13,9 @@ n!=n(n-1)(n-2)⋯1.
 ```
 In addition ``0!=1`` by definition.
 For *negative* integers the factorial is zero. 
-Integer overflow protection (IOP): on integer overflow the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+
+Integer overflow protection (IOP): for `n > 20` the output is converted to 
+Rational{BigInt}. By default the IOP capture message is activated.
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)

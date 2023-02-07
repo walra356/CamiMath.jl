@@ -55,8 +55,8 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
 with ``B_0=1`` and ``B_1=-1/2``. Starting at ``B_0`` is called the *even index 
 convention* ``(B_{2n+1}=0\ \rm{for}\ n>1)``.
 
-Integer overflow protection (IOP): on integer overflow the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+Integer overflow protection (IOP): fir `n > 35` the output is converted to 
+Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)

@@ -102,7 +102,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-Integer overflow protection (IOP): on integer overflow the output is converted 
+Integer overflow protection (IOP): for `n > 46` the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
@@ -136,7 +136,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-Integer overflow protection (IOP): on integer overflow the output is converted 
+Integer overflow protection (IOP): for `nmax > 46` the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
