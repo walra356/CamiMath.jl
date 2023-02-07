@@ -176,7 +176,7 @@ where
 with ``j∈\{ 1,⋯\ p\}``. The ``B_0,⋯\ B_{p-1}`` are Bernoulli numbers
 (but with ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
-Integer overflow protection (IOP): for `n > 36` the output is converted 
+Integer overflow protection (IOP): for `p > 36` the output is converted 
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Example:
 ```
@@ -272,7 +272,7 @@ end
 
 Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math
-    \sum_{k=1}^{n}k^{p}=F(n,p+1).
+    \sum_{k=1}^{n}k^{p}=H_{n,-p}=F(n,p+1).
 ```
 where ``F(n,p)`` is the [`faulhaber_polynomial`](@ref) of degree `p`.
 
