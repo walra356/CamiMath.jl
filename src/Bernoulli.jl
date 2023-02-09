@@ -73,6 +73,10 @@ true
 """
 function bernoulliB(n::T; msg=true) where {T<:Integer}
 
+    n ≠ 1 || return -T(1) // T(2)
+
+    iseven(n) || return T(0) // T(1)
+
     o = CamiMath.bernoulliB_array(n; msg)[end]
 
     return o
