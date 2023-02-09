@@ -53,7 +53,7 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
     B_n = - \frac{1}{n+1}\sum_{k=0}^{n-1}\frac{(n+1)!}{k!(n+1-k)}B_k,
 ```
 with ``B_0=1`` and ``B_1=-1/2``. Including ``B_0`` results in the *even index 
-convention* ``(B_{2n+1}=0\rm for $n>1)``.
+convention* ``(B_{2n+1}=0\rm\ for\ ````n>1)``.
 
 Integer overflow protection (IOP): f0r `n > 35` the output is converted to 
 Rational{BigInt}. By default the IOP capture message is activated.
