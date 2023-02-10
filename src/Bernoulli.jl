@@ -219,10 +219,10 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return convert.(Rational{T}(num, den)
+        return Rational{T}.(num, den)
     elseif n ≤ 86
         msg && T == Int && println(str)
-        return convert.(Rational{T}(num, den)
+        return Rational{T}.(num, den)
     else
         msg && T == Int && println(str)
         o = Rational{T}.(num, den)
