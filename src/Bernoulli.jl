@@ -171,7 +171,7 @@ function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
 end
 
 function bernoulliB_array1(nmax::Integer; msg=true)
-    
+
     num = (
         1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 5, 0, -691, 0, 7, 0, -3617, 0, 43867,
         0, -174611, 0, 854513, 0, -236364091, 0, 8553103, 0, -23749461029,
@@ -210,11 +210,11 @@ function bernoulliB_array1(nmax::Integer; msg=true)
 
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
-    T = n > 35 ? BigInt : type
-
-    n′ = 1 + n
+    T = nmax > 35 ? BigInt : typeof(nmax)
 
     n = convert(Int, nmax)
+
+    n′= 1 + n
 
     if n < 0
         throw(DomainError(n))
