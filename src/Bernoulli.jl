@@ -219,7 +219,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return rat[1:1+n]
+        return rat
     elseif n ≤ 86
         msg && T == Int && println(str)
         return rat[1:1+n]
