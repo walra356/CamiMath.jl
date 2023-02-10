@@ -172,7 +172,7 @@ end
 
 function bernoulliB_array1(nmax::Integer; msg=true)
 
-    num = (
+    o = (
         1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 5, 0, -691, 0, 7, 0, -3617, 0, 43867,
         0, -174611, 0, 854513, 0, -236364091, 0, 8553103, 0, -23749461029,
         0, 8615841276005, 0, -7709321041217, 0, 2577687858367,
@@ -208,7 +208,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         1, 3404310, 1, 6
     )
 
-    rat = num .// den
+    o .//= den
 
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
@@ -219,13 +219,13 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return rat
+        return o
     elseif n ≤ 86
         msg && T == Int && println(str)
-        return rat[1:1+n]
+        return o[1:1+n]
     else
         msg && T == Int && println(str)
-        return _bernoulli_BigInt(1+n, rat)
+        return _bernoulli_BigInt(1+n, o)
     end
 
 end
