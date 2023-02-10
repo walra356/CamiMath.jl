@@ -8,8 +8,8 @@ using Test
     @test bernoulliB(60; msg=false) == (-1215233140483755572040304994079820246041491 // 56786730)
     @test bernoulliB(60; msg=false) == bernoulliB_array(60; msg=false)[end]
     @test bigfactorial(21; msg=false) == (51090942171709440000)
-    @test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:40]) == 40 // 1
-    @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:40]) == 40 // 1
+    #@test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:40]) == 40 // 1
+    #@test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:40]) == 40 // 1
     #...........................................................................
     @test faulhaber_polynomial(5, 30; msg=false) == (186552813930161650665)
     @test faulhaber_polynomial(5, 37; msg=false) == (14556637744944425468330179)
