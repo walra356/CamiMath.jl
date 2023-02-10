@@ -188,7 +188,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
 
     a = num .// den
 
-    num = (
+    num1 = (
         1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 5, 0, -691, 0, 7, 0, -3617, 0, 43867,
         0, -174611, 0, 854513, 0, -236364091, 0, 8553103, 0, -23749461029,
         0, 8615841276005, 0, -7709321041217, 0, 2577687858367,
@@ -215,7 +215,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         0, 660714619417678653573847847426261496277830686653388931761996983
     )
 
-    den = (
+    den1 = (
         1, 2, 6, 1, 30, 1, 42, 1, 30, 1, 66, 1, 2730, 1, 6, 1, 510, 1, 798,
         1, 330, 1, 138, 1, 2730, 1, 6, 1, 870, 1, 14322, 1, 510, 1, 6,
         1, 1919190, 1, 6, 1, 13530, 1, 1806, 1, 690, 1, 282, 1, 46410, 1, 66,
@@ -225,7 +225,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     )
 
 
-    o = num .// den
+    o = num1 .// den1
 
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
