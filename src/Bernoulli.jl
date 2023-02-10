@@ -242,7 +242,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return a[1:1+n]
+        o = a[1:1+n]
     elseif n ≤ 86
         msg && T == Int && println(str)
         return o[1:1+n]
@@ -250,6 +250,8 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         msg && T == Int && println(str)
         return _bernoulli_BigInt(1 + n, o)
     end
+
+    return o
 
 end
 
