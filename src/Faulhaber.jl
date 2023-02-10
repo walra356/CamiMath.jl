@@ -152,7 +152,7 @@ function _faulhaber_BigInt(p::Integer)
 
     F = (B .* P) // p
 
-    F = Base.append!(F, nul // one)  # add polynomial constant: c_0 = 0//1
+    F = Base.append!(F, 0 // 1)  # add polynomial constant: c_0 = 0//1
 
     return Base.reverse(F)     # reverse to standard order
 
