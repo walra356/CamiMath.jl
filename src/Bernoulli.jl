@@ -213,20 +213,18 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     T = nmax > 35 ? BigInt : typeof(nmax)
 
     n = convert(Int, nmax)
-
-    n′= 1 + n
-
+    
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return Rational{T}.(num, den)
+        return [Rational{T}(num[i], den[i]) for i=1:1+n]
     elseif n ≤ 86
         msg && T == Int && println(str)
-        return Rational{T}.(num, den)
+        return [Rational{T}(num[i], den[i]) for i=1:1+n]
     else
         msg && T == Int && println(str)
-        o = Rational{T}.(num, den)
-        return _bernoulli_BigInt(n′, o)
+        o = [Rational{T}(num[i], den[i]) for i=1:1+n]
+        return _bernoulli_BigInt(1+n, o)
     end
 
 end
