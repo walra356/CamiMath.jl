@@ -208,23 +208,24 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         1, 3404310, 1, 6
     )
 
+    rat = num .// den
+
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
     T = nmax > 35 ? BigInt : typeof(nmax)
 
     n = convert(Int, nmax)
-    
+
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return [Rational{T}(num[i], den[i]) for i=1:1+n]
+        return rat[1:1+n]
     elseif n ≤ 86
         msg && T == Int && println(str)
-        return [Rational{T}(num[i], den[i]) for i=1:1+n]
+        return rat[1:1+n]
     else
         msg && T == Int && println(str)
-        o = [Rational{T}(num[i], den[i]) for i=1:1+n]
-        return _bernoulli_BigInt(1+n, o)
+        return _bernoulli_BigInt(1+n, rat)
     end
 
 end
