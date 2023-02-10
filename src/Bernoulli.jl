@@ -176,7 +176,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
 
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
-    o = [bernoulliB(n, msg=flase) for n=0:86] 
+    o = [bernoulliB(n, msg=false) for n=0:86] 
 
     n = Int(nmax)
     T = typeof(nmax)
