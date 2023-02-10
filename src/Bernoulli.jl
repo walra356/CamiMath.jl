@@ -162,7 +162,7 @@ function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
     if n ≤ nc
         o = T == Int ? gl_bernou_Int[1:1+n] : gl_bernou_BigInt[1:1+n]
     else
-        o = _bernoulli_BigInt(n, nc)
+        o = _bernoulli_BigInt(1+n, nc)
         msg && T == Int && println(str)
     end
 
