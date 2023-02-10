@@ -150,7 +150,7 @@ function _faulhaber_BigInt(p::T) where {T<:Integer}
 
     P = CamiMath.pascal_triangle(p)[end][1:end-1]
     #B = CamiMath.bernoulliB_array(p - one)  # was bernoulliB_array(p-1; T)
-    B = [CamiMath.bernoulliB(n) for n=0:p]
+    B = [CamiMath.bernoulliB(n) for n=0:p-1]
     B[2] = -B[2]
 
     F = (B .* P) // p
