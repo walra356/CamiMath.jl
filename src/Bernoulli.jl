@@ -172,22 +172,20 @@ end
 
 function bernoulliB_array1(nmax::Integer; msg=true)
 
-    nul = big(0)
-
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
     o = [bernoulliB(n, msg=false) for n=0:86] 
 
-    n = Int(nmax)
+    n = convert(Int, nmax)
     T = typeof(nmax)
 
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return convert.(Rational{T}, o[0:n])
+        return convert.(Rational{T}, o[1:1+n])
     elseif n ≤ 86
         msg && T == Int && println(str)
-        return o[0:n]
+        return o[1:1+n]
     else
         msg && T == Int && println(str)
         return _bernoulli_BigInt(n, nc)
