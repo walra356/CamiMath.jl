@@ -173,7 +173,7 @@ end
 
 function bernoulliB_array1(nmax::Integer; msg=true)
 
-     o = [   
+     o = ( 
         1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
         1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
         0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
@@ -181,7 +181,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
         8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
         2577687858367 // 6, 0 // 1
-     ]
+     )
 
     str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
 
