@@ -229,8 +229,6 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         return _bernoulli_BigInt(1 + n, o)
     end
 
-    return o
-
 end
 
 function _bernoulli_BigInt1(n::Int, nc::Int)
