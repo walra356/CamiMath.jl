@@ -192,7 +192,7 @@ function bernoulliB_array1(nmax::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return o[1:1+n]
+        return @view o[1:1+n]
     else
         msg && T == Int && println(str)
         return _bernoulli_BigInt(1 + n, o)
