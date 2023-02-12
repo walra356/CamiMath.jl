@@ -8,7 +8,6 @@ module CamiMath
 
 export bernoulliB
 export bernoulliB_array
-export bernoulliB_array1
 export bigfactorial
 export faulhaber_polynom
 export faulhaber_polynomial

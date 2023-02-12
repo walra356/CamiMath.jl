@@ -4,20 +4,6 @@
 #                            Bernoulli.jl
 # ==============================================================================
 
-global gl_bernou_Int = [
-    1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
-    1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
-    0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
-    -174611 // 330, 0 // 1, 854513 // 138, 0 // 1, -236364091 // 2730,
-    0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
-    8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
-    2577687858367 // 6, 0 // 1
-]
-
-# ..............................................................................
-
-global gl_bernou_BigInt = convert(Vector{Rational{BigInt}}, gl_bernou_Int)
-
 # ..............................................................................
 function _bernoulli_BigInt(n::Int, o)
 
@@ -44,9 +30,8 @@ function _bernoulli_BigInt(n::Int, o)
 end
 
 # ..............................................................................
-
 @doc raw"""
-    bernoulliB(n::T [; msg=true]) where {T<:Integer}
+    bernoulliB(n::Integer [; msg=true])
 
 Bernoulli numbers of index `n` are defined by the recurrence relation
 ```math
@@ -133,9 +118,8 @@ function bernoulliB(n::Integer; msg=true)
 end
 
 # ..............................................................................
-
 @doc raw"""
-    bernoulliB_array(nmax::T [; msg=true]) where {T<:Integer}
+    bernoulliB_array(nmax::Integer [; msg=true])
 
 Bernoulli number array ``[B_0,\cdots\ B_{nmax}]``, where `nmax` is the index of 
 the highest Bernoulli number of the array (NB.: *not* the array length).
@@ -152,28 +136,9 @@ julia>  bernoulliB(n; msg) == bernoulliB_array(n; msg)[end]
 true
 ```
 """
-function bernoulliB_array(nmax::T; msg=true) where {T<:Integer}
+function bernoulliB_array(nmax::Integer; msg=true)
 
-    str = "IOP capture: bernoulliB($(nmax)) converted to Rational{BigInt}"
-
-    n = Int(nmax)
-    nc = 35
-
-    if n ≤ nc
-        o = T == Int ? gl_bernou_Int[1:1+n] : gl_bernou_BigInt[1:1+n]
-    else
-        o = _bernoulli_BigInt(1+n, nc)
-        msg && T == Int && println(str)
-    end
-
-    return o
-
-end
-
-
-function bernoulliB_array1(nmax::Integer; msg=true)
-
-     o = ( 
+    a = [
         1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
         1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
         0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
@@ -181,43 +146,32 @@ function bernoulliB_array1(nmax::Integer; msg=true)
         0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
         8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
         2577687858367 // 6, 0 // 1
-     )
-
-    str = "IOP capture: bernoulliB_array(nmax) converted to Rational{BigInt}"
-
-    T = nmax > 35 ? BigInt : typeof(nmax)
+    ]
 
     n = convert(Int, nmax)
 
     if n < 0
-        throw(DomainError(n))
+        throw(DomainError(nmax))
     elseif n ≤ 35
-        return @view o[1:1+n]
-    else
-        msg && T == Int && println(str)
-        return _bernoulli_BigInt(1 + n, o)
-    end
-
-end
-
-function _bernoulli_BigInt1(n::Int, nc::Int)
-
-    nul = big(0)
-    one = big(1)
-
-    for m = nc+2:n+1
-        a = nul
-        if Base.isodd(m)
-            b = one
-            for j = 1:m-1
-                a -= o[j] * b
-                b *= (m + 1 - j)
-                b ÷= j                     # binomial coefficients are integers
-            end
+        T = typeof(nmax)
+    elseif n > 35
+        T = BigInt
+        if typeof(nmax) == Int
+            str = "IOP capture: "
+            str *= "bernoulliB_array($n) converted to Rational{BigInt}"
+            msg && println(str)
         end
-        Base.push!(o, a // big(m))
     end
 
-    return o
+    if n ≤ 35
+        if T == Int
+            return @view a[1:1+n]
+        else
+            b = convert(Vector{Rational{BigInt}}, a)
+            return @view b[1:1+n]
+        end
+    else
+        return [bernoulliB(big(i), msg=false) for i = 0:n]
+    end
 
 end
