@@ -263,7 +263,7 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
                 p == 8  ? Rational{T}(n8[end], d8[end]) :
                 p == 9  ? Rational{T}(n9[end], d9[end]) :
                 p == 10 ? Rational{T}(n0[end], d0[end]) :  
-                _harmonicNumber_p_BigInt(n, p)
+                _harmonicNumber_p_BigInt(nc, p)
             return _harmonicNumber_BigInt(n, nc, p, [o])
         end
     else

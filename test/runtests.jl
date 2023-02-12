@@ -17,14 +17,21 @@ using Test
     @test faulhaber_summation(3, 5) == 276
     #...........................................................................
     @test harmonicNumber(3, -5) == 276
-    @test harmonicNumber(46) == (5943339269060627227 // 1345655451257488800)
-    @test harmonicNumber(47; msg=false) == (280682601097106968469 // 63245806209101973600)
-    @test harmonicNumber(24, 2) == (187700554334941861 // 117011293467045120)
-    @test harmonicNumber(25, 2; msg=false) == (23485971550561141649 // 14626411683380640000)
-    @test harmonicNumber(2, 10) == (1025 // 1024)
-    @test harmonicNumber(2, 11; msg=false) == (2049 // 2048)
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
     @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
+    @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
+    @test sum([big(harmonicNumber(n, 1; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
+    @test sum([big(harmonicNumber(n, 2; msg=false)) for n = 1:30]) == 249434823919965027461489839 // 5424658191543895143840000
+    @test sum([big(harmonicNumber(n, 3; msg=false)) for n = 1:20]) == 946050957591455286003049 // 40049466474634102886400
+    @test sum([big(harmonicNumber(n, 4; msg=false)) for n = 1:15]) == 33970914744683670577361 // 2107930685520179520000
+    @test sum([big(harmonicNumber(n, 5; msg=false)) for n = 1:12]) == 202913008605111524948813 // 16366888723117363200000
+    @test sum([big(harmonicNumber(n, 6; msg=false)) for n = 1:10]) == 520072576088259310303 // 51219253009612800000
+    @test sum([big(harmonicNumber(n, 7; msg=false)) for n = 1:10]) == 6501704870565012768992057 // 645362587921121280000000
+    @test sum([big(harmonicNumber(n, 8; msg=false)) for n = 1:10]) == 16322500356140762610539037347 // 1626313721561225625600000000
+    @test sum([big(harmonicNumber(n, 9; msg=false)) for n = 1:10]) == 41056936708131458470001164762001 // 4098310578334288576512000000000
+    @test sum([big(harmonicNumber(n, 10; msg=false)) for n = 1:10]) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
+    @test sum([big(harmonicNumber(n, 11; msg=false)) for n = 1:10]) == 260374709040010874103433717206249507497 // 26025911496654066176281804800000000000
+    @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     #@test harmonicNumber_array(8) == [1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280]
     #@test harmonicNumber_array(big(8)) == Rational{BigInt}[1 // 1, 3 // 2, 11 // 6, 25 // 12, 137 // 60, 49 // 20, 363 // 140, 761 // 280]
     #...........................................................................
