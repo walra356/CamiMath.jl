@@ -30,9 +30,8 @@ faulhaber_summation(n::T, p::Int) where {T<:Integer}
 ## HarmonicNumber
 
 ```@docs
-harmonicNumber(n::T; msg=true) where {T<:Integer}
-harmonicNumber_array(nmax::T; msg=true) where {T<:Integer}
-harmonicNumber(n::T, p::Int; msg=true) where {T<:Integer}
+harmonicNumber(n::Integer; msg=true)
+harmonicNumber(n::Integer, p::Int; msg=true)
 ```
 
 ## Pascal triangle

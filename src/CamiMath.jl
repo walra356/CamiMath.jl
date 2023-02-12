@@ -14,7 +14,6 @@ export faulhaber_polynomial
 export faulhaber_polynomial1
 export faulhaber_summation
 export harmonicNumber
-export harmonicNumber_array
 export pascal_triangle
 export pascal_next
 
