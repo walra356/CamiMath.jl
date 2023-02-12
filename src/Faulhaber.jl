@@ -168,7 +168,7 @@ of degree `p`
    c=[c_0,⋯\ c_p]
 ```
 where ``c_0=0,\ \ c_j=\frac{1}{p}{\binom{p}{p-j}}B_{p-j}``,
-with ``j∈\{ 1,⋯\ p\}``. The ``B_{p-j}`` are [`BernoulliB`](@ref) in the 
+with ``j∈\{ 1,⋯\ p\}``. The ``B_{p-j}`` are [`bernoulliB`](@ref) in the 
 *even index convention* (but with 
 ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
