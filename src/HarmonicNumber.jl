@@ -30,7 +30,7 @@ Integer overflow protection (IOP): for `n > 46` the output is converted
 to Rational{BigInt}. By default the IOP capture message is activated.
 ### Examples:
 ```
-julia> o = harmonicNumber_array(8); println(o)
+julia> o = [harmonicNumber(n) for n=1:8]; println(o)
 Rational{Int64}[1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280]
 
 julia> harmonicNumber(46)
@@ -88,7 +88,7 @@ function harmonicNumber(n::Integer; msg=true)
     n = convert(Int, n)
 
     if n ≤ nc
-        return Rational{T}(num[n],den[n])
+        return Rational{T}(num[n], den[n])
     else
         o = [Rational{BigInt}(num[nc], den[nc])]
         return _harmonicNumber_BigInt(n, nc, o)
@@ -216,7 +216,7 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
     d8 = (1, 256, 1679616, 429981696, 167961600000000, 167961600000000)
     d9 = (1, 512, 10077696, 5159780352, 10077696000000000, 373248000000000)
     d0 = (1, 1024, 60466176, 61917364224, 604661760000000000,
-        604661760000000000) 
+        604661760000000000)
 
     no = (46, 24, 16, 12, 10, 8, 7, 6, 6, 6)
 
@@ -240,29 +240,29 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
 
         n = convert(Int, n)
         if n ≤ nc
-            o = p == 1  ? Rational{T}(n1[n], d1[n]) :
-                p == 2  ? Rational{T}(n2[n], d2[n]) :
-                p == 3  ? Rational{T}(n3[n], d3[n]) :
-                p == 4  ? Rational{T}(n4[n], d4[n]) :
-                p == 5  ? Rational{T}(n5[n], d5[n]) :
-                p == 6  ? Rational{T}(n6[n], d6[n]) :
-                p == 7  ? Rational{T}(n7[n], d7[n]) :
-                p == 8  ? Rational{T}(n8[n], d8[n]) :
-                p == 9  ? Rational{T}(n9[n], d9[n]) :
-                p == 10 ? Rational{T}(n0[n], d0[n]) : 
+            o = p == 1 ? Rational{T}(n1[n], d1[n]) :
+                p == 2 ? Rational{T}(n2[n], d2[n]) :
+                p == 3 ? Rational{T}(n3[n], d3[n]) :
+                p == 4 ? Rational{T}(n4[n], d4[n]) :
+                p == 5 ? Rational{T}(n5[n], d5[n]) :
+                p == 6 ? Rational{T}(n6[n], d6[n]) :
+                p == 7 ? Rational{T}(n7[n], d7[n]) :
+                p == 8 ? Rational{T}(n8[n], d8[n]) :
+                p == 9 ? Rational{T}(n9[n], d9[n]) :
+                p == 10 ? Rational{T}(n0[n], d0[n]) :
                 _harmonicNumber_p_BigInt(n, p)
             return o
         else
-            o = p == 1  ? Rational{T}(n1[end], d1[end]) :
-                p == 2  ? Rational{T}(n2[end], d2[end]) :
-                p == 3  ? Rational{T}(n3[end], d3[end]) :
-                p == 4  ? Rational{T}(n4[end], d4[end]) :
-                p == 5  ? Rational{T}(n5[end], d5[end]) :
-                p == 6  ? Rational{T}(n6[end], d6[end]) :
-                p == 7  ? Rational{T}(n7[end], d7[end]) :
-                p == 8  ? Rational{T}(n8[end], d8[end]) :
-                p == 9  ? Rational{T}(n9[end], d9[end]) :
-                p == 10 ? Rational{T}(n0[end], d0[end]) :  
+            o = p == 1 ? Rational{T}(n1[end], d1[end]) :
+                p == 2 ? Rational{T}(n2[end], d2[end]) :
+                p == 3 ? Rational{T}(n3[end], d3[end]) :
+                p == 4 ? Rational{T}(n4[end], d4[end]) :
+                p == 5 ? Rational{T}(n5[end], d5[end]) :
+                p == 6 ? Rational{T}(n6[end], d6[end]) :
+                p == 7 ? Rational{T}(n7[end], d7[end]) :
+                p == 8 ? Rational{T}(n8[end], d8[end]) :
+                p == 9 ? Rational{T}(n9[end], d9[end]) :
+                p == 10 ? Rational{T}(n0[end], d0[end]) :
                 _harmonicNumber_p_BigInt(nc, p)
             return _harmonicNumber_BigInt(n, nc, p, [o])
         end

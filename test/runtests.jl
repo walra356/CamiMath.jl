@@ -19,6 +19,7 @@ using Test
     @test harmonicNumber(3, -5) == 276
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
     @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
+    @test_throws DomainError harmonicNumber(-1)
     @test_throws DomainError harmonicNumber(-1, 2)
     @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum([big(harmonicNumber(n, 1; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
