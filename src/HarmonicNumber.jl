@@ -20,7 +20,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    harmonicNumber(n::T [; msg=true]) where {T<:Integer} 
+    harmonicNumber(n::Integer [; msg=true])
    
 Sum of the reciprocals of the first ``n`` natural numbers
 ```math
@@ -133,7 +133,7 @@ function _harmonicNumber_BigInt(n::Int, nc::Int, p::Int, o)
 
 end
 @doc raw"""
-    harmonicNumber(n::T, p::Int [; msg=true]) where {T<:Integer}
+    harmonicNumber(n::Integer, p::Int [; msg=true])
 
 Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
@@ -269,37 +269,5 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
     else
         return CamiMath.faulhaber_summation(n, -p; msg)
     end
-
-end
-
-
-
-
-
-
-
-
-function harmonicNumber1(n::T, p::Int; msg=true) where {T<:Integer}
-
-    str = "IOP capture: harmonicNumber($n, $p) converted to Rational{BigInt}"
-
-    n ≠ 0 || return T(0)
-    p ≠ 0 || return n
-
-    if p > 0
-        n = convert(Int, n)
-        nc = p < 11 ? length(gl_harmon_Int[p]) : p < 18 ? 4 : p < 25 ? 3 : 0
-        if (n ≤ nc) & (p < 11)
-            o = T == Int ? gl_harmon_Int[p][n] :
-                gl_harmon_BigInt[p][n]
-        else
-            o = _harmonicNumber_p_BigInt(n, nc, p)[n]
-            msg && T == Int && println(str)
-        end
-    else
-        o = faulhaber_summation(n, -p; msg)
-    end
-
-    return o
 
 end
