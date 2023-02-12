@@ -220,7 +220,7 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
 
     no = (46, 24, 16, 12, 10, 8, 7, 6, 6, 6)
 
-    n ≠ 0 || return T(0)
+    n ≠ 0 || return n
     p ≠ 0 || return n
 
     if p > 0
