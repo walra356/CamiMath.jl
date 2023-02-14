@@ -31,7 +31,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    bernoulliB(n::Integer [; msg=true])
+    bernoulliB(n::Integer; msg=true, arr=false)
 
 Bernoulli numbers of index `n` are defined by the recurrence relation
 ```math
@@ -47,12 +47,18 @@ Rational{BigInt}. By default the IOP capture message is activated.
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
 
+julia> o = bernoulliB(5; arr=true); println(o)
+Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
+
+julia> o = bernoulliB(big(5); arr=true); println(o)
+Rational{BigInt}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]
+
 julia> bernoulliB(60)
 IOP capture: bernoulliB(60) converted to Rational{BigInt}
 -1215233140483755572040304994079820246041491//56786730
 
 julia> n = 60;
-julia> bernoulliB(n) == bernoulliB_array(n)[end]             
+julia> bernoulliB(n; msg=false) == bernoulliB(n; msg=false, arr=true)[end]             
 true
 ```
 """
@@ -113,14 +119,14 @@ function bernoulliB(n::Integer; msg=true, arr=false)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        o = arr ? Rational{T}[rat[i] for i=1:n′] : 
-                  Rational{T}(rat[n′])
+        o = arr ? Rational{T}[rat[i] for i = 1:n′] :
+            Rational{T}(rat[n′])
         return o
     elseif n ≤ 86
         str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
         msg && typeof(n) == Int && println(str)
-        o = arr ? Rational{BigInt}[num[i] // den[i] for i=1:n′] : 
-                  Rational{BigInt}(num[n′], den[n′])
+        o = arr ? Rational{BigInt}[num[i] // den[i] for i = 1:n′] :
+            Rational{BigInt}(num[n′], den[n′])
         return o
         #return Rational{T}(num[n′], den[n′])
     else

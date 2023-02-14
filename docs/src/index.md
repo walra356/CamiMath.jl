@@ -11,8 +11,7 @@ Mathematics library with integer-overload protection
 ## Bernoulli number
 
 ```@docs
-bernoulliB(n::Integer; msg=true)  
-bernoulliB_array(nmax::Integer; msg=true)
+bernoulliB(n::Integer; msg=true, arr=false)
 ```
 ## Factorial
 

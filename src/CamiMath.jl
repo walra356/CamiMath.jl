@@ -7,11 +7,9 @@
 module CamiMath
 
 export bernoulliB
-export bernoulliB_array
 export bigfactorial
 export faulhaber_polynom
 export faulhaber_polynomial
-export faulhaber_polynomial1
 export faulhaber_summation
 export harmonicNumber
 export pascal_triangle
