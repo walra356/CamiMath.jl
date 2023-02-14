@@ -36,6 +36,6 @@ harmonicNumber(n::Integer, p::Int; msg=true)
 ## Pascal triangle
 
 ```@docs
-pascal_triangle(row::Integer; msg=true)
-pascal_next_row(a::Vector{Integer})
+pascal_triangle(n::Integer; msg=true)
+pascal_next(row::Vector{T}) where {T<:Integer}
 ```

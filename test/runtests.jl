@@ -44,11 +44,9 @@ using Test
     @test sum([big(harmonicNumber(n, 11; msg=false)) for n = 1:10]) == 260374709040010874103433717206249507497 // 26025911496654066176281804800000000000
     @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     #...........................................................................
-    #@test pascal_triangle(5) == [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
-    #@test pascal_next_row([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
     @test_throws DomainError pascal_triangle(-1)
     @test pascal_triangle(0) == [1]
     @test pascal_triangle(5) == [1, 5, 10, 10, 5, 1]
-    @test pascal_next_row([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
+    @test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
 
 end

@@ -4,13 +4,12 @@
 
 #...............................................................................
 @doc raw"""
-    pascal_next_row(a::Vector{T}) where {T<:Integer}
+    pascal_next(row::Vector{T}) where {T<:Integer}
 
-Next row of the Pascal triangle of binomial coefficients 
-``\binom{n}{k}`` for ``n=0,\ 1,⋯\ nmax``
+Next `row` of binomial coefficients of the Pascal triangle. 
 ### Example:
 ```
-julia> pascal_next_row([1, 4, 6, 4, 1])
+julia> pascal_next([1, 4, 6, 4, 1])
 6-element Vector{Int64}:
   1
   5
@@ -20,13 +19,13 @@ julia> pascal_next_row([1, 4, 6, 4, 1])
   1
 ```
 """
-function pascal_next_row(a::Vector{T}) where {T<:Integer}
+function pascal_next(row::Vector{T}) where {T<:Integer}
 
-    n = Base.length(a) + 1
-    o = Base.ones(eltype(a), n)
+    n = Base.length(row) + 1
+    o = Base.ones(eltype(row), n)
 
     for k = 1:n÷2
-        o[k+1] = a[k+1] + a[k]
+        o[k+1] = row[k+1] + row[k]
         o[n-k] = o[k+1]
     end
 
@@ -36,13 +35,12 @@ end
 
 #...............................................................................
 @doc raw"""
-    pascal_triangle(row::Integer; msg=true)
+    pascal_triangle(n::Integer; msg=true)
 
-Row of the Pascal triangle of binomial coefficients 
-``\binom{n}{k}`` for ``n=0,\ 1,⋯\ nmax``
+Row `n` of binomial coefficients ``\binom{n}{k}`` of the Pascal triangle. 
 ### Example:
 ```
-julia> [pascal_triangle(i) for i=0:5]
+julia> [pascal_triangle(row) for row=0:5]
 6-element Vector{Vector{Int64}}:
  [1]
  [1, 1]
@@ -52,7 +50,7 @@ julia> [pascal_triangle(i) for i=0:5]
  [1, 5, 10, 10, 5, 1]
 ```
 """
-function pascal_triangle(row::Integer; msg=true)
+function pascal_triangle(n::Integer; msg=true)
 
     o = (
         (1, 1),
@@ -98,26 +96,26 @@ function pascal_triangle(row::Integer; msg=true)
             3268760, 4457400, 5200300, 5200300, 4457400, 3268760, 2042975,
             1081575, 480700, 177100, 53130, 12650, 2300, 300, 25, 1))
 
-    n = convert(Int, row)
+    m = convert(Int, n)
 
-    T = n > 10000 ? BigInt : typeof(row)
+    T = m > 10000 ? BigInt : typeof(n)
 
-    if n < 0
-        throw(DomainError(n))
-    elseif n == 0
+    if m < 0
+        throw(DomainError(m))
+    elseif m == 0
         return [T(1)]
-    elseif n > 10001
+    elseif m > 10001
         str = "IOP capture: "
-        str *= "pascal_triangle($n) converted to Rational{BigInt}"
-        msg && typeof(row) == Int && println(str)
+        str *= "pascal_triangle($m) converted to Rational{BigInt}"
+        msg && typeof(n) == Int && println(str)
     end
 
-    if n ≤ 25
-        return collect(T.(o[n]))
+    if m ≤ 25
+        return collect(T.(o[m]))
     else
         o = collect(T.(o[25]))
-        for row = 25:n-1
-            o = pascal_next_row(o)
+        for n = 25:m-1
+            o = pascal_next(o)
         end
         return o
     end
