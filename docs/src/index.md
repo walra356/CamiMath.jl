@@ -23,9 +23,9 @@ bigfactorial(n::T; msg=true) where {T<:Integer}
 ## Faulhaber polynomial
 
 ```@docs
-faulhaber_polynom(p::T; msg=true) where {T<:Integer}
-faulhaber_polynomial(n::T, p::Int; msg=true) where {T<:Integer}
-faulhaber_summation(n::T, p::Int) where {T<:Integer}
+faulhaber_polynom(p::Integer; msg=true)
+faulhaber_polynomial(n::Integer, p::Int; msg=true)
+faulhaber_summation(n::Integer, p::Int)
 ```
 ## HarmonicNumber
 
@@ -37,6 +37,6 @@ harmonicNumber(n::Integer, p::Int; msg=true)
 ## Pascal triangle
 
 ```@docs
-pascal_triangle(nmax::T) where {T<:Integer}
-pascal_next(a::Vector{Int})
+pascal_triangle(row::Integer; msg=true)
+pascal_next(a)
 ```

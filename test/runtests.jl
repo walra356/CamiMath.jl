@@ -3,27 +3,32 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    @test bernoulliB_array(10) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]
-    @test bernoulliB_array(big(8)) == Rational{BigInt}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
     @test_throws DomainError bernoulliB(-1)
-    @test bernoulliB(34; msg=false) == 2577687858367 // 6
-    @test bernoulliB(84; msg=false) == -2024576195935290360231131160111731009989917391198090877281083932477//3404310
-    @test bernoulliB(98; msg=false) == 67908260672905495624051117546403605607342195728504487509073961249992947058239 // 6
-    @test bernoulliB(60; msg=false) == bernoulliB_array(60; msg=false)[end]
-    @test bigfactorial(21; msg=false) == (51090942171709440000)
+    @test eltype(bernoulliB(35)) == Rational{Int}
+    @test eltype(bernoulliB(big(35))) == Rational{BigInt}
+    @test bernoulliB(10; arr=true) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]
+    @test sum([Rational{BigInt}(bernoulliB(n, msg=false)) for n = 1:90]) == 17080392099538483734383296956025848377395298523292305346008923087528282372539916092669722994190437011 // 3961456982724258461775089600226385
+    @test bernoulliB(60; msg=false) == bernoulliB(60; msg=false, arr=true)[end]
+    @test bigfactorial(21; msg=false) == 51090942171709440000
     #...........................................................................
-    @test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:40]) == 40 // 1
-    @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:40]) == 40 // 1
-    @test faulhaber_polynomial(5, 30; msg=false) == (186552813930161650665)
-    @test faulhaber_polynomial(5, 37; msg=false) == (14556637744944425468330179)
+    @test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:90]) == 90 // 1
+    @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:90]) == 90 // 1
+    #...........................................................................
+
+    @test_throws DomainError faulhaber_polynomial(-1, 2)
+    @test_throws DomainError faulhaber_polynomial(1, -1)
+    @test faulhaber_polynomial(0, 2) == 0
+    @test faulhaber_polynomial(1, 0) == 0
+    @test faulhaber_polynomial(5, 30; msg=false) == 186552813930161650665
+    @test faulhaber_polynomial(5, 37; msg=false) == 14556637744944425468330179
     @test faulhaber_polynomial(3, 6) == 276
     @test faulhaber_summation(3, 5) == 276
     #...........................................................................
-    @test harmonicNumber(3, -5) == 276
-    @test typeof(harmonicNumber(12, 3)) == Rational{Int}
-    @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
     @test_throws DomainError harmonicNumber(-1)
     @test_throws DomainError harmonicNumber(-1, 2)
+    @test harmonicNumber(3, -5) == faulhaber_summation(3, 5)
+    @test typeof(harmonicNumber(12, 3)) == Rational{Int}
+    @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
     @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum([big(harmonicNumber(n, 1; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum([big(harmonicNumber(n, 2; msg=false)) for n = 1:30]) == 249434823919965027461489839 // 5424658191543895143840000
@@ -38,7 +43,11 @@ using Test
     @test sum([big(harmonicNumber(n, 11; msg=false)) for n = 1:10]) == 260374709040010874103433717206249507497 // 26025911496654066176281804800000000000
     @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     #...........................................................................
-    @test pascal_triangle(5) == [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
-    @test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
+    #@test pascal_triangle(5) == [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
+    #@test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
+    @test_throws DomainError pascal_triangle(-1)
+    @test pascal_triangle(0) == [1]
+    @test pascal_triangle(5) == [1, 5, 10, 10, 5, 1]
+    @test pascal_next((1, 4, 6, 4, 1)) == [1, 5, 10, 10, 5, 1]
 
 end

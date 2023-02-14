@@ -5,7 +5,7 @@
 # ==============================================================================
 
 # ..............................................................................
-function _bernoulli_BigInt(n::Int, o)
+function _bernoulli_BigInt(n, o)
 
     nul = big(0)
     one = big(1)
@@ -56,7 +56,7 @@ julia> bernoulliB(n) == bernoulliB_array(n)[end]
 true
 ```
 """
-function bernoulliB(n::Integer; msg=true)
+function bernoulliB(n::Integer; msg=true, arr=false)
 
     num = (
         1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 5, 0, -691, 0, 7, 0, -3617, 0, 43867,
@@ -94,7 +94,15 @@ function bernoulliB(n::Integer; msg=true)
         1, 3404310, 1, 6
     )
 
-    str = "IOP capture: bernoulliB(n) converted to Rational{BigInt}"
+    rat = (
+        1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
+        1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
+        0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
+        -174611 // 330, 0 // 1, 854513 // 138, 0 // 1, -236364091 // 2730,
+        0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
+        8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
+        2577687858367 // 6, 0 // 1
+    )
 
     T = n > 35 ? BigInt : typeof(n)
 
@@ -105,73 +113,25 @@ function bernoulliB(n::Integer; msg=true)
     if n < 0
         throw(DomainError(n))
     elseif n ≤ 35
-        return Rational{T}(num[n′], den[n′])
+        o = arr ? Rational{T}[rat[i] for i=1:n′] : 
+                  Rational{T}(rat[n′])
+        return o
     elseif n ≤ 86
+        str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
         msg && typeof(n) == Int && println(str)
-        return Rational{T}(num[n′], den[n′])
+        o = arr ? Rational{BigInt}[num[i] // den[i] for i=1:n′] : 
+                  Rational{BigInt}(num[n′], den[n′])
+        return o
+        #return Rational{T}(num[n′], den[n′])
     else
+        str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
         msg && typeof(n) == Int && println(str)
-        o = Rational{T}.(num, den)
-        return _bernoulli_BigInt(n, o)[end]
-    end
-
-end
-
-# ..............................................................................
-@doc raw"""
-    bernoulliB_array(nmax::Integer [; msg=true])
-
-Bernoulli number array ``[B_0,\cdots\ B_{nmax}]``, where `nmax` is the index of 
-the highest Bernoulli number of the array (NB.: *not* the array length).
-### Examples:
-```
-julia> o = bernoulliB_array(8); println(o)
-Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
-
-julia> o = bernoulliB_array(big(8)); println(o)
-Rational{BigInt}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1, 1//42, 0//1, -1//30]
-
-julia> n = 60; msg = false;
-julia>  bernoulliB(n; msg) == bernoulliB_array(n; msg)[end]            
-true
-```
-"""
-function bernoulliB_array(nmax::Integer; msg=true)
-
-    a = [
-        1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
-        1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
-        0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
-        -174611 // 330, 0 // 1, 854513 // 138, 0 // 1, -236364091 // 2730,
-        0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
-        8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
-        2577687858367 // 6, 0 // 1
-    ]
-
-    n = convert(Int, nmax)
-
-    if n < 0
-        throw(DomainError(nmax))
-    elseif n ≤ 35
-        T = typeof(nmax)
-    elseif n > 35
-        T = BigInt
-        if typeof(nmax) == Int
-            str = "IOP capture: "
-            str *= "bernoulliB_array($n) converted to Rational{BigInt}"
-            msg && println(str)
-        end
-    end
-
-    if n ≤ 35
-        if T == Int
-            return @view a[1:1+n]
-        else
-            b = convert(Vector{Rational{BigInt}}, a)
-            return @view b[1:1+n]
-        end
-    else
-        return [bernoulliB(big(i), msg=false) for i = 0:n]
+        #o = Rational{T}.(num, den)
+        o = Rational{BigInt}[num[i] // den[i] for i ∈ eachindex(num)]
+        o = _bernoulli_BigInt(n, o)
+        o = arr ? o : o[n′]
+        return o
+        #return _bernoulli_BigInt(n, o)[end]
     end
 
 end
