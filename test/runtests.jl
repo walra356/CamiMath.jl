@@ -9,12 +9,13 @@ using Test
     @test bernoulliB(10; arr=true) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]
     @test sum([Rational{BigInt}(bernoulliB(n, msg=false)) for n = 1:90]) == 17080392099538483734383296956025848377395298523292305346008923087528282372539916092669722994190437011 // 3961456982724258461775089600226385
     @test bernoulliB(60; msg=false) == bernoulliB(60; msg=false, arr=true)[end]
+    #...........................................................................
     @test bigfactorial(21; msg=false) == 51090942171709440000
     #...........................................................................
+    @test_throws DomainError faulhaber_polynom(-1)
     @test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:90]) == 90 // 1
     @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:90]) == 90 // 1
     #...........................................................................
-
     @test_throws DomainError faulhaber_polynomial(-1, 2)
     @test_throws DomainError faulhaber_polynomial(1, -1)
     @test faulhaber_polynomial(0, 2) == 0
@@ -44,10 +45,10 @@ using Test
     @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     #...........................................................................
     #@test pascal_triangle(5) == [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
-    #@test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
+    #@test pascal_next_row([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
     @test_throws DomainError pascal_triangle(-1)
     @test pascal_triangle(0) == [1]
     @test pascal_triangle(5) == [1, 5, 10, 10, 5, 1]
-    @test pascal_next((1, 4, 6, 4, 1)) == [1, 5, 10, 10, 5, 1]
+    @test pascal_next_row([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
 
 end

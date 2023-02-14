@@ -37,5 +37,5 @@ harmonicNumber(n::Integer, p::Int; msg=true)
 
 ```@docs
 pascal_triangle(row::Integer; msg=true)
-pascal_next(a)
+pascal_next_row(a::Vector{Integer})
 ```

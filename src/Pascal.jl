@@ -3,7 +3,24 @@
 # ==============================================================================
 
 #...............................................................................
-function pascal_next(a)
+@doc raw"""
+    pascal_next_row(a::Vector{T}) where {T<:Integer}
+
+Next row of the Pascal triangle of binomial coefficients 
+``\binom{n}{k}`` for ``n=0,\ 1,⋯\ nmax``
+### Example:
+```
+julia> pascal_next_row([1, 4, 6, 4, 1])
+6-element Vector{Int64}:
+  1
+  5
+ 10
+ 10
+  5
+  1
+```
+"""
+function pascal_next_row(a::Vector{T}) where {T<:Integer}
 
     n = Base.length(a) + 1
     o = Base.ones(eltype(a), n)
@@ -98,9 +115,9 @@ function pascal_triangle(row::Integer; msg=true)
     if n ≤ 25
         return collect(T.(o[n]))
     else
-        o = T.(o[25])
+        o = collect(T.(o[25]))
         for row = 25:n-1
-            o = pascal_next(o)
+            o = pascal_next_row(o)
         end
         return o
     end

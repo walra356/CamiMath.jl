@@ -13,7 +13,7 @@ export faulhaber_polynomial
 export faulhaber_summation
 export harmonicNumber
 export pascal_triangle
-export pascal_next
+export pascal_next_row
 
 include("Bernoulli.jl")
 include("Factorial.jl")
