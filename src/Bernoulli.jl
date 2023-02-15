@@ -31,7 +31,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    bernoulliB(n::Integer; msg=true, arr=false)
+    function bernoulliB(n::Integer [[; arr=false], msg=true])
 
 Bernoulli numbers of index `n` are defined by the recurrence relation
 ```math
@@ -40,8 +40,10 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
 with ``B_0=1`` and ``B_1=-1/2``. Including ``B_0`` results in the *even index 
 convention* ``(B_{2n+1}=0`` for ``n>1)``.
 
-Integer overflow protection (IOP): for `n > 35` the output is converted to 
-Rational{BigInt}. By default the IOP capture message is activated.
+
+`arr` : output in array format
+
+`msg` : integer-overflow protection (IOP) warning
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
@@ -62,7 +64,7 @@ julia> bernoulliB(n; msg=false) == bernoulliB(n; msg=false, arr=true)[end]
 true
 ```
 """
-function bernoulliB(n::Integer; msg=true, arr=false)
+function bernoulliB(n::Integer; arr=false, msg=true)
 
     num = (
         1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 5, 0, -691, 0, 7, 0, -3617, 0, 43867,
@@ -128,16 +130,13 @@ function bernoulliB(n::Integer; msg=true, arr=false)
         o = arr ? Rational{BigInt}[num[i] // den[i] for i = 1:n′] :
             Rational{BigInt}(num[n′], den[n′])
         return o
-        #return Rational{T}(num[n′], den[n′])
     else
         str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
         msg && typeof(n) == Int && println(str)
-        #o = Rational{T}.(num, den)
         o = Rational{BigInt}[num[i] // den[i] for i ∈ eachindex(num)]
         o = _bernoulli_BigInt(n, o)
         o = arr ? o : o[n′]
         return o
-        #return _bernoulli_BigInt(n, o)[end]
     end
 
 end

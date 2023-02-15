@@ -33,7 +33,7 @@ ERROR: OverflowError: 21 is too large to look up in the table; consider using
 `factorial(big(21))` instead
 ```
 """
-function bigfactorial(n::T; msg=true) where {T<:Integer}
+function bigfactorial(n::Integer; msg=true)
 
     str = "IOP capture: bigfactorial($n) converted to BigInt"
 

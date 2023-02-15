@@ -40,7 +40,7 @@ end
 Row `n` of binomial coefficients ``\binom{n}{k}`` of the Pascal triangle. 
 ### Example:
 ```
-julia> [pascal_triangle(row) for row=0:5]
+julia> [pascal_triangle(n) for n=0:5]
 6-element Vector{Vector{Int64}}:
  [1]
  [1, 1]

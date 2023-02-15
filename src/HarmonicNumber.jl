@@ -8,26 +8,28 @@
 function _harmonicNumber_BigInt(n::Int, nc::Int, o)
 
     one = big(1)
+    no = nc + 1 - length(o)
 
     for m = nc+1:n
-        a = o[m-nc] + one // big(m)
+        a = o[m-no] + one // big(m)
         Base.push!(o, a)
     end
 
-    return o[end]
+    return o
 
 end
 
 # ..............................................................................
 @doc raw"""
-    harmonicNumber(n::Integer [; msg=true])
+    harmonicNumber(n::Integer [[; arr=false], msg=true])
    
 Sum of the reciprocals of the first ``n`` natural numbers
 ```math
     H_n=\sum_{k=1}^{n}\frac{1}{k}.
 ```
-Integer overflow protection (IOP): for `n > 46` the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+`arr` : output in array format
+
+`msg` : integer-overflow protection (IOP) warning
 ### Examples:
 ```
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)
@@ -44,7 +46,7 @@ julia> harmonicNumber(12) == harmonicNumber(12, 1)
 true
 ```
 """
-function harmonicNumber(n::Integer; msg=true)
+function harmonicNumber(n::Integer; arr=false, msg=true)
 
     num = (
         1, 3, 11, 25, 137, 49, 363, 761, 7129, 7381, 83711, 86021, 1145993,
@@ -87,12 +89,21 @@ function harmonicNumber(n::Integer; msg=true)
 
     n = convert(Int, n)
 
-    if n ≤ nc
-        return Rational{T}(num[n], den[n])
-    else
-        o = [Rational{BigInt}(num[nc], den[nc])]
-        return _harmonicNumber_BigInt(n, nc, o)
-    end
+    if arr # ...................................................................
+        if n ≤ nc
+            return [Rational{T}(num[i] // den[i]) for i = 1:n]
+        else
+            o = [Rational{T}(num[i] // den[i]) for i = 1:nc]
+            return _harmonicNumber_BigInt(n, nc, o)
+        end
+    else # .....................................................................
+        if n ≤ nc
+            return Rational{T}(num[n], den[n])
+        else
+            o = [Rational{BigInt}(num[nc], den[nc])]
+            return _harmonicNumber_BigInt(n, nc, o)[end]
+        end
+    end # ......................................................................
 
 end
 
@@ -112,35 +123,37 @@ function _harmonicNumber_p_BigInt(n::Int, p::Int)
         Base.push!(o, b)
     end
 
-    return o[end]
+    return o
 
 end
 # ..............................................................................
 function _harmonicNumber_BigInt(n::Int, nc::Int, p::Int, o)
 
     one = big(1)
+    no = nc + 1 - length(o)
 
     for m = nc+1:n
         a = one
         for i = 1:p
             a *= big(m)
         end
-        b = o[m-nc] + one // a
+        b = o[m-no] + one // a
         Base.push!(o, b)
     end
 
-    return o[end]
+    return o
 
 end
 @doc raw"""
-    harmonicNumber(n::Integer, p::Int [; msg=true])
+    harmonicNumber(n::Integer, p::Int [[; arr=false] , msg=true])
 
 Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
     H_{n,p}=\sum_{k=1}^{n}\frac{1}{k^p}.
 ```
-Integer overflow protection (IOP): on integer overflow the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+`arr` : output in array format
+
+`msg` : integer-overflow protection (IOP) warning
 ### Examples:
 ```
 julia> harmonicNumber(46, 1)
@@ -152,9 +165,15 @@ IOP capture: harmonicNumber(47, 1) converted to Rational{BigInt}
 
 harmonicNumber(12, -3) == faulhaber_summation(12, 3)
   true
+
+julia> o = [harmonicNumber(i, 5) for i=1:4]; println(o)
+Rational{Int64}[1//1, 33//32, 8051//7776, 257875//248832]
+
+julia> o = harmonicNumber(4, 5; arr=true); println(o)
+Rational{Int64}[1//1, 33//32, 8051//7776, 257875//248832]
 ```
 """
-function harmonicNumber(n::Integer, p::Int; msg=true)
+function harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
 
     n1 = (1, 3, 11, 25, 137, 49, 363, 761, 7129, 7381, 83711, 86021, 1145993,
         1171733, 1195757, 2436559, 42142223, 14274301, 275295799, 55835135,
@@ -223,8 +242,9 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
     n ≠ 0 || return n
     p ≠ 0 || return n
 
-    if p > 0
+    if p > 0 # -----------------------------------------------------------------
         nc = p < 11 ? no[p] : p < 18 ? 4 : p < 25 ? 3 : 0
+
         if n < 0
             throw(DomainError(n))
         elseif n ≤ nc
@@ -239,35 +259,66 @@ function harmonicNumber(n::Integer, p::Int; msg=true)
         end
 
         n = convert(Int, n)
-        if n ≤ nc
-            o = p == 1 ? Rational{T}(n1[n], d1[n]) :
-                p == 2 ? Rational{T}(n2[n], d2[n]) :
-                p == 3 ? Rational{T}(n3[n], d3[n]) :
-                p == 4 ? Rational{T}(n4[n], d4[n]) :
-                p == 5 ? Rational{T}(n5[n], d5[n]) :
-                p == 6 ? Rational{T}(n6[n], d6[n]) :
-                p == 7 ? Rational{T}(n7[n], d7[n]) :
-                p == 8 ? Rational{T}(n8[n], d8[n]) :
-                p == 9 ? Rational{T}(n9[n], d9[n]) :
-                p == 10 ? Rational{T}(n0[n], d0[n]) :
-                _harmonicNumber_p_BigInt(n, p)
-            return o
-        else
-            o = p == 1 ? Rational{T}(n1[end], d1[end]) :
-                p == 2 ? Rational{T}(n2[end], d2[end]) :
-                p == 3 ? Rational{T}(n3[end], d3[end]) :
-                p == 4 ? Rational{T}(n4[end], d4[end]) :
-                p == 5 ? Rational{T}(n5[end], d5[end]) :
-                p == 6 ? Rational{T}(n6[end], d6[end]) :
-                p == 7 ? Rational{T}(n7[end], d7[end]) :
-                p == 8 ? Rational{T}(n8[end], d8[end]) :
-                p == 9 ? Rational{T}(n9[end], d9[end]) :
-                p == 10 ? Rational{T}(n0[end], d0[end]) :
-                _harmonicNumber_p_BigInt(nc, p)
-            return _harmonicNumber_BigInt(n, nc, p, [o])
-        end
-    else
+
+        if arr # ...............................................................
+            if n ≤ nc
+                o = p == 1 ? Rational{T}[n1[i] // d1[i] for i = 1:n] :
+                        p == 2 ? Rational{T}[n2[i] // d2[i] for i = 1:n] :
+                        p == 3 ? Rational{T}[n3[i] // d3[i] for i = 1:n] :
+                        p == 4 ? Rational{T}[n4[i] // d4[i] for i = 1:n] :
+                        p == 5 ? Rational{T}[n5[i] // d5[i] for i = 1:n] :
+                        p == 6 ? Rational{T}[n6[i] // d6[i] for i = 1:n] :
+                        p == 7 ? Rational{T}[n7[i] // d7[i] for i = 1:n] :
+                        p == 8 ? Rational{T}[n8[i] // d8[i] for i = 1:n] :
+                        p == 9 ? Rational{T}[n9[i] // d9[i] for i = 1:n] :
+                        p == 10 ? Rational{T}[n0[i] // d0[i] for i = 1:n] :
+                        _harmonicNumber_p_BigInt(n, p)
+                return o
+            else  
+                o = p == 1 ? Rational{T}[n1[i] // d1[i] for i = 1:nc] :
+                    p == 2 ? Rational{T}[n2[i] // d2[i] for i = 1:nc] :
+                    p == 3 ? Rational{T}[n3[i] // d3[i] for i = 1:nc] :
+                    p == 4 ? Rational{T}[n4[i] // d4[i] for i = 1:nc] :
+                    p == 5 ? Rational{T}[n5[i] // d5[i] for i = 1:nc] :
+                    p == 6 ? Rational{T}[n6[i] // d6[i] for i = 1:nc] :
+                    p == 7 ? Rational{T}[n7[i] // d7[i] for i = 1:nc] :
+                    p == 8 ? Rational{T}[n8[i] // d8[i] for i = 1:nc] :
+                    p == 9 ? Rational{T}[n9[i] // d9[i] for i = 1:nc] :
+                    p == 10 ? Rational{T}[n0[i] // d0[i] for i = 1:nc] :
+                    _harmonicNumber_p_BigInt(nc, p)
+                return _harmonicNumber_BigInt(n, nc, p, o)
+            end
+        else #..................................................................
+            if n ≤ nc
+                o = p == 1 ? Rational{T}(n1[n], d1[n]) :
+                    p == 2 ? Rational{T}(n2[n], d2[n]) :
+                    p == 3 ? Rational{T}(n3[n], d3[n]) :
+                    p == 4 ? Rational{T}(n4[n], d4[n]) :
+                    p == 5 ? Rational{T}(n5[n], d5[n]) :
+                    p == 6 ? Rational{T}(n6[n], d6[n]) :
+                    p == 7 ? Rational{T}(n7[n], d7[n]) :
+                    p == 8 ? Rational{T}(n8[n], d8[n]) :
+                    p == 9 ? Rational{T}(n9[n], d9[n]) :
+                    p == 10 ? Rational{T}(n0[n], d0[n]) :
+                    _harmonicNumber_p_BigInt(n, p)[end]
+                return o
+            else
+                o = p == 1 ? Rational{T}(n1[end], d1[end]) :
+                    p == 2 ? Rational{T}(n2[end], d2[end]) :
+                    p == 3 ? Rational{T}(n3[end], d3[end]) :
+                    p == 4 ? Rational{T}(n4[end], d4[end]) :
+                    p == 5 ? Rational{T}(n5[end], d5[end]) :
+                    p == 6 ? Rational{T}(n6[end], d6[end]) :
+                    p == 7 ? Rational{T}(n7[end], d7[end]) :
+                    p == 8 ? Rational{T}(n8[end], d8[end]) :
+                    p == 9 ? Rational{T}(n9[end], d9[end]) :
+                    p == 10 ? Rational{T}(n0[end], d0[end]) :
+                    _harmonicNumber_p_BigInt(nc, p)[end]
+                return _harmonicNumber_BigInt(n, nc, p, [o])[end]
+            end
+        end # ..................................................................
+    else # ---------------------------------------------------------------------
         return CamiMath.faulhaber_summation(n, -p; msg)
-    end
+    end  # ---------------------------------------------------------------------
 
 end

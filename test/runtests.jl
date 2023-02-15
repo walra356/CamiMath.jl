@@ -24,13 +24,15 @@ using Test
     @test faulhaber_polynomial(5, 37; msg=false) == 14556637744944425468330179
     @test faulhaber_polynomial(3, 6) == 276
     @test faulhaber_summation(3, 5) == 276
-    #...........................................................................
+    # --------------------------------------------------------------------------
     @test_throws DomainError harmonicNumber(-1)
+    @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
+    @test sum(harmonicNumber(50; arr=true, msg=false)) == 10904958651492685640759 // 60765578514627386400
+    # --------------------------------------------------------------------------
     @test_throws DomainError harmonicNumber(-1, 2)
     @test harmonicNumber(3, -5) == faulhaber_summation(3, 5)
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
     @test typeof(harmonicNumber(big(12), 3)) == Rational{BigInt}
-    @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum([big(harmonicNumber(n, 1; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum([big(harmonicNumber(n, 2; msg=false)) for n = 1:30]) == 249434823919965027461489839 // 5424658191543895143840000
     @test sum([big(harmonicNumber(n, 3; msg=false)) for n = 1:20]) == 946050957591455286003049 // 40049466474634102886400
@@ -43,7 +45,9 @@ using Test
     @test sum([big(harmonicNumber(n, 10; msg=false)) for n = 1:10]) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
     @test sum([big(harmonicNumber(n, 11; msg=false)) for n = 1:10]) == 260374709040010874103433717206249507497 // 26025911496654066176281804800000000000
     @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
-    #...........................................................................
+    @test sum(harmonicNumber(10, 10; msg=false, arr=true)) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
+    @test sum(harmonicNumber(10, 12; msg=false, arr=true)) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
+    # --------------------------------------------------------------------------
     @test_throws DomainError pascal_triangle(-1)
     @test pascal_triangle(0) == [1]
     @test pascal_triangle(5) == [1, 5, 10, 10, 5, 1]

@@ -11,7 +11,7 @@ Mathematics library with integer-overload protection
 ## Bernoulli number
 
 ```@docs
-bernoulliB(n::Integer; msg=true, arr=false)
+function bernoulliB(n::Integer; arr=false, msg=true)
 ```
 ## Factorial
 
@@ -29,8 +29,8 @@ faulhaber_summation(n::Integer, p::Int)
 ## HarmonicNumber
 
 ```@docs
-harmonicNumber(n::Integer; msg=true)
-harmonicNumber(n::Integer, p::Int; msg=true)
+harmonicNumber(n::Integer; arr=false, msg=true)
+harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
 ```
 
 ## Pascal triangle
