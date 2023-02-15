@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: MIT
 
+# author: Jook Walraven - 11-2-2023
+
 # ==============================================================================
 #                              Factorial.jl
 # ==============================================================================
@@ -14,7 +16,7 @@ n!=n(n-1)(n-2)⋯1.
 In addition ``0!=1`` by definition.
 For *negative* integers the factorial is zero. 
 
-`msg` : integer-overflow protection (IOP) activation warning (for `n > 20`) 
+`msg` : integer-overflow protection (IOP) - warning on activation  (for `n > 20`) 
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)

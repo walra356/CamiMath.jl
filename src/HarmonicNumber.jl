@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: MIT
 
+# author: Jook Walraven - 13-2-2023
+
 # ==============================================================================
 #                          harmonicNumber.jl
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#                    _harmonicNumber_p_BigInt(n)
+#            harmonicNumber(n::Integer [[; arr=false], msg=true])
 # ------------------------------------------------------------------------------
 
 function _harmonicNumber_BigInt(n::Int, nc::Int, o)
@@ -32,7 +34,8 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) activation warning (for `n` > 46)
+`msg` : integer-overflow protection (IOP) - warning on activation  
+(for `n` > 46)
 ### Examples:
 ```
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)
@@ -111,7 +114,7 @@ function harmonicNumber(n::Integer; arr=false, msg=true)
 end
 
 # ------------------------------------------------------------------------------
-#                     _harmonicNumber_p_BigInt(n, p)
+#        harmonicNumber(n::Integer, p::Int [[; arr=false] , msg=true])
 # ------------------------------------------------------------------------------
 
 function _harmonicNumber_p_BigInt(n::Int, p::Int)
@@ -159,7 +162,7 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) activation warning
+`msg` : integer-overflow protection (IOP) - warning on activation 
 ### Examples:
 ```
 julia> harmonicNumber(46, 1)

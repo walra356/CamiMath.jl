@@ -1,8 +1,14 @@
 # SPDX-License-Identifier: MIT
 
+# author: Jook Walraven - 10-2-2023
+
 # ==============================================================================
 #                            Bernoulli.jl
 # ==============================================================================
+
+# ------------------------------------------------------------------------------
+#               bernoulliB(n::Integer [[; arr=false], msg=true])
+# ------------------------------------------------------------------------------
 
 # ..............................................................................
 function _bernoulli_BigInt(n, o)
@@ -42,7 +48,7 @@ convention* ``(B_{2n+1}=0`` for ``n>1)``.
 
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) activation warning
+`msg` : integer-overflow protection (IOP) - warning on activation 
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)

@@ -1,8 +1,15 @@
+# SPDX-License-Identifier: MIT
+
+# author: Jook Walraven - 14-2-2023
+
 # ==============================================================================
-#                            Pascal.jl
+#                               Pascal.jl
 # ==============================================================================
 
-#...............................................................................
+# ------------------------------------------------------------------------------
+#            pascal_next(row::Vector{T}) where {T<:Integer}
+# ------------------------------------------------------------------------------
+
 @doc raw"""
     pascal_next(row::Vector{T}) where {T<:Integer}
 
@@ -33,11 +40,17 @@ function pascal_next(row::Vector{T}) where {T<:Integer}
 
 end
 
-#...............................................................................
+# ------------------------------------------------------------------------------
+#            pascal_triangle(n::Integer [; msg=true])
+# ------------------------------------------------------------------------------
+
 @doc raw"""
-    pascal_triangle(n::Integer; msg=true)
+    pascal_triangle(n::Integer [; msg=true])
 
 Row `n` of binomial coefficients ``\binom{n}{k}`` of the Pascal triangle. 
+
+`msg` : integer-overflow protection (IOP) - warning on activation 
+(for `n` > 10000)
 ### Example:
 ```
 julia> [pascal_triangle(n) for n=0:5]
@@ -105,7 +118,7 @@ function pascal_triangle(n::Integer; msg=true)
     elseif m == 0
         return [T(1)]
     elseif m > 10001
-        str = "IOP capture: pascal_triangle($m) converted to Rational{BigInt}"
+        str = "IOP capture: pascal_triangle($m) converted to BigInt"
         msg && typeof(n) == Int && println(str)
     end
 

@@ -1,18 +1,22 @@
 # SPDX-License-Identifier: MIT
 
+# author: Jook Walraven - 12-2-2023
+
 # ==============================================================================
 #                          Faulhaber.jl
 # ==============================================================================
+
+# ------------------------------------------------------------------------------
+#               faulhaber_polynom(p::Integer [; msg=true])
+# ------------------------------------------------------------------------------
 
 # ..............................................................................
 function _faulhaber_BigInt(p::Integer)
 
     p = big(p)
 
-    #P = CamiMath.pascal_triangle(p)[end][1:end-1]
     P = CamiMath.pascal_triangle(p)[1:end-1]
-    B = CamiMath.bernoulliB(p-1; msg=false, arr=true)
-    #B = [CamiMath.bernoulliB(n, msg=false) for n = 0:p-1]
+    B = CamiMath.bernoulliB(p - 1; msg=false, arr=true)
     B[2] = -B[2]                                # was bernoulliB_array(p-1; T)
 
     F = (B .* P) // p
@@ -25,7 +29,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    faulhaber_polynom(p::Integer; msg=true)
+    faulhaber_polynom(p::Integer [; msg=true])
 
 Vector representation of the coefficients of the [`faulhaber_polynomial`](@ref) 
 of degree `p` 
@@ -205,9 +209,12 @@ function faulhaber_polynom(p::Integer; msg=true)
 
 end
 
-# ==================== faulhaber_polynomial(n,p) ===============================
+# ------------------------------------------------------------------------------
+#               faulhaber_polynomial(n::Integer, p::Int [; msg=true])
+# ------------------------------------------------------------------------------
+
 @doc raw"""
-    faulhaber_polynomial(n::Integer, p::Int; msg=true)
+    faulhaber_polynomial(n::Integer, p::Int [; msg=true])
 
 Faulhaber polynomial of degree `p` 
 ```math
@@ -261,9 +268,12 @@ function faulhaber_polynomial(n::Integer, p::Int; msg=true)
 
 end
 
-# =================== faulhaber_summation(n,p;T) ===============================
+# ------------------------------------------------------------------------------
+#               faulhaber_summation(n::Integer, p::Int [; msg=true])
+# ------------------------------------------------------------------------------
+
 @doc raw"""
-    faulhaber_summation(n::Integer, p::Int; msg=true)
+    faulhaber_summation(n::Integer, p::Int [; msg=true])
 
 Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 ```math
