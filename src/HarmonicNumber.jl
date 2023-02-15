@@ -4,7 +4,10 @@
 #                          harmonicNumber.jl
 # ==============================================================================
 
-# ..............................................................................
+# ------------------------------------------------------------------------------
+#                    _harmonicNumber_p_BigInt(n)
+# ------------------------------------------------------------------------------
+
 function _harmonicNumber_BigInt(n::Int, nc::Int, o)
 
     one = big(1)
@@ -107,7 +110,10 @@ function harmonicNumber(n::Integer; arr=false, msg=true)
 
 end
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
+#                     _harmonicNumber_p_BigInt(n, p)
+# ------------------------------------------------------------------------------
+
 function _harmonicNumber_p_BigInt(n::Int, p::Int)
 
     one = big(1)
@@ -274,7 +280,7 @@ function harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
                     p == 10 ? Rational{T}[n0[i] // d0[i] for i = 1:n] :
                     _harmonicNumber_p_BigInt(n, p)
                 return o
-            else  
+            else
                 o = p == 1 ? Rational{T}[n1[i] // d1[i] for i = 1:nc] :
                     p == 2 ? Rational{T}[n2[i] // d2[i] for i = 1:nc] :
                     p == 3 ? Rational{T}[n3[i] // d3[i] for i = 1:nc] :

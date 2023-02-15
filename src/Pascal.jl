@@ -105,8 +105,7 @@ function pascal_triangle(n::Integer; msg=true)
     elseif m == 0
         return [T(1)]
     elseif m > 10001
-        str = "IOP capture: "
-        str *= "pascal_triangle($m) converted to Rational{BigInt}"
+        str = "IOP capture: pascal_triangle($m) converted to Rational{BigInt}"
         msg && typeof(n) == Int && println(str)
     end
 

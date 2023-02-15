@@ -26,6 +26,8 @@ using Test
     @test faulhaber_summation(3, 5) == 276
     # --------------------------------------------------------------------------
     @test_throws DomainError harmonicNumber(-1)
+    @test sum([harmonicNumber(big(n)) for n = 1:46]) == 217436794888004994869 // 1345655451257488800
+    @test sum(harmonicNumber(big(46); arr=true)) == 217436794888004994869 // 1345655451257488800
     @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum(harmonicNumber(50; arr=true, msg=false)) == 10904958651492685640759 // 60765578514627386400
     # --------------------------------------------------------------------------
@@ -45,8 +47,8 @@ using Test
     @test sum([big(harmonicNumber(n, 10; msg=false)) for n = 1:10]) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
     @test sum([big(harmonicNumber(n, 11; msg=false)) for n = 1:10]) == 260374709040010874103433717206249507497 // 26025911496654066176281804800000000000
     @test sum([big(harmonicNumber(n, 12; msg=false)) for n = 1:10]) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
-    @test sum(harmonicNumber(6, 10; arr=true)) == 3630965833785900323//604661760000000000
-    @test sum(harmonicNumber(4, 12; msg=false, arr=true)) == 35670966225905//8916100448256
+    @test sum(harmonicNumber(6, 10; arr=true)) == 3630965833785900323 // 604661760000000000
+    @test sum(harmonicNumber(4, 12; msg=false, arr=true)) == 35670966225905 // 8916100448256
     @test sum(harmonicNumber(10, 10; msg=false, arr=true)) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
     @test sum(harmonicNumber(10, 12; msg=false, arr=true)) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     # --------------------------------------------------------------------------
