@@ -1,6 +1,6 @@
 # CamiMath.jl
 
-Mathematics library with integer-overload protection
+Mathematics library with integer-overload protection (IOP)
 
 ---
 ## Table of contents
@@ -16,7 +16,7 @@ function bernoulliB(n::Integer; arr=false, msg=true)
 ## Factorial
 
 ```@docs
-bigfactorial(n::T; msg=true) where {T<:Integer}
+bigfactorial(n::Integer; msg=true)
 ```
 
 ## Faulhaber polynomial

@@ -14,8 +14,7 @@ n!=n(n-1)(n-2)⋯1.
 In addition ``0!=1`` by definition.
 For *negative* integers the factorial is zero. 
 
-Integer overflow protection (IOP): for `n > 20` the output is converted to 
-Rational{BigInt}. By default the IOP capture message is activated.
+`msg` : integer-overflow protection (IOP) activation warning (for `n > 20`) 
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)
@@ -37,7 +36,7 @@ function bigfactorial(n::Integer; msg=true)
 
     str = "IOP capture: bigfactorial($n) converted to BigInt"
 
-    T == Int || return factorial(n)
+    typeof(n) == Int || return factorial(n)
 
     n = Int(n)
     nc = 20

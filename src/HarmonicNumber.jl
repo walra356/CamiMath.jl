@@ -29,7 +29,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 ```
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) warning
+`msg` : integer-overflow protection (IOP) activation warning (for `n` > 46)
 ### Examples:
 ```
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)
@@ -153,7 +153,7 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) warning
+`msg` : integer-overflow protection (IOP) activation warning
 ### Examples:
 ```
 julia> harmonicNumber(46, 1)

@@ -40,10 +40,9 @@ Bernoulli numbers of index `n` are defined by the recurrence relation
 with ``B_0=1`` and ``B_1=-1/2``. Including ``B_0`` results in the *even index 
 convention* ``(B_{2n+1}=0`` for ``n>1)``.
 
-
 `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) warning
+`msg` : integer-overflow protection (IOP) activation warning
 ### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
