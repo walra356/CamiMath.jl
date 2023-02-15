@@ -11,7 +11,7 @@ Mathematics library with integer-overload protection (IOP)
 ## Bernoulli number
 
 ```@docs
-function bernoulliB(n::Integer; arr=false, msg=true)
+bernoulliB(n::Integer; arr=false, msg=true)
 ```
 ## Factorial
 

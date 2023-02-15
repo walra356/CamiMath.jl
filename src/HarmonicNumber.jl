@@ -263,16 +263,16 @@ function harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
         if arr # ...............................................................
             if n ≤ nc
                 o = p == 1 ? Rational{T}[n1[i] // d1[i] for i = 1:n] :
-                        p == 2 ? Rational{T}[n2[i] // d2[i] for i = 1:n] :
-                        p == 3 ? Rational{T}[n3[i] // d3[i] for i = 1:n] :
-                        p == 4 ? Rational{T}[n4[i] // d4[i] for i = 1:n] :
-                        p == 5 ? Rational{T}[n5[i] // d5[i] for i = 1:n] :
-                        p == 6 ? Rational{T}[n6[i] // d6[i] for i = 1:n] :
-                        p == 7 ? Rational{T}[n7[i] // d7[i] for i = 1:n] :
-                        p == 8 ? Rational{T}[n8[i] // d8[i] for i = 1:n] :
-                        p == 9 ? Rational{T}[n9[i] // d9[i] for i = 1:n] :
-                        p == 10 ? Rational{T}[n0[i] // d0[i] for i = 1:n] :
-                        _harmonicNumber_p_BigInt(n, p)
+                    p == 2 ? Rational{T}[n2[i] // d2[i] for i = 1:n] :
+                    p == 3 ? Rational{T}[n3[i] // d3[i] for i = 1:n] :
+                    p == 4 ? Rational{T}[n4[i] // d4[i] for i = 1:n] :
+                    p == 5 ? Rational{T}[n5[i] // d5[i] for i = 1:n] :
+                    p == 6 ? Rational{T}[n6[i] // d6[i] for i = 1:n] :
+                    p == 7 ? Rational{T}[n7[i] // d7[i] for i = 1:n] :
+                    p == 8 ? Rational{T}[n8[i] // d8[i] for i = 1:n] :
+                    p == 9 ? Rational{T}[n9[i] // d9[i] for i = 1:n] :
+                    p == 10 ? Rational{T}[n0[i] // d0[i] for i = 1:n] :
+                    _harmonicNumber_p_BigInt(n, p)
                 return o
             else  
                 o = p == 1 ? Rational{T}[n1[i] // d1[i] for i = 1:nc] :
