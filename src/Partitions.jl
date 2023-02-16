@@ -8,12 +8,13 @@
 
 # ------------------------------------------------------------------------------
 #            fibonacci(n::Integer [[; arr=false], msg=true])
-# ------------------------------------------------------------------------------# ==================================== _canonical_partition(n, m) =======================
+# ------------------------------------------------------------------------------
 
 function _canonical_partition(n::Int, m::Int)
 
     o = Base.fill(m, Base.cld(n, m))           # init partition
-    o[Base.cld(n, m)] = ((n % m) ≠ 0 ? n % m : m)     # adjust last element of partition
+    o[Base.cld(n, m)] = ((n % m) ≠ 0 ? n % m : m) 
+                                            # adjust last element of partition
 
     return o
 
