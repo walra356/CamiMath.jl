@@ -46,9 +46,7 @@ end
 
 function _partition_count(n::Int, k::Int)
 
-    (n < 0) | (k < 0) | (k > n) ? 0 :
-    (k == n) | (k == 1) ? 1 :
-    _partition_count(n - k, k) + _partition_count(n - 1, k - 1)
+    (n < 0) | (k < 0) | (k > n) ? 0 : (k == n) | (k == 1) ? 1 : _partition_count(n - k, k) + _partition_count(n - 1, k - 1)
 
 end
 
