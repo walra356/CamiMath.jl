@@ -121,7 +121,8 @@ function pascal_triangle(n::Integer; arr=false, msg=true)
 
     nc = 25
 
-    T = n > 10000 ? BigInt : typeof(n)
+    U = typeof(n)
+    T = n > 10000 ? BigInt : U
 
     n = convert(Int, n)
 
@@ -131,7 +132,7 @@ function pascal_triangle(n::Integer; arr=false, msg=true)
         return [T(1)]
     elseif n > nc
         str = "IOP capture: pascal_triangle($n) converted to BigInt"
-        msg && n > 10000 && T == Int && println(str)
+        msg && n > 10000 && U ≠ BigInt && println(str)
     end
 
     if arr

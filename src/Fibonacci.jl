@@ -32,25 +32,22 @@ the sum of the two preceding ones,
     F_n = F_{n-1}+F_{n-2}.
 ```
 with ``F_1=1`` and ``F_0=0``. 
-Integer-overflow protection: for `n > 92` the output is autoconverted to BigInt. 
-By default the capture message is activated: "Warning: fibonacciF autoconverted to BigInt". 
+
+`arr` : output full Pascal triangle
+
+`msg` : integer-overflow protection (IOP) - warning on activation 
+(for `n` > 92)
 #### Example:
 ```
-julia> fibonacciF_array(20)
-21-element Vector{Int64}:
-   0
-   1
-   1
-   2
-   3
-   5
-   ⋮
-1597
-2584
-4181
-julia> fibonacciF(100)
-Warning: fibonacciF autoconverted to BigInt
-354224848179261915075
+julia> fibonacci(92)
+7540113804746346429
+
+julia> fibonacci(93)
+IOP capture: fibonaci(93) converted to BigInt
+12200160415121876738
+
+julia> o = fibonacci(10; arr=true); println(o)
+[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ```
 """
 function fibonacci(n::Integer; arr=false, msg=true)
@@ -77,7 +74,8 @@ function fibonacci(n::Integer; arr=false, msg=true)
 
     nc = 92
 
-    T = n > nc ? BigInt : typeof(n)
+    U = typeof(n)
+    T = n > nc ? BigInt : U
 
     n = convert(Int, n)
 
@@ -87,7 +85,7 @@ function fibonacci(n::Integer; arr=false, msg=true)
         return [T(0)]
     elseif n > nc
         str = "IOP capture: fibonaci($n) converted to BigInt"
-        msg && T == Int && println(str)
+        msg && U ≠ BigInt && println(str)
     end
 
     if arr # -------------------------------------------------------------------

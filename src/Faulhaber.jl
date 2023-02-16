@@ -194,7 +194,8 @@ function faulhaber_polynom(p::Integer; msg=true)
             0 // 1, 35 // 12, 1 // 2, 1 // 36)
     )
 
-    T = p > 36 ? BigInt : typeof(p)
+    U = typeof(p)
+    T = p > 36 ? BigInt : U
 
     if p < 0
         throw(DomainError(p))
@@ -203,7 +204,7 @@ function faulhaber_polynom(p::Integer; msg=true)
     else
         str = "IOP capture: "
         str *= "faulhaber_polynomial($p) converted to Rational{BigInt}"
-        msg && typeof(p) == Int && println(str)
+        msg && U ≠ BigInt && println(str)
         return _faulhaber_BigInt(p)
     end
 

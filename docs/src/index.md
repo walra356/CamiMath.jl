@@ -42,6 +42,6 @@ fibonacci(n::Integer; arr=false, msg=true)
 ## Pascal triangle
 
 ```@docs
-pascal_triangle(n::Integer; msg=true)
 pascal_triangle(n::Integer; arr=false, msg=true)
+pascal_next(a)
 ```

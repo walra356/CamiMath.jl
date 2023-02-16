@@ -57,7 +57,7 @@ using Test
     @test typeof(fibonacci(92)) == Int
     @test typeof(fibonacci(99; msg=false)) == BigInt
     sum(fibonacci(92; arr=true)) == sum([fibonacci(i) for i = 1:92])
-    @test sum(fibonacci(big(99); arr=true)) == sum([big(fibonacci(i)) for i = 1:99])
+    @test sum(fibonacci(big(99); arr=true)) == sum([big(fibonacci(i; msg=false)) for i = 1:99])
     # --------------------------------------------------------------------------
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
