@@ -37,7 +37,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    function bernoulliB(n::Integer [[; arr=false], msg=true])
+    bernoulliB(n::Integer [[; arr=false], msg=true])
 
 Bernoulli numbers of index `n` are defined by the recurrence relation
 ```math

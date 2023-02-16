@@ -26,6 +26,7 @@ faulhaber_polynom(p::Integer; msg=true)
 faulhaber_polynomial(n::Integer, p::Int; msg=true)
 faulhaber_summation(n::Integer, p::Int)
 ```
+
 ## HarmonicNumber
 
 ```@docs
