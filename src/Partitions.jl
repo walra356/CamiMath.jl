@@ -23,8 +23,9 @@ end
 @doc raw"""
     canonical_partitions(n::Int, [[[m=0]; header=true,] reverse=true])
 
-The canonical partition in integers of the integer n
-header=true : unit partition included in output
+Canonical partition of `n` in parts of maximum size `m` (`m` = 0 for any size)
+
+`header` : unit partition included in output
 #### Examples:
 ```
 julia> canonical_partitions(6; header=true, reverse=false)
@@ -53,6 +54,12 @@ julia> canonical_partitions(6)
  [4, 2]
  [5, 1]
  [6]
+
+julia> o = canonical_partitions(9, 2); println(o)
+[2, 2, 2, 2, 1]
+
+julia> o = canonical_partitions(9, 3); println(o)
+[3, 3, 3]
 ```
 """
 function canonical_partitions(n::Int, m=0; header=true, reverse=true)
