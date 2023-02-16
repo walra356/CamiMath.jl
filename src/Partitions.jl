@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: MIT
 
-# author: Jook Walraven - 16-2-2023
+# author: Jook Walraven - 17-2-2023
 
 # ==============================================================================
-#                               Partitions.jl
+#                             Partitions.jl
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#            fibonacci(n::Integer [[; arr=false], msg=true])
+#     canonical_partitions(n::Int, [[[m=0]; header=true,] reverse=true])
 # ------------------------------------------------------------------------------
 
 function _canonical_partition(n::Int, m::Int)
@@ -84,6 +84,10 @@ function canonical_partitions(n::Int, m=0; header=true, reverse=true)
 
 end
 
+# ------------------------------------------------------------------------------
+#      integer_partitions(n [[[,m]; transpose=false], count=false])
+# ------------------------------------------------------------------------------
+
 function _partition_count(n::Int, k::Int)
 
     o = (n < 0) | (k < 0) | (k > n) ? 0 :
@@ -94,6 +98,7 @@ function _partition_count(n::Int, k::Int)
 
 end
 
+# ..............................................................................
 function _partition(a::Vector{Int}, n::Int, i::Int, cp::Vector{Vector{Vector{Int}}})
 
     o = a[1:i-1]
@@ -106,6 +111,7 @@ function _partition(a::Vector{Int}, n::Int, i::Int, cp::Vector{Vector{Vector{Int
 
 end
 
+# ..............................................................................
 function _restricted_partitions(o::Vector{Int}, n::Int, np::Int, cp::Vector{Vector{Vector{Int}}})
 
     oo = [o]
@@ -119,6 +125,7 @@ function _restricted_partitions(o::Vector{Int}, n::Int, np::Int, cp::Vector{Vect
 
 end
 
+# ..............................................................................
 @doc raw"""
     integer_partitions(n [[[,m]; transpose=false], count=false])
 

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-# author: Jook Walraven - 15-2-2023
+# author: Jook Walraven - 16-2-2023
 
 # ==============================================================================
 #                               Fibonacci.jl
