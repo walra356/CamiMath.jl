@@ -61,6 +61,7 @@ using Test
     # --------------------------------------------------------------------------
     @test canonical_partitions(7, 3) == [3, 3, 1]
     @test integer_partitions(7, 4; transpose=true) == [[2, 2, 2, 1], [3, 2, 1, 1], [4, 1, 1, 1]]
+    @test integer_partitions(5) == [[1, 1, 1, 1, 1], [2, 2, 1], [2, 1, 1, 1], [3, 2], [3, 1, 1], [4, 1], [5]]
 
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
