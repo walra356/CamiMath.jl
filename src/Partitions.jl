@@ -13,8 +13,8 @@
 function _canonical_partition(n::Int, m::Int)
 
     o = Base.fill(m, Base.cld(n, m))           # init partition
-    o[Base.cld(n, m)] = ((n % m) ≠ 0 ? n % m : m) 
-                                            # adjust last element of partition
+    o[Base.cld(n, m)] = ((n % m) ≠ 0 ? n % m : m)
+    # adjust last element of partition
 
     return o
 
@@ -110,8 +110,8 @@ end
 @doc raw"""
     integer_partitions(n [[[,m]; transpose=false], count=false])
 
-`default``              : The integer partitions of n
-`count`           : The number of integer partitions of n
+`default`                      : The integer partitions of n
+`count`                        : The number of integer partitions of n
 `transpose` = `false` (`m` > 0): partitions restricted to maximum part m
             = `true`  (`m` > 0): partitions restricted to maximum length m
 definitions:
