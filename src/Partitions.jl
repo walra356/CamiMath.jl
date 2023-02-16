@@ -21,7 +21,7 @@ function _canonical_partition(n::Int, m::Int)
 end
 
 @doc raw"""
-    canonical_partitions(n [[; header=false], reverse=true])
+    canonical_partitions(n::Int, [[[m=0]; header=true,] reverse=true])
 
 The canonical partition in integers of the integer n
 header=true : unit partition included in output
@@ -59,16 +59,18 @@ function canonical_partitions(n::Int, m=0; header=true, reverse=true)
 
     h = header ? n : n - 1
 
-    if m == 0
+    if m < 0
+        throw(DomainError(m))
+    elseif m == 0
         if reverse
             o = [_canonical_partition(n, m) for m = 1:h]
         else
             o = [_canonical_partition(n, m) for m = h:-1:1]
         end
-    elseif 0 < m <= n
+    elseif 0 < m ≤ n
         o = _canonical_partition(n, m)
     else
-        o = nothing
+        throw(DomainError(m))
     end
 
     return o
