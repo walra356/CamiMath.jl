@@ -39,6 +39,13 @@ harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
 fibonacci(n::Integer; arr=false, msg=true)
 ```
 
+## Integer partition
+
+```docs
+canonical_partitions(n::Int, m=0; header=true, reverse=true)
+integer_partitions(n::Int, m=0; transpose=false, count=false)
+```
+
 ## Pascal triangle
 
 ```@docs

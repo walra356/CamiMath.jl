@@ -13,6 +13,7 @@ export faulhaber_polynomial
 export faulhaber_summation
 export fibonacci
 export harmonicNumber
+export integer_partitions
 export pascal_triangle
 export pascal_next
 
@@ -21,6 +22,7 @@ include("Factorial.jl")
 include("Faulhaber.jl")
 include("Fibonacci.jl")
 include("HarmonicNumber.jl")
+include("Partitions.jl")
 include("Pascal.jl")
 
 end
