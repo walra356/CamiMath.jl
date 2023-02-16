@@ -42,7 +42,7 @@ fibonacci(n::Integer; arr=false, msg=true)
 
 ## Integer partitioning
 
-```docs
+```@docs
 canonical_partitions(n::Int, m=0; header=true, reverse=true)
 integer_partitions(n::Int, m=0; transpose=false, count=false)
 ```
