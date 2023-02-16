@@ -13,6 +13,7 @@ export faulhaber_polynomial
 export faulhaber_summation
 export fibonacci
 export harmonicNumber
+export canonical_partitions
 export integer_partitions
 export pascal_triangle
 export pascal_next
