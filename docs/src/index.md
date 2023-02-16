@@ -33,9 +33,15 @@ harmonicNumber(n::Integer; arr=false, msg=true)
 harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
 ```
 
+## Fibonacci number
+
+```@docs
+fibonacci(n::Integer; arr=false, msg=true)
+```
+
 ## Pascal triangle
 
 ```@docs
 pascal_triangle(n::Integer; msg=true)
-pascal_next(row::Vector{T}) where {T<:Integer}
+pascal_triangle(n::Integer; arr=false, msg=true)
 ```

@@ -15,20 +15,20 @@ function _bernoulli_BigInt(n, o)
 
     nul = big(0)
     one = big(1)
-    no = length(o)
-    o = [o[n] for n = 1:no]    # transform tuple to array
+    l = length(o)
+    o = [o[n] for n = 1:l]    # transform tuple to array
 
-    for m = no+1:n+1
+    for k = l+1:n+1
         a = nul
-        if Base.isodd(m)
+        if Base.isodd(k)
             b = one
-            for j = 1:m-1
+            for j = 1:k-1
                 a -= o[j] * b
-                b *= (m + 1 - j)
+                b *= (k + 1 - j)
                 b ÷= j                     # binomial coefficients are integers
             end
         end
-        Base.push!(o, a // big(m))
+        Base.push!(o, a // big(k))
     end
 
     return o

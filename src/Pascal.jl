@@ -7,11 +7,11 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#            pascal_next(row::Vector{T}) where {T<:Integer}
+#                           pascal_next(row)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    pascal_next(row::Vector{T}) where {T<:Integer}
+    pascal_next(row)
 
 Next `row` of binomial coefficients of the Pascal triangle. 
 ### Example:
@@ -26,13 +26,13 @@ julia> pascal_next([1, 4, 6, 4, 1])
   1
 ```
 """
-function pascal_next(row::Vector{T}) where {T<:Integer}
+function pascal_next(a)
 
-    n = Base.length(row) + 1
-    o = Base.ones(eltype(row), n)
+    n = Base.length(a) + 1
+    o = Base.ones(eltype(a), n)
 
     for k = 1:n÷2
-        o[k+1] = row[k+1] + row[k]
+        o[k+1] = a[k+1] + a[k]
         o[n-k] = o[k+1]
     end
 
@@ -41,13 +41,15 @@ function pascal_next(row::Vector{T}) where {T<:Integer}
 end
 
 # ------------------------------------------------------------------------------
-#            pascal_triangle(n::Integer [; msg=true])
+#           pascal_triangle(n::Integer [[; arr=false], msg=true])
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    pascal_triangle(n::Integer [; msg=true])
+    pascal_triangle(n::Integer [[; arr=false], msg=true])
 
-Row `n` of binomial coefficients ``\binom{n}{k}`` of the Pascal triangle. 
+Row `n` of Pascal triangle, ``[\binom{n}{1},\cdots\ \binom{n}{n}]``
+
+`arr` : output full Pascal triangle
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
 (for `n` > 10000)
@@ -61,9 +63,17 @@ julia> [pascal_triangle(n) for n=0:5]
  [1, 3, 3, 1]
  [1, 4, 6, 4, 1]
  [1, 5, 10, 10, 5, 1]
+
+julia> pascal_triangle(5; arr=true)
+5-element Vector{Vector{Int64}}:
+ [1, 1]
+ [1, 2, 1]
+ [1, 3, 3, 1]
+ [1, 4, 6, 4, 1]
+ [1, 5, 10, 10, 5, 1]
 ```
 """
-function pascal_triangle(n::Integer; msg=true)
+function pascal_triangle(n::Integer; arr=false, msg=true)
 
     o = (
         (1, 1),
@@ -109,27 +119,42 @@ function pascal_triangle(n::Integer; msg=true)
             3268760, 4457400, 5200300, 5200300, 4457400, 3268760, 2042975,
             1081575, 480700, 177100, 53130, 12650, 2300, 300, 25, 1))
 
-    m = convert(Int, n)
+    nc = 25
 
-    T = m > 10000 ? BigInt : typeof(n)
+    T = n > 10000 ? BigInt : typeof(n)
 
-    if m < 0
-        throw(DomainError(m))
-    elseif m == 0
+    n = convert(Int, n)
+
+    if n < 0
+        throw(DomainError(n))
+    elseif n == 0
         return [T(1)]
-    elseif m > 10001
-        str = "IOP capture: pascal_triangle($m) converted to BigInt"
-        msg && typeof(n) == Int && println(str)
+    elseif n > 10000
+        str = "IOP capture: pascal_triangle($n) converted to BigInt"
+        msg && T == Int && println(str)
     end
 
-    if m ≤ 25
-        return collect(T.(o[m]))
-    else
-        o = collect(T.(o[25]))
-        for n = 25:m-1
-            o = pascal_next(o)
+    if arr
+        if n ≤ nc
+            return collect(collect.(T, o))[1:n]
+        else
+            o = collect(collect.(T, o))
+            for i = 1:n-nc
+                a = pascal_next(o[end])
+                o = push!(o, a)
+            end
+            return o
         end
-        return o
+    else
+        if n ≤ nc
+            return collect(T, o[n])
+        else
+            o = collect(T, o[nc])
+            for i = 1:n-nc
+                o = pascal_next(o)
+            end
+            return o
+        end
     end
 
 end

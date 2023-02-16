@@ -52,9 +52,19 @@ using Test
     @test sum(harmonicNumber(10, 10; msg=false, arr=true)) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
     @test sum(harmonicNumber(10, 12; msg=false, arr=true)) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
     # --------------------------------------------------------------------------
+    @test_throws DomainError fibonacci(-1)
+    @test fibonacci(0) == [0]
+    @test typeof(fibonacci(92)) == Int
+    @test typeof(fibonacci(99; msg=false)) == BigInt
+    sum(fibonacci(92; arr=true)) == sum([fibonacci(i) for i = 1:92])
+    @test sum(fibonacci(big(99); arr=true)) == sum([big(fibonacci(i)) for i = 1:99])
+    # --------------------------------------------------------------------------
     @test_throws DomainError pascal_triangle(-1)
+    @test typeof(pascal_triangle(50)) == Vector{Int}
     @test pascal_triangle(0) == [1]
     @test pascal_triangle(5) == [1, 5, 10, 10, 5, 1]
     @test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
+    @test sum(sum.(pascal_triangle(5; arr=true, msg=false))) == 62
+    @test sum(sum.(pascal_triangle(30; arr=true, msg=false))) == 2147483646
 
 end

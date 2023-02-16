@@ -96,7 +96,7 @@ function harmonicNumber(n::Integer; arr=false, msg=true)
     n = convert(Int, n)
 
     if arr # ...................................................................
-        if n ≤ nc
+                if n ≤ nc
             return [Rational{T}(num[i] // den[i]) for i = 1:n]
         else
             o = [Rational{T}(num[i] // den[i]) for i = 1:nc]
