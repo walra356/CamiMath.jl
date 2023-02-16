@@ -9,6 +9,7 @@ CamiXon = "e90a53f3-3599-4ebe-999f-6f75af03d43f"
 
 [compat]
 BenchmarkTools = "1"
+CamiXon = "1"
 julia = "1"
 
 [extras]
