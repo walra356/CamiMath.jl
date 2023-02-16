@@ -129,9 +129,9 @@ function pascal_triangle(n::Integer; arr=false, msg=true)
         throw(DomainError(n))
     elseif n == 0
         return [T(1)]
-    elseif n > 10000
+    elseif n > nc
         str = "IOP capture: pascal_triangle($n) converted to BigInt"
-        msg && T == Int && println(str)
+        msg && n > 10000 && T == Int && println(str)
     end
 
     if arr
