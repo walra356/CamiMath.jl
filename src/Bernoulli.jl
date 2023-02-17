@@ -49,7 +49,7 @@ convention* ``(B_{2n+1}=0`` for ``n>1)``.
 `arr` : output in array format
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
-### Examples:
+#### Examples:
 ```
 julia> o = [bernoulliB(n) for n=0:5]; println(o)
 Rational{Int64}[1//1, -1//2, 1//6, 0//1, -1//30, 0//1]

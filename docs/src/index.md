@@ -14,7 +14,7 @@ Mathematics library with integer-overload protection (IOP)
 bernoulliB(n::Integer; arr=false, msg=true)
 ```
 
-## Rational divisor normalization
+## Divisor - rational normalization
 ```@docs
 normalize_rationals(v::Vector{Rational{T}}) where {T<:Integer}
 divisor(v::Vector{Rational{T}}) where {T<:Integer}
@@ -60,4 +60,10 @@ integer_partitions(n::Int, m=0; transpose=false, count=false)
 ```@docs
 pascal_triangle(n::Integer; arr=false, msg=true)
 pascal_next(a)
+```
+
+## Pochhammer product
+
+```@docs
+pochhammer(x::T, p::Int) where {T<:Real}
 ```

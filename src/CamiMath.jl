@@ -21,6 +21,7 @@ export normalize_rationals
 export numerators
 export pascal_triangle
 export pascal_next
+export pochhammer
 
 include("Bernoulli.jl")
 include("Divisor.jl")
@@ -29,6 +30,7 @@ include("Faulhaber.jl")
 include("Fibonacci.jl")
 include("HarmonicNumber.jl")
 include("Partition.jl")
+Include("Pochhammer.jl")
 include("Pascal.jl")
 
 end

@@ -36,7 +36,7 @@ with ``F_1=1`` and ``F_0=0``.
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
 (for `n` > 92)
-#### Example:
+#### Examples:
 ```
 julia> fibonacci(92)
 7540113804746346429

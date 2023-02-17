@@ -14,7 +14,7 @@
     pascal_next(row)
 
 Next `row` of binomial coefficients of the Pascal triangle. 
-### Example:
+#### Example:
 ```
 julia> pascal_next([1, 4, 6, 4, 1])
 6-element Vector{Int64}:
@@ -53,7 +53,7 @@ Row `n` of Pascal triangle, ``[\binom{n}{1},\cdots\ \binom{n}{n}]``
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
 (for `n` > 10000)
-### Example:
+#### Examples:
 ```
 julia> [pascal_triangle(n) for n=0:5]
 6-element Vector{Vector{Int64}}:
