@@ -30,7 +30,8 @@ include("Faulhaber.jl")
 include("Fibonacci.jl")
 include("HarmonicNumber.jl")
 include("Partition.jl")
-Include("Pochhammer.jl")
+include("Pochhammer.jl")
 include("Pascal.jl")
+include("Triangle.jl")
 
 end
