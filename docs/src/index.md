@@ -62,8 +62,27 @@ pascal_triangle(n::Integer; arr=false, msg=true)
 pascal_next(a)
 ```
 
+## Permutations
+
+```@docs
+permutations_unique_count(p::Vector{Vector{Int}}, i::Int)
+```
+
 ## Pochhammer product
 
 ```@docs
 pochhammer(x::T, p::Int) where {T<:Real}
+```
+
+## Triangle relations
+
+```@docs
+istriangle(a::Real, b::Real, c::Real)
+triangle_coefficient(a::Real, b::Real, c::Real)
+```
+
+## Truncated exponential
+
+```@docs
+texp(x::T, a::T, p::Int) where {T<:Real}
 ```

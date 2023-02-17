@@ -14,6 +14,8 @@ using Test
     @test numerators([1 // 1, 1 // 2, 1 // 3]) == [6, 3, 2]
     @test normalize_rationals([1 // 1, 1 // 2, 1 // 3]) == ([6, 3, 2], 6)
     #...........................................................................
+    @test typeof(bigfactorial(5)) == Int
+    typeof(bigfactorial(big(5))) == BigInt
     @test bigfactorial(21; msg=false) == 51090942171709440000
     #...........................................................................
     @test_throws DomainError faulhaber_polynom(-1)
@@ -30,13 +32,13 @@ using Test
     @test faulhaber_polynomial(5, 37; msg=false) == 14556637744944425468330179
     @test faulhaber_polynomial(3, 6) == 276
     @test faulhaber_summation(3, 5) == 276
-    # --------------------------------------------------------------------------
+
     @test_throws DomainError harmonicNumber(-1)
     @test sum([harmonicNumber(big(n)) for n = 1:46]) == 217436794888004994869 // 1345655451257488800
     @test sum(harmonicNumber(big(46); arr=true)) == 217436794888004994869 // 1345655451257488800
     @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum(harmonicNumber(50; arr=true, msg=false)) == 10904958651492685640759 // 60765578514627386400
-    # --------------------------------------------------------------------------
+ 
     @test_throws DomainError harmonicNumber(-1, 2)
     @test harmonicNumber(3, -5) == faulhaber_summation(3, 5)
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
@@ -57,14 +59,14 @@ using Test
     @test sum(harmonicNumber(4, 12; msg=false, arr=true)) == 35670966225905 // 8916100448256
     @test sum(harmonicNumber(10, 10; msg=false, arr=true)) == 20673934657221575836904008710237871 // 2065548531480481442562048000000000
     @test sum(harmonicNumber(10, 12; msg=false, arr=true)) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
-    # --------------------------------------------------------------------------
+
     @test_throws DomainError fibonacci(-1)
     @test fibonacci(0) == [0]
     @test typeof(fibonacci(92)) == Int
     @test typeof(fibonacci(99; msg=false)) == BigInt
     sum(fibonacci(92; arr=true)) == sum([fibonacci(i) for i = 1:92])
     @test sum(fibonacci(big(99); arr=true)) == sum([big(fibonacci(i; msg=false)) for i = 1:99])
-    # --------------------------------------------------------------------------
+
     @test_throws DomainError canonical_partitions(5, -1)
     @test_throws DomainError canonical_partitions(5, 6)
     @test canonical_partitions(5) == [[1, 1, 1, 1, 1], [2, 2, 1], [3, 2], [4, 1], [5]]
@@ -79,5 +81,16 @@ using Test
     @test pascal_next([1, 4, 6, 4, 1]) == [1, 5, 10, 10, 5, 1]
     @test sum(sum.(pascal_triangle(5; arr=true, msg=false))) == 62
     @test sum(sum.(pascal_triangle(30; arr=true, msg=false))) == 2147483646
+
+    @test permutations_unique_count([[1, 2], [1, 2, 3, 4, 5]], 2) == 120
+
+    @test texp(1 // 1, 0 // 1, 5) == 163 // 60
+    @test texp(1, 0, 5) == 163 // 60
+    @test texp(1.0, 0.0, 5) == 2.7166666666666663
+    @test typeof(texp(1 // 1, 0 // 1, 5)) == Rational{Int}
+    @test typeof(texp(1, 0, 5)) == Rational{Int}
+    @test typeof(texp(big(1), big(0), 5)) == Rational{BigInt}
+    @test typeof(texp(1.0, 0.0, 5)) == Float64
+    @test typeof(texp(big(1.0), big(0.0), 5)) == BigFloat
 
 end
