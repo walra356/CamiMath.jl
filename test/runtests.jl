@@ -38,7 +38,7 @@ using Test
     @test sum(harmonicNumber(big(46); arr=true)) == 217436794888004994869 // 1345655451257488800
     @test sum([big(harmonicNumber(n; msg=false)) for n = 1:50]) == 10904958651492685640759 // 60765578514627386400
     @test sum(harmonicNumber(50; arr=true, msg=false)) == 10904958651492685640759 // 60765578514627386400
- 
+
     @test_throws DomainError harmonicNumber(-1, 2)
     @test harmonicNumber(3, -5) == faulhaber_summation(3, 5)
     @test typeof(harmonicNumber(12, 3)) == Rational{Int}
@@ -84,6 +84,10 @@ using Test
 
     @test permutations_unique_count([[1, 2], [1, 2, 3, 4, 5]], 2) == 120
 
+    @test o = [pochhammer.([x for x = 0:-1:-p], p) for p = 0:5] == [[1], [0, -1], [0, 0, 2], [0, 0, 0, -6], [0, 0, 0, 0, 24], [0, 0, 0, 0, 0, -120]]
+    @test o = [pochhammer.([x for x = 0:p], p) for p = 0:5] == [[1], [0, 1], [0, 2, 6], [0, 6, 24, 60], [0, 24, 120, 360, 840], [0, 120, 720, 2520, 6720, 15120]]
+    @test pochhammer(big(-1) // big(50), 20) == -21605762356630090481082546653745369902321614221999 // 9536743164062500000000000000000000
+
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
     @test texp(1, 0, 5) == 163 // 60
     @test texp(1.0, 0.0, 5) == 2.7166666666666663
@@ -92,5 +96,8 @@ using Test
     @test typeof(texp(big(1), big(0), 5)) == Rational{BigInt}
     @test typeof(texp(1.0, 0.0, 5)) == Float64
     @test typeof(texp(big(1.0), big(0.0), 5)) == BigFloat
+
+    @test istriangle(3, 4, 5) == true
+    @test istriangle(1 // 2, 1, 1.5) == true
 
 end
