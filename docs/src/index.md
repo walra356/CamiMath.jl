@@ -13,6 +13,14 @@ Mathematics library with integer-overload protection (IOP)
 ```@docs
 bernoulliB(n::Integer; arr=false, msg=true)
 ```
+
+## Rational divisor normalization
+```@docs
+normalize_rationals(v::Vector{Rational{T}}) where {T<:Integer}
+divisor(v::Vector{Rational{T}}) where {T<:Integer}
+numerators(v::Vector{Rational{T}}) where {T<:Integer}
+```
+
 ## Factorial
 
 ```@docs

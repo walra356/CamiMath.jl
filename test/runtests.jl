@@ -10,9 +10,15 @@ using Test
     @test sum([Rational{BigInt}(bernoulliB(n, msg=false)) for n = 1:90]) == 17080392099538483734383296956025848377395298523292305346008923087528282372539916092669722994190437011 // 3961456982724258461775089600226385
     @test bernoulliB(60; msg=false) == bernoulliB(60; msg=false, arr=true)[end]
     #...........................................................................
+    @test divisor([1 // 1, 1 // 2, 1 // 3]) == 6
+    @test numerators([1 // 1, 1 // 2, 1 // 3]) == [6, 3, 2]
+    @test normalize_rationals([1 // 1, 1 // 2, 1 // 3]) == ([6, 3, 2], 6)
+    #...........................................................................
     @test bigfactorial(21; msg=false) == 51090942171709440000
     #...........................................................................
     @test_throws DomainError faulhaber_polynom(-1)
+    @test eltype(faulhaber_polynom(10)) == Rational{Int}
+    @test eltype(faulhaber_polynom(big(10))) == Rational{BigInt}
     @test sum([sum(faulhaber_polynom(p; msg=false)) for p = 1:90]) == 90 // 1
     @test sum([sum(faulhaber_polynom(big(p); msg=false)) for p = 1:90]) == 90 // 1
     #...........................................................................
