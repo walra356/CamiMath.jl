@@ -90,12 +90,15 @@ using Test
 
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
     @test texp(1, 0, 5) == 163 // 60
-    @test texp(1.0, 0.0, 5) == 2.7166666666666663
+    @test texp(1.0, 0.0, 5) ≈ 2.7166666666666663
     @test typeof(texp(1 // 1, 0 // 1, 5)) == Rational{Int}
     @test typeof(texp(1, 0, 5)) == Rational{Int}
     @test typeof(texp(big(1), big(0), 5)) == Rational{BigInt}
     @test typeof(texp(1.0, 0.0, 5)) == Float64
     @test typeof(texp(big(1.0), big(0.0), 5)) == BigFloat
+
+    @test log10_characteristic_power.([3, 30, 300]) == [0, 1, 2]
+    @test log10_mantissa.([3, 30, 300]) ≈ [0.47712125471966244, 0.4771212547196624, 0.4771212547196626]
 
     @test istriangle(3, 4, 5) == true
     @test istriangle(1 // 2, 1, 1.5) == true

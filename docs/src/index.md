@@ -81,8 +81,10 @@ istriangle(a::Real, b::Real, c::Real)
 triangle_coefficient(a::Real, b::Real, c::Real)
 ```
 
-## Truncated exponential
+## Truncated exponentials
 
 ```@docs
 texp(x::T, a::T, p::Int) where {T<:Real}
+log10_characteristic_power(x)
+log10_mantissa(x)
 ```
