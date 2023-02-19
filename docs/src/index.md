@@ -74,6 +74,12 @@ permutations_unique_count(p::Vector{Vector{Int}}, i::Int)
 pochhammer(x::T, p::Int) where {T<:Real}
 ```
 
+## Polynomials
+
+```@docs
+polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
+```
+
 ## Triangle relations
 
 ```@docs
