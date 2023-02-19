@@ -51,16 +51,21 @@ as given by [`polynom`](@ref).
 ```
 ### Examples:
 ```
-coords = ones(Int,6)                     # for polynomial of degree 5 with unit coefficients
-f0(x) = polynomial(coords,x)             # default
-fd(x) = polynomial(coords,x; deriv=1)    # first derivative
-fp(x) = polynomial(coords,x; deriv=-1)   # primitive (with zero integration constant)
-f0(1)
- 6
-fd(1)
- 15
-fp(1)
- 49//20
+julia> coords = (1, 1, 1, 1, 1);
+           
+julia> P(x) = polynomial(coords,x);
+
+julia> P(1)
+5
+
+julia> polynomial(coords, 1; deriv=1)     # P′(1)
+10
+
+julia> polynomial(coords, 2; deriv=2)     # P″(1)
+20
+
+julia> polynomial(coords,x; deriv=-1)   # primitive (zero integration constant)
+137 // 60
 ```
 """
 function polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
@@ -74,7 +79,6 @@ function polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
              deriv > 0 ? _polynom_derivatives(coords; deriv) :
              deriv == -1 ? _polynom_primitive(coords) :
              throw(DomainError(deriv))
-
 
     d -= deriv
     v = Base.ones(T, d + 1)
