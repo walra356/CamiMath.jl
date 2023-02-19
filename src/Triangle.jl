@@ -28,20 +28,20 @@ julia> triangle_coefficient(1//2, 1, 1.5)
 """
 function triangle_coefficient(a::Real, b::Real, c::Real)
 
-    (a, b, c) = promote(a, b, c)
+    (a, b, c) = Base.promote(a, b, c)
 
-    isinteger(a + b + c) || return 0
+    Base.isinteger(a + b + c) || return 0
 
     A = Int(a + b - c)
     B = Int(b + c - a)
     C = Int(c + a - b)
 
-    A = A ≥ 0 ? bigfactorial(A) : return 0
-    B = B ≥ 0 ? bigfactorial(B) : return 0
-    C = C ≥ 0 ? bigfactorial(C) : return 0
+    A = A ≥ 0 ? CamiMath.bigfactorial(A) : return 0
+    B = B ≥ 0 ? CamiMath.bigfactorial(B) : return 0
+    C = C ≥ 0 ? CamiMath.bigfactorial(C) : return 0
 
     N = A * B * C
-    D = bigfactorial(Int(a + b + c + 1))
+    D = CamiMath.bigfactorial(Int(a + b + c + 1))
 
     return N // D
 
@@ -68,8 +68,8 @@ function istriangle(a::Real, b::Real, c::Real)
 
     Δ = triangle_coefficient(a, b, c)
 
-    valid = Δ > 0 ? true : false
+    o = Δ > 0 ? true : false
 
-    return valid
+    return o
 
 end

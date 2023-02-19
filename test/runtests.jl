@@ -88,6 +88,13 @@ using Test
     @test o = [pochhammer.([x for x = 0:p], p) for p = 0:5] == [[1], [0, 1], [0, 2, 6], [0, 6, 24, 60], [0, 24, 120, 360, 840], [0, 120, 720, 2520, 6720, 15120]]
     @test pochhammer(big(-1) // big(50), 20) == -21605762356630090481082546653745369902321614221999 // 9536743164062500000000000000000000
 
+    @test_throws DomainError polynomial((1, 1, 1, 1, 1), 1; deriv=-2)
+    @test polynomial((1, 1, 1, 1, 1), 1; deriv=-1) == 137 // 60
+    @test polynomial((1, 1, 1, 1, 1), 1; deriv=0) == 5
+    @test polynomial((1, 1, 1, 1, 1), 1; deriv=1) == 10
+    @test polynomial((1, 1, 1, 1, 1), 1; deriv=4) == 24
+    @test polynomial((1, 1, 1, 1, 1), 1; deriv=5) == 0
+
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
     @test texp(1, 0, 5) == 163 // 60
     @test texp(1.0, 0.0, 5) ≈ 2.7166666666666663

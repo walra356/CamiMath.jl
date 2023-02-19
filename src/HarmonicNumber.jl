@@ -97,9 +97,9 @@ function harmonicNumber(n::Integer; arr=false, msg=true)
 
     if arr # ...................................................................
                 if n ≤ nc
-            return [Rational{T}(num[i] // den[i]) for i = 1:n]
+            return [Rational{T}(num[i], den[i]) for i = 1:n]
         else
-            o = [Rational{T}(num[i] // den[i]) for i = 1:nc]
+            o = [Rational{T}(num[i], den[i]) for i = 1:nc]
             return _harmonicNumber_BigInt(n, nc, o)
         end
     else # .....................................................................

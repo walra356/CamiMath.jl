@@ -25,7 +25,7 @@ function _faulhaber_BigInt(p::Integer)
     
     F[1] = big(0) // big(1)           # add polynomial constant: c_0 = 0//1
 
-    return F  
+    return Tuple(F)  
 
 end
 

@@ -26,6 +26,7 @@ export pascal_triangle
 export pascal_next
 export permutations_unique_count
 export pochhammer
+export polynomial
 export texp
 export triangle_coefficient
 
@@ -38,8 +39,9 @@ include("Fibonacci.jl")
 include("HarmonicNumber.jl")
 include("Partition.jl")
 include("Permutations.jl")
-include("Pochhammer.jl")
 include("Pascal.jl")
+include("Pochhammer.jl")
+include("Polynomials.jl")
 include("Triangle.jl")
 
 end
