@@ -43,12 +43,12 @@ end
 @doc raw"""
     polynomial(coords, x::T [; deriv=0]) where {T<:Real}
 
-The function
+Polynomial of degree ``d``,
 ```math
     P(x)=c_0 + c_1 x + ⋯ + c_d x^d,
 ```
-where ``c=[c_0,⋯\ c_d]`` is the the vector representation of a polynomial 
-of degree ``d`` defined by the vector coordinates `coords`
+where `coords` = ``(c_0,⋯\ c_d)`` are the coordinates defining the vector 
+representation of the polynomial in a vector space of dimension ``d+1``.
 ```
 ### Examples:
 ```
@@ -94,70 +94,43 @@ function polynomial(coords, x::T; deriv=0) where {T<:Real}
 
 end
 
-# =============================== polynom_derivative_all(coords) =========
-
-@doc raw"""
-    polynom_derivatives_all(coords::Vector{<:Number})
-Vector representation of all nontrivial derivatives of the polynomial `coords`.
-Polynomials of degree ``d`` are represented by a vector in a vector space of dimension ``d+1``.
-The polynomial `coords` is specified by the coordinates vector ``c=[c_0,⋯\ c_d]``
-consisting of the polynomial coefficients.
-### Examples:
-```
-coords=[1,1,1,1,1]               # vector representation of a polynomial of degree d=4
-polynom_derivatives_all(coords)      # `all' (nontrivial) derivatives of polynomial `coords`
-5-element Vector{Vector{Int64}}:
- [1, 2, 3, 4]
- [2, 6, 12]
- [6, 24]
- [24]
-```
-"""
-function polynom_derivatives_all(coords::Vector{T}) where {T<:Real}
-
-    k = Base.length(coords)
-
-    coords = CamiXon.polynom_derivative(coords)
-
-    o = [coords]
-
-    for i = 2:k-1
-        coords = polynom_derivative(coords)
-        Base.push!(o, coords)
-    end
-
-    return o
-
-end
-# ==================================== polynom_power(coords, p) ================
+# ------------------------------------------------------------------------------
+#                 polynom_power(coords, p::Int)
+# ------------------------------------------------------------------------------
 
 @doc raw"""
     polynom_power(coords, p)
-Vector representation of the polynomial `coords` raised to the power `p` which
-results in a polynomial in a vector space of dimension ``p d + 1``.
-Polynomials of degree ``d`` are represented by a vector in a vector space of dimension ``d+1``.
-The polynomial `coords` is specified by the coordinates vector ``c=[c_0,⋯\ c_d]``
-consisting of the polynomial coefficients.
+
+Coordinates of the polynomial defined by `coords` raised to the power `p`,
+which define a polynomial in a vector space of dimension ``p d + 1``,
+where ``d`` is the degree of the polynomial defined by `coords`.
+
 ### Examples:
 ```
-coords=[1,1,1]             # vector representation of polynomial of degree ``d=2``
-polynom_power(coords,2)
-5-element Vector{Int64}:
+julia> coords = (1,1,1)    # coordinates of polynomial vector of degree ``d=2``
+(1, 1, 1)
+
+julia> coords = (1,1,1);
+
+julia> polynom_power(coords, 3)
+7-element Vector{Int64}:
  1
- 2
  3
- 2
+ 6
+ 7
+ 6
+ 3
  1
 ```
 """
-function polynom_power(coords, power::Int)
+function polynom_power(coords, p::Int)
 
     coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
 
-    power >= 0 || error("Error: negative polynom powers not allowed")
-    power == 2 && return CamiMath.polynom_product(coords, coords)
-    power == 1 && return coords
-    power == 0 && return [1]
+    p >= 0 || error("Error: negative polynom powers not allowed")
+    p == 2 && return CamiMath.polynom_product(coords, coords)
+    p == 1 && return coords
+    p == 0 && return [1]
 
     o = CamiMath.polynom_product(coords, coords)
 
@@ -169,56 +142,17 @@ function polynom_power(coords, power::Int)
 
 end
 
-# ==================================== polynom_powers(coords, pmax) ============
-
-@doc raw"""
-    polynom_powers(coords::Vector{T}, pmax::Int) where T<:Real
-The polynomial `coords` raised to the powers 1,...,pmax  which
-results in a collection of polynomials in vector spaces of dimension ``d+1`` tot ``p d + 1``.
-Polynomials of degree ``d`` are represented by a vector in a vector space of dimension ``d+1``.
-The polynomial `coords` is specified by the coordinates vector ``c=[c_0,⋯\ c_d]``
-consisting of the polynomial coefficients.
-### Examples:
-```
-coords=[1,1,1]                   # vector representation of polynomial of degree d=2
-polynom_powers(coords,3)
-3-element Vector{Vector{Int64}}:
- [1, 1, 1]
- [1, 2, 3, 2, 1]
- [1, 3, 6, 7, 6, 3, 1]
-```
-"""
-function polynom_powers(coords, pmax::Int)
-
-    coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
-
-    pmax > 0 || error("jwError: minimum power included is unity")
-
-    o = [coords]
-
-    for i = 1:pmax-1
-        Base.push!(o, CamiMath.polynom_product(o[end], coords))
-    end
-
-    return o
-
-end
-
-
-
-
 # ================= polynom_product(a, b) ======================================
 
 @doc raw"""
     polynom_product(a, b)
-Vector representation of the product of two polynomials, `a` and `b` which
-is a polynomial in a vector space of dimension ``d=m+n``,
+
+Coordinate representation of the product of two polynomials, `a` and `b` of 
+degree ``m`` and ``n``, which is a polynomial in a vector space of dimension 
+``d=m+n+1``,
 ```math
     p(c,x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
 ```
-Polynomials of degree ``d`` are represented by a vector in a vector space of dimension ``d+1``
-The polynomial `coords` is specified by the coordinates vector ``c=[c_0,⋯\ c_d]``
-consisting of the polynomial coefficients.
 ####
 ```
 [polynom_product1([1.0,1],[1,-1,2])]
