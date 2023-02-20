@@ -258,9 +258,6 @@ function polynom_product_expansion(coords1, coords2, p::Int)
         Base.append!(o, u)
         u = [sum(b[m-i] * a[1+i+j+n-m] for i=0:m-1-j) for j=1:min(m-1, p-n+1)]
         p + 1 == length(o) && return o
-        u = [sum(b[m-i] * a[1+i+j+n-m] for i=0:m-1-j) for j=1:min(m-1, p-n+1)]
-        Base.append!(o, u)
-        p + 1 == length(o) && return o
 
     end
 
