@@ -142,27 +142,34 @@ function polynom_power(coords, p::Int)
 
 end
 
-# ================= polynom_product(a, b) ======================================
+# ------------------------------------------------------------------------------
+#                 polynom_power(coords, p::Int)
+# ------------------------------------------------------------------------------
 
 @doc raw"""
-    polynom_product(a, b)
+    polynom_product(coords1, coords2)
 
-Coordinate representation of the product of two polynomials, `a` and `b` of 
-degree ``m`` and ``n``, which is a polynomial in a vector space of dimension 
-``d=m+n+1``,
+Coordinate representation of the product of two polynomials, `coords1` and 
+`coords1` of degree ``m`` and ``n``, which is a polynomial in a vector space 
+of dimension ``d=m+n+1``,
 ```math
     p(c,x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
 ```
-####
+#### Examples:
 ```
-[polynom_product1([1.0,1],[1,-1,2])]
- [1.0, 0.0, 1.0, 2.0]
-[polynom_product1([1//1,1],[1,-1,2])]
- [1//1, 0//1, 1//1, 2//1]
-[polynom_product([1,1],[1,- 1,2])]
- [1, 0, 1, 2]
-[polynom_product([1,- 1,2],[1,1])]
- [1, 0, 1, 2]
+julia> polynom_product((1, 1), (1, -1, 2))
+4-element Vector{Int64}:
+ 1
+ 0
+ 1
+ 2
+
+julia> polynom_product((1, 1), (1, -1.0, 2))
+4-element Vector{Real}:
+ 1
+ 0.0
+ 1.0
+ 2  
 ```
 """
 function polynom_product(coords1, coords2)
@@ -216,27 +223,46 @@ o = expand_product(a, b, 4); println(o)
  [1, 0, -1, 3, -1]
 ```
 """
-function polynom_product_expansion(a::NTuple{}, b::NTuple{}, p::Int)
+function polynom_product_expansion(coords1, coords2, p::Int)
+
+    a = typeof(coords1) == NTuple{} ? coords1 : Tuple(coords1)
+    b = typeof(coords2) == NTuple{} ? coords2 : Tuple(coords2)
 
     n = Base.length(a)
     m = Base.length(b)
 
     if m ≥ n
+
         o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
         p + 1 == length(o) && return o
-        if m ≠ n
-            Base.append!(o, [Base.sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:min(m - n, p - n + 1)])
-        end
+        u = [sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:min(m-n, p-n+1)]
+        Base.append!(o, u)
         p + 1 == length(o) && return o
-        Base.append!(o, [Base.sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:min(n - 1, p - m + 1)])
+        u = [sum(a[n-i] * b[1+i+j+m-n] for i=0:n-1-j) for j=1:min(n-1, p-m+1)]
+        Base.append!(o, u)
         p + 1 == length(o) && return o
+
+    elseif m == n
+
+        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
+        p + 1 == length(o) && return o
+        p + 1 == length(o) && return o
+        u = [sum(a[n-i] * b[1+i+j+m-n] for i=0:n-1-j) for j=1:min(n-1, p-m+1)]
+        Base.append!(o, u)
+        p + 1 == length(o) && return o
+
     else
+
         o = [Base.sum(b[1+j-i] * a[1+i] for i = 0:j) for j = 0:min(m - 1, p)]
         p + 1 == length(o) && return o
-        Base.append!(o, [Base.sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:min(n - m, p - m + 1)])
+        u = [sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:min(n-m, p-m+1)]
+        Base.append!(o, u)
+        u = [sum(b[m-i] * a[1+i+j+n-m] for i=0:m-1-j) for j=1:min(m-1, p-n+1)]
         p + 1 == length(o) && return o
-        Base.append!(o, [Base.sum(b[m-i] * a[1+i+j+n-m] for i = 0:m-1-j) for j = 1:min(m - 1, p - n + 1)])
+        u = [sum(b[m-i] * a[1+i+j+n-m] for i=0:m-1-j) for j=1:min(m-1, p-n+1)]
+        Base.append!(o, u)
         p + 1 == length(o) && return o
+
     end
 
     return o
