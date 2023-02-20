@@ -134,7 +134,7 @@ function polynom_power(coords, p::Int)
 
     o = CamiMath.polynom_product(coords, coords)
 
-    for i = 1:power-2
+    for i = 1:p-2
         o = CamiMath.polynom_product(o, coords)
     end
 
