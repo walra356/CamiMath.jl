@@ -231,7 +231,7 @@ function polynom_product_expansion(coords1, coords2, p::Int)
     n = Base.length(a)
     m = Base.length(b)
 
-    if m ≥ n
+    if m > n
 
         o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
         p + 1 == length(o) && return o
@@ -263,5 +263,7 @@ function polynom_product_expansion(coords1, coords2, p::Int)
         p + 1 == length(o) && return o
 
     end
+
+    return o
 
 end
