@@ -130,7 +130,7 @@ function polynom_power(coords, p::Int)
     p >= 0 || error("Error: negative polynom powers not allowed")
     p == 2 && return CamiMath.polynom_product(coords, coords)
     p == 1 && return coords
-    p == 0 && return [1]
+    p == 0 && return (1)
 
     o = CamiMath.polynom_product(coords, coords)
 

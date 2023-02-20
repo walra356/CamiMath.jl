@@ -100,8 +100,8 @@ using Test
     @test polynom_product((1 // 2, -1), (1, 2, -3)) == [1 // 2, 0 // 1, -7 // 2, 3 // 1]
     @test polynom_product((1, 1), (1, -1, 2)) == [1, 0, 1, 2]
     @test polynom_product_expansion((1, -1, 1), (1, 1, -1, 1, 1, 1), 5) == [1, 0, -1, 3, -1, 1]
-    @test polynom_power((1, 1, 1), 0) == [1]
-    @test polynom_power((1, 1, 1), 1) == [1, 1, 1]
+    @test polynom_power((1, 1, 1), 0) == (1)
+    @test polynom_power((1, 1, 1), 1) == (1, 1, 1)
     @test polynom_power((1, 1, 1), 2) == [1, 2, 3, 2, 1]
 
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
