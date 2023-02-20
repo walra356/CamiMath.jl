@@ -49,8 +49,7 @@ Polynomial of degree ``d``,
 ```
 where `coords` = ``(c_0,⋯\ c_d)`` are the coordinates defining the vector 
 representation of the polynomial in a vector space of dimension ``d+1``.
-```
-### Examples:
+#### Examples:
 ```
 julia> coords = (1, 1, 1, 1, 1);
            
@@ -105,9 +104,9 @@ Coordinates of the polynomial defined by `coords` raised to the power `p`,
 which define a polynomial in a vector space of dimension ``p d + 1``,
 where ``d`` is the degree of the polynomial defined by `coords`.
 
-### Examples:
+#### Examples:
 ```
-julia> coords = (1,1,1)    # coordinates of polynomial vector of degree ``d=2``
+julia> coords = (1,1,1)    # coordinates of polynomial vector of degree d = 2
 (1, 1, 1)
 
 julia> coords = (1,1,1);
@@ -143,17 +142,17 @@ function polynom_power(coords, p::Int)
 end
 
 # ------------------------------------------------------------------------------
-#                 polynom_power(coords, p::Int)
+#                    polynom_power(coords, p::Int)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
     polynom_product(coords1, coords2)
 
-Coordinate representation of the product of two polynomials, `coords1` and 
-`coords1` of degree ``m`` and ``n``, which is a polynomial in a vector space 
-of dimension ``d=m+n+1``,
+Coordinate representation of the product of two polynomials, a = b`coords1` and 
+b = `coords2` of degree ``m`` and ``n``, which is a polynomial in a vector 
+space of dimension ``d=m+n+1``,
 ```math
-    p(c,x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
+    P(x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
 ```
 #### Examples:
 ```
@@ -206,21 +205,28 @@ function polynom_product(coords1, coords2)
 
 end
 
-# ==================================== polynom_product_expansion(a, b, p) ============================================================
+# ------------------------------------------------------------------------------
+#            polynom_product_expansion(coords1, coords2, p::Int)
+# ------------------------------------------------------------------------------
 
 @doc raw"""
-    polynom_product_expansion(a::Vector{T}, b::Vector{T}, p::Int) where T<:Real
-Vector representation of the product of two polynomials, ``a`` (of degree ``n``) and ``b`` (of degree ``m``), with ``m≤n``
-truncated at the order ``p`` is a polynomial in a vector space of dimension ``d=p+1``. If ``ab`` is the `polynom_product`,
-the `polynom_product_expansion` is ``ab[1:p+1]``
+    polynom_product_expansion(coords1, coords2, p::Int)
+
+Vector representation of the product of two polynomials, a = `coords1` 
+(of degree ``n``) and b = `coords2` (of degree ``m``), with ``m ≤ n``
+truncated at the order `p`, which is a polynomial in a vector space of 
+dimension ``d=p+1``
 ####
 ```
-a = [1,-1,1]
-b = [1,1,-1,1,1,1]
-o = polynom_product(a, b); println(o)
- [1, 0, -1, 3, -1, 1, 0, 1]
-o = expand_product(a, b, 4); println(o)
- [1, 0, -1, 3, -1]
+julia> a = (1,-1,1);
+
+julia> b = (1,1,-1,1,1,1);
+
+julia> o = polynom_product(a, b); println(o)
+[1, 0, -1, 3, -1, 1, 0, 1]
+ 
+julia> o = polynom_product_expansion(a, b, 4); println(o)
+[1, 0, -1, 3, -1] 
 ```
 """
 function polynom_product_expansion(coords1, coords2, p::Int)
@@ -235,10 +241,10 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
         o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
         p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:min(m-n, p-n+1)]
+        u = [sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:min(m - n, p - n + 1)]
         Base.append!(o, u)
         p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j+m-n] for i=0:n-1-j) for j=1:min(n-1, p-m+1)]
+        u = [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:min(n - 1, p - m + 1)]
         Base.append!(o, u)
         p + 1 == length(o) && return o
 
@@ -246,7 +252,7 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
         o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
         p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j+m-n] for i=0:n-1-j) for j=1:min(n-1, p-m+1)]
+        u = [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:min(n - 1, p - m + 1)]
         Base.append!(o, u)
         p + 1 == length(o) && return o
 
@@ -254,9 +260,9 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
         o = [Base.sum(b[1+j-i] * a[1+i] for i = 0:j) for j = 0:min(m - 1, p)]
         p + 1 == length(o) && return o
-        u = [sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:min(n-m, p-m+1)]
+        u = [sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:min(n - m, p - m + 1)]
         Base.append!(o, u)
-        u = [sum(b[m-i] * a[1+i+j+n-m] for i=0:m-1-j) for j=1:min(m-1, p-n+1)]
+        u = [sum(b[m-i] * a[1+i+j+n-m] for i = 0:m-1-j) for j = 1:min(m - 1, p - n + 1)]
         p + 1 == length(o) && return o
 
     end
