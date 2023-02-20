@@ -12,6 +12,7 @@ export bigfactorial
 export divisor
 export faulhaber_polynom
 export faulhaber_polynomial
+export faulhaber_polynomial1
 export faulhaber_summation
 export fibonacci
 export harmonicNumber
@@ -27,6 +28,10 @@ export pascal_next
 export permutations_unique_count
 export pochhammer
 export polynomial
+export polynom_power
+export polynom_product
+export polynom_product1
+export polynom_product_expansion
 export texp
 export triangle_coefficient
 

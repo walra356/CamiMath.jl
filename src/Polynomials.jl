@@ -41,13 +41,14 @@ end
 
 # ..............................................................................
 @doc raw"""
-    polynomial(coords::NTuple{}, x::T [; deriv=0]) where {T<:Real}
+    polynomial(coords, x::T [; deriv=0]) where {T<:Real}
 
-The function ``f(x)=\text{polynomial}(c,x)``, where ``c=[c_0,⋯\ c_d]`` is the
-the vector representation of a polynomial of degree `d` 
-as given by [`polynom`](@ref).
+The function
 ```math
-    \text{polynomial}(c,x)=c_0 + c_1 x + ⋯ + c_d x^d.
+    P(x)=c_0 + c_1 x + ⋯ + c_d x^d,
+```
+where ``c=[c_0,⋯\ c_d]`` is the the vector representation of a polynomial 
+of degree ``d`` defined by the vector coordinates `coords`
 ```
 ### Examples:
 ```
@@ -68,8 +69,10 @@ julia> polynomial(coords,x; deriv=-1)   # primitive (zero integration constant)
 137 // 60
 ```
 """
-function polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
-    
+function polynomial(coords, x::T; deriv=0) where {T<:Real}
+
+    coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
+
     isinteger(deriv) || error("Error: deriv not integer")
 
     d = Base.length(coords) - 1               # degree of polynomial
@@ -147,17 +150,19 @@ polynom_power(coords,2)
  1
 ```
 """
-function polynom_power(coords::Vector{T}, power::Int) where {T<:Real}
+function polynom_power(coords, power::Int)
 
-    power >= 0 || error("jwError: negative powers not allowed")
-    power == 2 && return polynom_product(coords, coords)
+    coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
+
+    power >= 0 || error("Error: negative polynom powers not allowed")
+    power == 2 && return CamiMath.polynom_product(coords, coords)
     power == 1 && return coords
     power == 0 && return [1]
 
-    o = CamiXon.polynom_product(coords, coords)
+    o = CamiMath.polynom_product(coords, coords)
 
     for i = 1:power-2
-        o = CamiXon.polynom_product(o, coords)
+        o = CamiMath.polynom_product(o, coords)
     end
 
     return o
@@ -183,14 +188,16 @@ polynom_powers(coords,3)
  [1, 3, 6, 7, 6, 3, 1]
 ```
 """
-function polynom_powers(coords::Vector{T}, pmax::Int) where {T<:Real}
+function polynom_powers(coords, pmax::Int)
+
+    coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
 
     pmax > 0 || error("jwError: minimum power included is unity")
 
     o = [coords]
 
     for i = 1:pmax-1
-        Base.push!(o, CamiXon.polynom_product(o[end], coords))
+        Base.push!(o, CamiMath.polynom_product(o[end], coords))
     end
 
     return o
@@ -203,8 +210,8 @@ end
 # ================= polynom_product(a, b) ======================================
 
 @doc raw"""
-    polynom_product(a::Vector{T}, b::Vector{V}) where {T<:Real, V<:Real}
-Vector representation of the product of two polynomials, ``a`` and ``b`` which
+    polynom_product(a, b)
+Vector representation of the product of two polynomials, `a` and `b` which
 is a polynomial in a vector space of dimension ``d=m+n``,
 ```math
     p(c,x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
@@ -224,25 +231,34 @@ consisting of the polynomial coefficients.
  [1, 0, 1, 2]
 ```
 """
-function polynom_product(a::Vector{T}, b::Vector{V}) where {T<:Real,V<:Real}
+function polynom_product(coords1, coords2)
+
+    a = typeof(coords1) == NTuple{} ? coords1 : Tuple(coords1)
+    b = typeof(coords2) == NTuple{} ? coords2 : Tuple(coords2)
 
     n = Base.length(a)
     m = Base.length(b)
 
-    a, b = Base.promote(a, b)
+    if m > n
 
-    if m ≥ n
-        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:n-1]
-        if m ≠ n
-            Base.append!(o, [Base.sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:m-n])
-        end
-        Base.append!(o, [Base.sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:n-1])
+        o = [sum(a[1+j-i] * b[i] for i = 1:j) for j = 1:n]
+
+        append!(o, [sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:m-n])
+        append!(o, [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:n-1])
+
+    elseif m == n
+
+        o = [sum(a[1+j-i] * b[i] for i = 1:j) for j = 1:n]
+
+        append!(o, [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:n-1])
+
     else
-        o = [Base.sum(b[1+j-i] * a[1+i] for i = 0:j) for j = 0:m-1]
-        if m ≠ n
-            Base.append!(o, [Base.sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:n-m])
-        end
-        Base.append!(o, [Base.sum(b[m-i] * a[1+i+j+n-m] for i = 0:m-1-j) for j = 1:m-1])
+
+        o = [sum(b[1+j-i] * a[i] for i = 1:j) for j = 1:m]
+
+        append!(o, [sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:n-m])
+        append!(o, [sum(b[m-i] * a[1+i+j+n-m] for i = 0:m-1-j) for j = 1:m-1])
+
     end
 
     return o
@@ -266,7 +282,7 @@ o = expand_product(a, b, 4); println(o)
  [1, 0, -1, 3, -1]
 ```
 """
-function polynom_product_expansion(a::Vector{T}, b::Vector{T}, p::Int) where {T<:Real}
+function polynom_product_expansion(a::NTuple{}, b::NTuple{}, p::Int)
 
     n = Base.length(a)
     m = Base.length(b)

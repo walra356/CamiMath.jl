@@ -78,6 +78,9 @@ pochhammer(x::T, p::Int) where {T<:Real}
 
 ```@docs
 polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
+polynom_power(coords::Vector{T}, power::Int) where {T<:Real}
+polynom_product(a::Vector{T}, b::Vector{V}) where {T<:Real,V<:Real}
+polynom_product_expansion(a::Vector{T}, b::Vector{T}, p::Int) where {T<:Real}
 ```
 
 ## Triangle relations

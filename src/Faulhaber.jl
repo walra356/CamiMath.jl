@@ -17,15 +17,15 @@ function _faulhaber_BigInt(p::Integer)
 
     P = CamiMath.pascal_triangle(p)
     B = CamiMath.bernoulliB(p; msg=false, arr=true)
-    B[2] = -B[2]                                
+    B[2] = -B[2]
 
     F = (B .* P) // p
-    
+
     F = Base.reverse(F)               # reverse to standard order
-    
+
     F[1] = big(0) // big(1)           # add polynomial constant: c_0 = 0//1
 
-    return Tuple(F)  
+    return Tuple(F)
 
 end
 
@@ -207,16 +207,7 @@ function faulhaber_polynomial(n::Integer, p::Int; msg=true)
     end
 
     F = CamiMath.faulhaber_polynom(T(p); msg=false)
-    n = T(n)
-    o = T(0)
-    for k = 1:p
-        m = T(1)
-        for i = 1:k
-            m *= n  # avoid n^k in o = Base.sum([F[k+1]*n^k for k=1:p+1])
-        end
-        a = m * F[1+k]
-        o += a
-    end
+    o = CamiMath.polynomial(F, T(n))
 
     Base.denominator(o) == 1 || error("Error: Faulhaber sum failed")
 
