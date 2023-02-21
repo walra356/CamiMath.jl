@@ -236,33 +236,31 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
     n = Base.length(a)
     m = Base.length(b)
+    n′= n - 1
+    m′= m - 1
 
     if m > n
 
-        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
+        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n′, p)]
         p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j] for i = 0:n-1) for j = 1:min(m - n, p - n + 1)]
-        Base.append!(o, u)
-        p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:min(n - 1, p - m + 1)]
+        u = [sum(a[n-i] * b[1+i+j] for i = 0:n′) for j = 1:min(m - n, p - n′)]
         Base.append!(o, u)
         p + 1 == length(o) && return o
 
     elseif m == n
 
-        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n - 1, p)]
+        o = [Base.sum(a[1+j-i] * b[1+i] for i = 0:j) for j = 0:min(n′, p)]
         p + 1 == length(o) && return o
-        u = [sum(a[n-i] * b[1+i+j+m-n] for i = 0:n-1-j) for j = 1:min(n - 1, p - m + 1)]
+        u = [sum(a[n-i] * b[i+j+m-n′] for i = 0:n′-j) for j = 1:min(n′, p - m′)]
         Base.append!(o, u)
         p + 1 == length(o) && return o
 
     else
 
-        o = [Base.sum(b[1+j-i] * a[1+i] for i = 0:j) for j = 0:min(m - 1, p)]
+        o = [Base.sum(b[1+j-i] * a[1+i] for i = 0:j) for j = 0:min(m′, p)]
         p + 1 == length(o) && return o
-        u = [sum(b[m-i] * a[1+i+j] for i = 0:m-1) for j = 1:min(n - m, p - m + 1)]
+        u = [sum(b[m-i] * a[1+i+j] for i = 0:m′) for j = 1:min(n - m, p - m′)]
         Base.append!(o, u)
-        u = [sum(b[m-i] * a[1+i+j+n-m] for i = 0:m-1-j) for j = 1:min(m - 1, p - n + 1)]
         p + 1 == length(o) && return o
 
     end

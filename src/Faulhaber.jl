@@ -34,17 +34,17 @@ end
     faulhaber_polynom(p::Integer [; msg=true])
 
 Vector representation of the coefficients of the [`faulhaber_polynomial`](@ref) 
-of degree `p` 
+of degree `p`, 
 ```math
-   c=[c_0,⋯\ c_p]
+   c=[c_0,⋯\ c_p],
 ```
 where ``c_0=0,\ \ c_j=\frac{1}{p}{\binom{p}{p-j}}B_{p-j}``,
 with ``j∈\{ 1,⋯\ p\}``. The ``B_{p-j}`` are [`bernoulliB`](@ref) in the 
 *even index convention* (but with 
 ``B_1=+\frac{1}{2}`` rather than ``-\frac{1}{2}``).
 
-Integer overflow protection (IOP): for `p > 36` the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+`msg` : integer-overflow protection (IOP) - warning on activation 
+(for `p > 36`)
 ### Example:
 ```
 faulhaber_polynom(6)
@@ -179,8 +179,7 @@ Faulhaber polynomial of degree `p`
 where `n` is a positive integer and the coefficients are contained in the 
 vector ``c=[c_0,⋯\ c_p]`` given by [`faulhaber_polynom`](@ref).
 
-Integer overflow protection (IOP): on integer overflow the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+`msg` : integer-overflow protection (IOP) - warning on activation
 #### Examples:
 ```
 julia> faulhaber_polynomial(3, 6)
@@ -229,8 +228,7 @@ Sum of the ``p^{th}`` power of the first ``n`` natural numbers
 where ``H_{n,-p}`` is a [`harmonicNumber`](@ref)  of power `-p` and ``F(n,p)`` 
 a [`faulhaber_polynomial`](@ref) of power `p`.
 
-Integer overflow protection (IOP): on integer overflow the output is converted 
-to Rational{BigInt}. By default the IOP capture message is activated.
+`msg` : integer-overflow protection (IOP) - warning on activation
 #### Examples:
 ```
 julia> faulhaber_summation(3,5)

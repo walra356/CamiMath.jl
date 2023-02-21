@@ -129,10 +129,13 @@ end
 @doc raw"""
     integer_partitions(n [[[,m]; transpose=false], count=false])
 
-`default`                      : The integer partitions of n
-`count`                        : The number of integer partitions of n
-`transpose` = `false` (`m` > 0): partitions restricted to maximum part m
-            = `true`  (`m` > 0): partitions restricted to maximum length m
+`default`                      : The integer partitions of `n`
+
+`count`                        : The number of integer partitions of `n`
+
+`transpose` = `false` (`m` > 0): partitions restricted to maximum part `m`
+            = `true`  (`m` > 0): partitions restricted to maximum length `m``
+
 definitions:
 
 The integer partition of the positive integer `n` is a nonincreasing

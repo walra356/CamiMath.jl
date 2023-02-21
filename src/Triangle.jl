@@ -16,7 +16,7 @@ Triangle coefficient for a triangle of sides `a`, `b` and `c`,
 ```math
     \Delta(abc)\equiv\frac{(a+b-c)!(b+c-a)!(c+a-b)!}{(a+b+c+1)!}
 ```
-Valid triangle condition: ``\Delta > 0``
+Triangle condition satisfied for ``\Delta > 0``
 #### Examples:
 ```
 julia> triangle_coefficient(3, 4, 5)

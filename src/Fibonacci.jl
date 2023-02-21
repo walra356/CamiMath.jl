@@ -35,7 +35,7 @@ with ``F_1=1`` and ``F_0=0``.
 `arr` : output full Pascal triangle
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
-(for `n` > 92)
+(for `n > 92`)
 #### Examples:
 ```
 julia> fibonacci(92)

@@ -57,7 +57,7 @@ end
 """
     log10_characteristic_power(x)
 
-characteristic power-of-10 of the number x
+characteristic power-of-10 of the number `x`
 #### Examples:
 ```
 log10_characteristic_power.([3,30,300])
@@ -76,7 +76,7 @@ log10_characteristic_power(x) = Base.round(Int, Base.floor(log10(x)))
 """
     log10_mantissa(x)
 
-log10 mantissa of the number x
+log10 mantissa of the number `x`
 #### Examples:
 ```
 log10_mantissa.([3,30,300])

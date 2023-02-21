@@ -35,7 +35,7 @@ Sum of the reciprocals of the first ``n`` natural numbers
 `arr` : output in array format
 
 `msg` : integer-overflow protection (IOP) - warning on activation  
-(for `n` > 46)
+(for `n > 46`)
 #### Examples:
 ```
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)

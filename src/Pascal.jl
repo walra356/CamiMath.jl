@@ -52,7 +52,7 @@ Row `n` of Pascal triangle, ``[\binom{n}{1},\cdots\ \binom{n}{n}]``
 `arr` : output full Pascal triangle
 
 `msg` : integer-overflow protection (IOP) - warning on activation 
-(for `n` > 10000)
+(for `n > 10000`)
 #### Examples:
 ```
 julia> [pascal_triangle(n) for n=0:5]
