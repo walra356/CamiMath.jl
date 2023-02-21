@@ -49,8 +49,8 @@ integer_partitions(n::Int, m=0; transpose=false, count=false)
 ## Laguerre polynomials
 
 ```@docs
-laguere_polynoms(n::Int)
-generalized_laguere_polynoms(n::Int, α::T) where T<:Real
+laguerre_polynoms(n::Int)
+generalized_laguerre_polynoms(n::Int, α::T) where T<:Real
 ```
 
 ## Pascal triangle

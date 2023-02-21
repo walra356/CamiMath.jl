@@ -10,7 +10,7 @@
 #               faulhaber_polynom(p::Integer [; msg=true])
 # ------------------------------------------------------------------------------
 
-function _generalized_laguere_polynom(n, α, m)
+function _generalized_laguerre_polynom(n, α, m)
 
     sgn = iseven(m) ? 1 : -1
 
@@ -49,11 +49,11 @@ function _generalized_laguere_polynom(n, α, m)
 end
 
 # ------------------------------------------------------------------------------
-#               generalized_laguere_polynoms(p::Integer [; msg=true])
+#               generalized_laguerre_polynoms(p::Integer [; msg=true])
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    generalized_laguere_polynoms(n::Int, α::T) where T<:Real
+    generalized_laguerre_polynoms(n::Int, α::T) where T<:Real
 
 The coefficients of the generalized Laguerre polynomals of degree `n` for
 parameter `α`.
@@ -63,38 +63,69 @@ parameter `α`.
 ```
 #### Example:
 ```
-o = generalized_laguere_polynoms(8,3); println(o)
+o = generalized_laguerre_polynoms(8,3); println(o)
     Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
 ```
 """
-function generalized_laguere_polynoms(n::Int, α::T) where {T<:Real}
+function generalized_laguerre_polynoms(n::Int, α::T) where {T<:Real}
 
-    coords = [_generalized_laguere_polynom(n, α, m) for m = 0:n]
+    coords = [_generalized_laguerre_polynom(n, α, m) for m = 0:n]
 
     return coords
 
 end
 
 # ------------------------------------------------------------------------------
-#                         laguere_polynoms(n::Int)
+#                         laguerre_polynoms(n::Int)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    laguere_polynoms(n::Int)
-    
+    laguerre_polynoms(n::Int)
+
 The coefficients of the Laguerre polynomals of degree `n`.
 ```math
     c(n)[m] = \frac{\Gamma(n+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}
 ```
 #### Example:
 ```
-o = laguere_polynoms(8); println(o)
+o = laguerre_polynoms(8); println(o)
     Rational{Int64}[1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320]
 ```
 """
-function laguere_polynoms(n::Int)
+function laguerre_polynoms(n::Int)
 
-    coords = [_generalized_laguere_polynom(n, 0, m) for m = 0:n]
+    coords = [_generalized_laguerre_polynom(n, 0, m) for m = 0:n]
+
+    return coords
+
+end
+
+
+
+# ------------------------------------------------------------------------------
+#                         laguerre_polynom(p::Int)
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    laguerre_polynom(p::Int)
+    
+The coefficients of the Laguerre polynomal [`laguerreL`](@ref) of degree `p`,
+```math
+    c=[c_0, c_1, \cdots\ c_p],
+```
+where 
+```math
+    c_p[m] = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}
+```
+#### Example:
+```
+o = laguerre_polynoms(8); println(o)
+    Rational{Int64}[1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320]
+```
+"""
+function laguerre_polynom(p::Int)
+
+    coords = [_generalized_laguerre_polynom(p, 0, m) for m = 0:p]
 
     return coords
 
@@ -114,7 +145,7 @@ Generalized Laguerre polynomal of degree `n` for parameter `α`,
     = \sum_{m=0}^{n}c(n,α)[m]x^{m}
 ```
 where ``c(n,α)[m]`` is the generalized Laguerre coordinate from
-[`generalized_laguere_polynoms`](@ref).
+[`generalized_laguerre_polynoms`](@ref).
 #### Example:
 ```
 (xmin, Δx, xmax) = (0, 0.1, 11)
@@ -122,7 +153,7 @@ n = 8
 α = -0.3
 gL = [generalized_laguerreL(n, α, x) for x=xmin:Δx:xmax]
 f = Float64.(gL);
-plot_function(f, xmin, Δx, xmax; title="Laguere polynomial (of degree $n for α =$α)")
+plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n for α =$α)")
 ```
 The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
@@ -130,7 +161,7 @@ NB.: `plot_function` is not included in the `CamiXon` package.
 """
 function generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real,T<:Real}
 
-    coords = generalized_laguere_polynoms(n, α)
+    coords = generalized_laguerre_polynoms(n, α)
     coords = T.(coords)
 
     o = polynomial(coords, x; deriv)
@@ -140,7 +171,7 @@ function generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real,T<:R
 end
 
 # ------------------------------------------------------------------------------
-#              generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+#              laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
 # ------------------------------------------------------------------------------
 
 @doc raw"""
@@ -153,22 +184,22 @@ Laguerre polynomal of degree `n`,
     = \sum_{m=0}^{n}(-1)^{m}\binom{n}{n-m}\frac{x^{m}}{m!}
     = \sum_{m=0}^{n}c(n)[m]x^{m}
 ```
-where ``c(n)[m]`` is the Laguerre coordinate from [`laguere_polynoms`](@ref).
+where ``c(n)[m]`` is the Laguerre coordinate from [`laguerre_polynoms`](@ref).
 #### Example:
 ```
 (xmin, Δx, xmax) = (0, 0.1, 11)
 n = 8
 L = [laguerreL(n, x) for x=xmin:Δx:xmax]
 f = Float64.(L);
-plot_function(f, xmin, Δx, xmax; title="Laguere polynomial (of degree $n)")
+plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n)")
 ```
 The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
 ![Image](./assets/laguerreL8.png)
 """
-function laguerreL(n::Int, x::T; deriv=0) where T<:Real
+function laguerreL(n::Int, x::T; deriv=0) where {T<:Real}
 
-    coords = generalized_laguere_polynoms(n, 0)
+    coords = generalized_laguerre_polynoms(n, 0)
     coords = T.(coords)
 
     o = polynomial(coords, x; deriv)

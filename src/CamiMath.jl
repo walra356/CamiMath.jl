@@ -27,8 +27,9 @@ export pascal_triangle
 export pascal_next
 export permutations_unique_count
 
-export laguere_polynoms
-export generalized_laguere_polynoms
+export laguerre_polynoms
+export laguerre_polynom
+export generalized_laguerre_polynoms
 
 export pochhammer
 export polynomial
