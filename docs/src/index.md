@@ -9,7 +9,7 @@ Mathematics library with integer-overload protection (IOP)
 ```@contents
 Pages = [
     "Contents
-    "man/contnts.md",
+    "man/contents.md",
     "man/library.md",
     "man/index.md",
 ]
