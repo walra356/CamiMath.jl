@@ -7,13 +7,7 @@ Mathematics library with integer-overload protection (IOP)
 ## Outline
 
 ```@contents
-Pages = [
-    "Contents
-    "man/contents.md",
-    "man/library.md",
-    "man/index.md",
-]
-Depth = 1
+Pages = ["man/index.md",]
 ```
 
 ## Library
