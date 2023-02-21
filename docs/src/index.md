@@ -4,11 +4,6 @@ Mathematics library with integer-overload protection (IOP)
 
 ---
 
-## Contents
-
-```@contents
-```
-
 ## Library
 
 ```@contents

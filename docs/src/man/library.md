@@ -5,6 +5,7 @@ bernoulliB(n::Integer; arr=false, msg=true)
 ```
 
 ## Divisor - the common denominator of rational numbers
+
 ```@docs
 normalize_rationals(v::Vector{Rational{T}}) where {T<:Integer}
 divisor(v::Vector{Rational{T}}) where {T<:Integer}
