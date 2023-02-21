@@ -4,10 +4,11 @@ Mathematics library with integer-overload protection (IOP)
 
 ---
 
-## Contents
+## Outline
 
 ```@contents
 Pages = [
+    "Contents
     "man/contnts.md",
     "man/library.md",
     "man/index.md",
