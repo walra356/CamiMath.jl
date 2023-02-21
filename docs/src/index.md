@@ -4,10 +4,9 @@ Mathematics library with integer-overload protection (IOP)
 
 ---
 
-## Outline
+## Contents
 
 ```@contents
-Pages = ["man/index.md",]
 ```
 
 ## Library
