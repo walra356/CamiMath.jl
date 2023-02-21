@@ -1,9 +1,3 @@
-# CamiMath.jl
-
-Mathematics library with integer-overload protection (IOP)
-
----
-
 ## Bernoulli number
 
 ```@docs
