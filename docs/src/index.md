@@ -9,6 +9,12 @@ Mathematics library with integer-overload protection (IOP)
 ```@contents
 ```
 
+# Library
+
+```@contents
+Pages = ["man/library.md"]
+```
+
 # Index
 
 ```@contents
