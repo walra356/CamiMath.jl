@@ -26,6 +26,10 @@ export numerators
 export pascal_triangle
 export pascal_next
 export permutations_unique_count
+
+export laguere_polynoms
+export generalized_laguere_polynoms
+
 export pochhammer
 export polynomial
 export polynom_power
@@ -42,6 +46,7 @@ include("Factorial.jl")
 include("Faulhaber.jl")
 include("Fibonacci.jl")
 include("HarmonicNumber.jl")
+include("Laguerre.jl")
 include("Partition.jl")
 include("Permutations.jl")
 include("Pascal.jl")
