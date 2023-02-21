@@ -2,18 +2,20 @@ using Documenter
 using CamiMath
 
 makedocs(;
-    modules = [CamiMath],
-    authors = "<walra356@planet.nl> and contributors",
+    modules=[CamiMath],
+    authors="<walra356@planet.nl> and contributors",
     #repo = "github.com/walra356/CamiMath.jl.git",
-    sitename = "CamiMath.jl",
-    format = Documenter.HTML(;
-        prettyurls = get(ENV, "CI", "false") == "true",
+    sitename="CamiMath.jl",
+    format=Documenter.HTML(;
+        prettyurls=get(ENV, "CI", "false") == "true",
         #canonical="https://walra356.github.io/CamiMath.jl",
         assets=String[]
     ),
     pages=[
         "Home" => "index.md",
+        "Contents" => "contents.md"
         "Library" => "man/library.md",
+        "Index" => "man/index.md",
     ]
 )
 
