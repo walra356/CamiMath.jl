@@ -13,9 +13,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Library" => "man/library.md"
+        "Library" => "man/library.md",
     ]
-    Depth = 1
 )
 
 deploydocs(;
