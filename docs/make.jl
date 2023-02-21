@@ -12,11 +12,9 @@ makedocs(;
         assets=String[]
     ),
     pages=[
-        "Home" => "index.md",
-        "Library" => "man/library.md",
+        "Home" => "man/library.md",
         "Index" => "man/index.md",
-    ],
-    Depth = 1
+    ]
 )
 
 deploydocs(;

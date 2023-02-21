@@ -1,3 +1,11 @@
+# CamiMath.jl
+
+Mathematics library with integer-overload protection (IOP)
+
+---
+
+# Library
+
 ## Bernoulli number
 
 ```@docs
@@ -87,4 +95,9 @@ triangle_coefficient(a::Real, b::Real, c::Real)
 texp(x::T, a::T, p::Int) where {T<:Real}
 log10_characteristic_power(x)
 log10_mantissa(x)
+```
+
+# Index
+
+```@index
 ```
