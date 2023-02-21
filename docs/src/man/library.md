@@ -4,8 +4,6 @@ Mathematics library with integer-overload protection (IOP)
 
 ---
 
-# Library
-
 ## Bernoulli number
 
 ```@docs
