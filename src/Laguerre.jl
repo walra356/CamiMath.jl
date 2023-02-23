@@ -165,21 +165,19 @@ function laguerre_polynom(p::Integer; msg=true)
     )
 
     D = (
-        1, 2, 6, 24, 120, 720, 5040, 40320, 62880, 3628800, 39916800,
+        1, 1, 2, 6, 24, 120, 720, 5040, 40320, 62880, 3628800, 39916800,
         479001600, 6227020800, 87178291200, 1307674368000, 20922789888000,
         355687428096000, 6402373705728000
     )
 
     pc = 18
-    p′ = 1 + p
     U = typeof(p)
     T = p > pc ? BigInt : Int
 
     if p < 0
         throw(DomainError(p))
     elseif p ≤ pc
-        println(N[p′]," ", T(D[p′]))
-        return N[p′] .// T(D[p′])
+        return N[1+p] .// T(D[1+p])
     else
         str = "IOP capture: "
         str *= "laguerre_polynom($p) converted to Rational{BigInt}"
