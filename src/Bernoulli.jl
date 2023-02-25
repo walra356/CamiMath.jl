@@ -7,7 +7,7 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#               bernoulliB(n::Integer [[; arr=false], msg=true])
+#               bernoulliB(n::Integer [; arr=false [, msg=true]])
 # ------------------------------------------------------------------------------
 
 function _bernoulli_BigInt(n, o)
@@ -24,7 +24,7 @@ function _bernoulli_BigInt(n, o)
             for j = 1:k-1
                 a -= o[j] * b
                 b *= (k + 1 - j)
-                b ÷= j                     # binomial coefficients are integers
+                b ÷= j                 # binomial coefficients are integers
             end
         end
         Base.push!(o, a // big(k))
@@ -36,7 +36,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    bernoulliB(n::Integer [[; arr=false], msg=true])
+    bernoulliB(n::Integer [; arr=false [, msg=true]])
 
 Bernoulli numbers of index `n` are defined by the recurrence relation
 ```math

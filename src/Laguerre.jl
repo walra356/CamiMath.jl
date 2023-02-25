@@ -172,12 +172,12 @@ function laguerre_polynom(p::Integer; msg=true)
 
     pc = 18
     U = typeof(p)
-    T = p > pc ? BigInt : Int
+    T = p ≤ pc ? Int : BigInt
 
     if p < 0
         throw(DomainError(p))
     elseif p ≤ pc
-        return N[1+p] .// T(D[1+p])
+        return (N[p+1] .// T(D[p+1]))
     else
         str = "IOP capture: "
         str *= "laguerre_polynom($p) converted to Rational{BigInt}"
@@ -198,6 +198,7 @@ end
 
 @doc raw"""
     generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+
 Generalized Laguerre polynomal of degree `n` for parameter `α`,
 ```math
     L_{n}^{α}(x)

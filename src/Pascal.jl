@@ -45,7 +45,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    pascal_triangle(n::Integer [[; arr=false], msg=true])
+    pascal_triangle(n::Integer [; arr=false [, msg=true]])
 
 Row `n` of Pascal triangle, ``[\binom{n}{1},\cdots\ \binom{n}{n}]``
 

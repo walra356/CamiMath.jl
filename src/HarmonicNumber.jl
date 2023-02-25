@@ -6,45 +6,36 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#        harmonicNumber(n::Integer, p::Int [[; arr=false] , msg=true])
+#        harmonicNumber(n::Integer [, p::Int [; arr=false [, msg=true]]])
 # ------------------------------------------------------------------------------
 
-function _harmonicNumber_p_BigInt(n::Int, p::Int)
+
+function _harmonicNumbers(n::Int, p::Int)
 
     one = big(1)
 
     o = Rational{BigInt}[one//one]
 
-    for m = 2:n
-        a = one
-        for i = 1:p
-            a *= big(m)
-        end
-        b = o[m-1] + one // a
-        Base.push!(o, b)
+    for k = 2:n
+        push!(o, o[end] + one // big(k)^p)
     end
 
     return o
 
 end
 # ..............................................................................
-function _harmonicNumber_BigInt(n::Int, nc::Int, p::Int, o)
+function _harmonicNumbers_next(n::Int, nc::Int, p::Int, o)
 
     one = big(1)
-    no = nc + 1 - length(o)
 
-    for m = nc+1:n
-        a = one
-        for i = 1:p
-            a *= big(m)
-        end
-        b = o[m-no] + one // a
-        Base.push!(o, b)
+    for k = nc+1:n
+        push!(o, o[end] + one // big(k)^p)
     end
 
     return o
 
 end
+
 @doc raw"""
     harmonicNumber(n::Integer [, p=1 [; arr=false [], msg=true]]])
 
@@ -149,7 +140,7 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
         2305393332480000000, 167961600000000, 10077696000000000,
         604661760000000000)
 
-    no = (42, 22, 16, 12, 10, 8, 7, 6, 6, 6)
+    no = (42, 22, 16, 12, 10, 8, 7, 6, 6, 6)     # no(p) 6 for p=10
 
     n ≠ 0 || return n
     p ≠ 0 || return n
@@ -184,7 +175,7 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
                     p == 8 ? (n8.//T(D[p]))[1:n] :
                     p == 9 ? (n9.//T(D[p]))[1:n] :
                     p == 10 ? (n0.//T(D[p]))[1:n] :
-                    _harmonicNumber_p_BigInt(n, p)
+                    _harmonicNumbers(n, p)
                 return o
             else
                 o = p == 1 ? Rational{T}[n1[i] // D[1] for i = 1:nc] :
@@ -197,8 +188,8 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
                     p == 8 ? Rational{T}[n8[i] // D[8] for i = 1:nc] :
                     p == 9 ? Rational{T}[n9[i] // D[9] for i = 1:nc] :
                     p == 10 ? Rational{T}[n0[i] // D[10] for i = 1:nc] :
-                    _harmonicNumber_p_BigInt(nc, p)
-                return _harmonicNumber_BigInt(n, nc, p, o)
+                    _harmonicNumbers(nc, p)
+                return _harmonicNumbers_next(n, nc, p, o)
             end
         else #..................................................................
             if n ≤ nc
@@ -212,7 +203,7 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
                     p == 8 ? (n8[n] // T(D[p])) :
                     p == 9 ? (n9[n] // T(D[p])) :
                     p == 10 ? (n0[n] // T(D[p])) :
-                    _harmonicNumber_p_BigInt(n, p)[end]
+                    _harmonicNumbers(n, p)[end]
                 return o
             else
                 o = p == 1 ? Rational{T}(n1[end], D[1]) :
@@ -225,8 +216,8 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
                     p == 8 ? Rational{T}(n8[end], D[8]) :
                     p == 9 ? Rational{T}(n9[end], D[9]) :
                     p == 10 ? Rational{T}(n0[end], D[10]) :
-                    _harmonicNumber_p_BigInt(nc, p)[end]
-                return _harmonicNumber_BigInt(n, nc, p, [o])[end]
+                    _harmonicNumbers(nc, p)[end]
+                return _harmonicNumbers_next(n, nc, p, [o])[end]
             end
         end # ..................................................................
     else # ---------------------------------------------------------------------
