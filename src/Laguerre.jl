@@ -113,15 +113,15 @@ function _laguerre_polynom(n)
 
     o = Rational{T}[]
 
-    for m = 0:n
+    for k = 0:n
 
-        sgn = iseven(m) ? 1 : -1
+        sgn = iseven(k) ? 1 : -1
 
-        D = Base.factorial(T(n - m)) * Base.factorial(T(m))
+        D = Base.factorial(T(n - k)) * Base.factorial(T(k))
         N = T(sgn)
 
-        for i = 1:(n-m)
-            N *= T(m + i)
+        for i = 1:(n-k)
+            N *= T(k + i)
         end
 
         push!(o, N // D)
@@ -139,9 +139,9 @@ The coefficients of the Laguerre polynomal of degree `n`
 ```math
     v_n=[c_0, c_1, \cdots\ c_n],
 ```
-where, with ``m=0,1,⋯,n``, 
+where, with ``k=0,1,⋯,n``, 
 ```math
-    c_m = \frac{\Gamma(n+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}.
+    c_k = \frac{\Gamma(n+1)}{\Gamma(k+1)}\frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}.
 ```
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
@@ -198,7 +198,7 @@ function laguerre_polynom(n::Integer; msg=true)
     )
 
     nc = 18 #(zero based)
-    P = typeof(n)
+    U = typeof(n)
     T = n ≤ nc ? Int : BigInt
 
     if n < 0
@@ -208,7 +208,7 @@ function laguerre_polynom(n::Integer; msg=true)
     else
         str = "IOP capture: "
         str *= "laguerre_polynom($n) converted to Rational{BigInt}"
-        msg && P ≠ BigInt && println(str)
+        msg && U ≠ BigInt && println(str)
         return _laguerre_polynom(n) 
     end
 
