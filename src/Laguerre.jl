@@ -9,8 +9,8 @@
 @doc raw"""
     conditionalType(n::Integer, nc::Integer, str="")
 
-`BigInt`` if `n = BigInt` or `n > nc`, otherwise `Int`; optional `str` to
-flag the conversion from `Int` to `BigInt`.
+`BigInt` if `n` is a `BigInt` or `n > nc`, otherwise `Int`; optional `str` to
+flag the change from `Int` to `BigInt`.
 #### Examples:
 ```
 julia> conditionalType(1, 1)
