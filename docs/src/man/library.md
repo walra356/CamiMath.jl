@@ -50,7 +50,7 @@ integer_partitions(n::Int, m=0; transpose=false, count=false)
 
 ```@docs
 laguerre_polynom(p::Integer; msg=true)
-#generalized_laguerre_polynoms(n::Int, α::T) where T<:Real
+generalized_laguerre_polynom(n::Int, α=0)
 ```
 
 ## Pascal triangle
