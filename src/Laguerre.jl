@@ -153,15 +153,17 @@ end
     laguerre_polynom(p::Integer; msg=true)
     
 The coefficients of the Laguerre polynomal of degree `p` 
-- see [`laguerreL`](@ref))
+(see [`laguerreL`](@ref) )
 ```math
     v_p=[c_0, c_1, \cdots\ c_p],
 ```
 where 
-``c_m = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}``,
+```math
+    c_m = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}
+```
 with ``m=0,1,⋯,p``.
 
-`msg` : integer-overflow protection (IOP) - warning on activation 
+- `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
 julia> laguerre_polynom(7)
