@@ -106,40 +106,22 @@ end
 #                     laguerre_polynom(p::Integer; msg=true)
 # ------------------------------------------------------------------------------
 
-function _laguerre_coeff(p, n)
-
-    sgn = iseven(n) ? 1 : -1
-
-    T = max(n, p + 1) > 20 ? BigInt : Int
-
-    D = Base.factorial(T(p - n)) * Base.factorial(T(n))
-    N = T(sgn)
-
-    for i = 1:(p-n)
-        N *= T(n + i)
-    end
-
-    o = Rational{T}(N, D)
-
-    return o
-end
-
-function _laguerre_polynom(p)
+function _laguerre_polynom(n)
 
 
-    T = p > 20 ? BigInt : Int
+    T = n > 20 ? BigInt : Int
 
     o = Rational{T}[]
 
-    for n = 0:p
+    for m = 0:n
 
-        sgn = iseven(n) ? 1 : -1
+        sgn = iseven(m) ? 1 : -1
 
-        D = Base.factorial(T(p - n)) * Base.factorial(T(n))
+        D = Base.factorial(T(n - m)) * Base.factorial(T(m))
         N = T(sgn)
 
-        for i = 1:(p-n)
-            N *= T(n + i)
+        for i = 1:(n-m)
+            N *= T(m + i)
         end
 
         push!(o, N // D)
@@ -150,19 +132,17 @@ function _laguerre_polynom(p)
 end
 
 @doc raw"""
-    laguerre_polynom(p::Integer; msg=true)
+    laguerre_polynom(n::Integer; msg=true)
     
-The coefficients of the Laguerre polynomal of degree `p` 
+The coefficients of the Laguerre polynomal of degree `n` 
 (see [`laguerreL`](@ref) )
 ```math
-    v_p=[c_0, c_1, \cdots\ c_p],
+    v_n=[c_0, c_1, \cdots\ c_n],
 ```
-where 
+where, with ``m=0,1,⋯,n``, 
 ```math
-    c_m = \frac{\Gamma(p+1)}{\Gamma(n+1)}\frac{(-1)^{n}}{(p-n)!}\frac{1}{n!}
+    c_m = \frac{\Gamma(n+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}.
 ```
-with ``n=0,1,⋯,p``.
-
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
@@ -170,7 +150,7 @@ julia> laguerre_polynom(7)
 (1//1, -7//1, 21//2, -35//6, 35//24, -7//40, 7//720, -1//5040)
 ```
 """
-function laguerre_polynom(p::Integer; msg=true)
+function laguerre_polynom(n::Integer; msg=true)
 
     N = (
         (1), (1, -1), (2, -4, 1), (6, -18, 9, -1), (24, -96, 72, -16, 1),
@@ -217,19 +197,19 @@ function laguerre_polynom(p::Integer; msg=true)
         355687428096000, 6402373705728000
     )
 
-    pc = 18 #(zero based)
-    P = typeof(p)
-    T = p ≤ pc ? Int : BigInt
+    nc = 18 #(zero based)
+    P = typeof(n)
+    T = n ≤ nc ? Int : BigInt
 
-    if p < 0
-        throw(DomainError(p))
-    elseif p ≤ pc
-        return N[p+1] .// T(D[p+1])
+    if n < 0
+        throw(DomainError(n))
+    elseif n ≤ nc
+        return N[n+1] .// T(D[n+1])
     else
         str = "IOP capture: "
-        str *= "laguerre_polynom($p) converted to Rational{BigInt}"
+        str *= "laguerre_polynom($n) converted to Rational{BigInt}"
         msg && P ≠ BigInt && println(str)
-        return _laguerre_polynom(p) #[_laguerre_coeff(p, n) for n = 0:p]
+        return _laguerre_polynom(n) 
     end
 
 end
