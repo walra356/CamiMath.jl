@@ -129,9 +129,9 @@ function _laguerre_polynom(p)
 
     T = p > 20 ? BigInt : Int
 
-    o =  Rational{T}[]
+    o = Rational{T}[]
 
-    for n=0:p
+    for n = 0:p
 
         sgn = iseven(n) ? 1 : -1
 
@@ -152,15 +152,17 @@ end
 @doc raw"""
     laguerre_polynom(p::Integer; msg=true)
     
-The coefficients of the Laguerre polynomal of degree `p`
-(in vector notation given by [`laguerreL`](@ref)),
+The coefficients of the Laguerre polynomal [`laguerreL`](@ref)) of degree `p`
 ```math
-    c=[c_0, c_1, \cdots\ c_p],
+    v_p=[c_0, c_1, \cdots\ c_p],
 ```
 where 
 ```math
-    c_p[m] = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}
+    c_m = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}
 ```
+with ``m=0,1,⋯,p``.
+
+`msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
 julia> laguerre_polynom(7)
