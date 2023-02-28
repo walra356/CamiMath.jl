@@ -6,7 +6,37 @@
 #                          Laguerre.jl
 # ==============================================================================
 
+@doc raw"""
+    conditionalType(n::Integer, nc::Integer, str="")
 
+`BigInt`` if `n = BigInt` or `n > nc`, otherwise `Int`; optional `str` to
+flag the conversion from `Int` to `BigInt`.
+#### Examples:
+```
+julia> conditionalType(1, 1)
+Int64
+
+julia> conditionalType(2, 1)
+BigInt
+
+julia> conditionalType(1, 1, " n > nc")
+Int64
+
+julia> conditionalTypeType(2, 1, " n > nc")
+ n > nc
+BigInt
+```
+"""
+function conditionalType(n::Integer, nc::Integer, str="")
+
+    if n isa BigInt
+        return BigInt
+    else
+        isempty(str) ? nothing : n ≤ nc ? nothing : println(str)
+        return n ≤ nc ? Int : BigInt
+    end
+
+end
 
 # ------------------------------------------------------------------------------
 #                     laguerre_polynom(n::Integer; msg=true)
@@ -14,7 +44,7 @@
 
 function _laguerre_polynom_coeff(n, k)
 
-    T = n > 20 ? BigInt : Int
+    T = conditionalType(n, 20)
 
     sgn = iseven(k) ? 1 : -1
 
@@ -106,7 +136,7 @@ function laguerre_polynom(n::Integer; msg=true)
         str = "IOP capture: "
         str *= "laguerre_polynom($n) converted to Rational{BigInt}"
         msg && U ≠ BigInt && println(str)
-        return [_laguerre_polynom_coeff(n, k) for k=0:n]
+        return [_laguerre_polynom_coeff(n, k) for k = 0:n]
     end
 
 end
@@ -140,7 +170,7 @@ The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
 ![Image](./assets/laguerreL8.png)
 """
-function generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real,T<:Real}
+function generalized_laguerreL(n::Int, x::T, α=0; deriv=0) where {T<:Real}
 
     coords = generalized_laguerre_polynoms(n, α)
     coords = T.(coords)
@@ -161,7 +191,7 @@ function _generalized_laguerre_coeff(n, α, m)
 
     sgn = iseven(m) ? 1 : -1
 
-    if isinteger(α)
+    if α isa Int
 
         T = max(n, α + n + 1) > 20 ? BigInt : Int
 
@@ -214,14 +244,27 @@ o = generalized_laguerre_polynom(8,3); println(o)
     Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
 ```
 """
-function generalized_laguerre_polynom(n::Int, α=0)
+function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 
-    α ≠ 0 || return laguerre_polynom(n)
+    α ≠ 0 || return laguerre_polynom(n; msg=false)
 
-    o = [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
+    nc = 18  # NB. length(D) = nc+1 (zero based notation)
+    U = typeof(n)
+    T = max(n, α + n + 1) ≤ nc ? Int : BigInt
 
-    return o
-
+    if n < 0
+        throw(DomainError(n))
+    elseif n < nc
+        str = "IOP capture: "
+        str *= "generalized laguerre_polynom($n) converted to Rational{BigInt}"
+        msg && U ≠ BigInt && println(str)
+        return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
+    else
+        str = "IOP capture: "
+        str *= "laguerre_polynom($n) converted to $(typeof(α))"
+        msg && U ≠ BigInt && println(str)
+        return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
+    end
 end
 
 # ------------------------------------------------------------------------------

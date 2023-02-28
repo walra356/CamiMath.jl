@@ -3,6 +3,9 @@ using Test
 
 @testset "CamiMath.jl" begin
 
+    @test conditionalType(1, 1) == Int64
+    @test conditionalType(2, 1) == BigInt
+
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}
     @test eltype(bernoulliB(big(35))) == Rational{BigInt}
@@ -75,7 +78,7 @@ using Test
     @test integer_partitions(7, 4; transpose=true) == [[2, 2, 2, 1], [3, 2, 1, 1], [4, 1, 1, 1]]
 
     @test sum(laguerre_polynom(20; msg=false)) == -21032925955607701 // 128047474114560000
-    @test generalized_laguerre_polynom(8, 3) == [165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
+    @test generalized_laguerre_polynom(8, 3) == [165 // 1, -330 // 1, 231 // 1, -77 // 1, 55 // 4, -11 // 8, 11 // 144, -11 // 5040, 1 // 40320]
 
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}

@@ -7,6 +7,8 @@
 
 module CamiMath
 
+export conditionalType
+
 export bernoulliB
 export bigfactorial
 export divisor

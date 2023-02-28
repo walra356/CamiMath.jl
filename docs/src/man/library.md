@@ -1,3 +1,9 @@
+## Julia Toolbox
+
+```@docs
+conditionalType(n::Integer, nc::Integer, str="")
+```
+
 ## Bernoulli number
 
 ```@docs
