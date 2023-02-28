@@ -159,9 +159,9 @@ The coefficients of the Laguerre polynomal of degree `p`
 ```
 where 
 ```math
-    c_m = \frac{\Gamma(p+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(p-m)!}\frac{1}{m!}
+    c_m = \frac{\Gamma(p+1)}{\Gamma(n+1)}\frac{(-1)^{n}}{(p-n)!}\frac{1}{n!}
 ```
-with ``m=0,1,⋯,p``.
+with ``n=0,1,⋯,p``.
 
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:

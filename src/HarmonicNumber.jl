@@ -43,9 +43,9 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
     H_{n,p}=\sum_{k=1}^{n}\frac{1}{k^p}.
 ```
-`arr` : output in array format
+- `arr` : output in array format
 
-`msg` : integer-overflow protection (IOP) - warning on activation 
+- `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Examples:
 ```
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)

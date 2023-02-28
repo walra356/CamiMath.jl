@@ -16,7 +16,7 @@ n!=n(n-1)(n-2)⋯1.
 In addition ``0!=1`` by definition.
 For *negative* integers the factorial is zero. 
 
-`msg` : integer-overflow protection (IOP) - warning on activation  (for `n > 20`) 
+- `msg` : integer-overflow protection (IOP) - warning on activation  (for `n > 20`) 
 #### Examples:
 ```
 julia> bigfactorial(20) == factorial(20)
