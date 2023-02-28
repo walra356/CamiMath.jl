@@ -6,111 +6,33 @@
 #                          Laguerre.jl
 # ==============================================================================
 
-# ------------------------------------------------------------------------------
-#               _generalized_laguerre_coeff(n, α, m)
-# ------------------------------------------------------------------------------
 
-function _generalized_laguerre_coeff(n, α, m)
-
-    sgn = iseven(m) ? 1 : -1
-
-    if isinteger(α)
-
-        T = max(n, α + n + 1) > 20 ? BigInt : Int
-
-        den = factorial(T(n - m)) * factorial(T(m))
-        num = T(sgn)
-
-        for i = 1:(n-m)
-            num *= T(α + m + i)
-        end
-
-        o = num // den
-
-    else
-
-        T = n > 20 ? BigInt : Int
-        F = n > 20 ? BigFloat : Foat64
-
-        den = factorial(T(n - m)) * factorial(T(m))
-        num = F(sgn)
-        den = F(den)
-
-        for i = 1:(n-m)
-            num *= F(α + m + i)
-        end
-
-        o = num / den
-
-    end
-
-    return o
-
-end
-
-# ------------------------------------------------------------------------------
-#               generalized_laguerre_polynom(n::Int [, α=0])
-# ------------------------------------------------------------------------------
-
-@doc raw"""
-    generalized_laguerre_polynom(n::Int [, α=0])
-
-The coefficients of the generalized Laguerre polynomal of degree `n` for
-parameter `α` (see [`generalized_laguerreL`](@ref)),
-```math
-    c(n, α)[m] = \frac{\Gamma(α+n+1)}{\Gamma(α+m+1)}
-    \frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}
-```
-#### Example:
-```
-o = generalized_laguerre_polynoms(8,3); println(o)
-    Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
-```
-"""
-function generalized_laguerre_polynom(n::Int, α=0)
-
-    α ≠ 0 || return laguerre_polynom(n)
-
-    o = [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
-
-    return o
-
-end
 
 # ------------------------------------------------------------------------------
 #                     laguerre_polynom(n::Integer; msg=true)
 # ------------------------------------------------------------------------------
 
-function _laguerre_polynom(n)
-
+function _laguerre_polynom_coeff(n, k)
 
     T = n > 20 ? BigInt : Int
 
-    o = Rational{T}[]
+    sgn = iseven(k) ? 1 : -1
 
-    for k = 0:n
+    den = Base.factorial(T(n - k)) * Base.factorial(T(k))
+    num = T(sgn)
 
-        sgn = iseven(k) ? 1 : -1
-
-        den = Base.factorial(T(n - k)) * Base.factorial(T(k))
-        num = T(sgn)
-
-        for i = 1:(n-k)
-            num *= T(k + i)
-        end
-
-        push!(o, num // den)
-
+    for i = 1:(n-k)
+        num *= T(k + i)
     end
 
-    return o
+    return num // den
+
 end
 
 @doc raw"""
     laguerre_polynom(n::Integer [; msg=true])
     
-The coefficients of the Laguerre polynomal of degree `n` 
-(see [`laguerreL`](@ref))
+The coefficients of [`laguerreL`](@ref) for degree `n`, 
 ```math
     v_n=[c_0, c_1, \cdots\ c_n],
 ```
@@ -172,7 +94,7 @@ function laguerre_polynom(n::Integer; msg=true)
         355687428096000, 6402373705728000
     )
 
-    nc = 18 #(zero based)
+    nc = 18  # NB. length(D) = nc+1 (zero based notation)
     U = typeof(n)
     T = n ≤ nc ? Int : BigInt
 
@@ -184,7 +106,7 @@ function laguerre_polynom(n::Integer; msg=true)
         str = "IOP capture: "
         str *= "laguerre_polynom($n) converted to Rational{BigInt}"
         msg && U ≠ BigInt && println(str)
-        return _laguerre_polynom(n)
+        return [_laguerre_polynom_coeff(n, k) for k=0:n]
     end
 
 end
@@ -224,6 +146,79 @@ function generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real,T<:R
     coords = T.(coords)
 
     o = polynomial(coords, x; deriv)
+
+    return o
+
+end
+
+
+
+# ------------------------------------------------------------------------------
+#               _generalized_laguerre_coeff(n, α, m)
+# ------------------------------------------------------------------------------
+
+function _generalized_laguerre_coeff(n, α, m)
+
+    sgn = iseven(m) ? 1 : -1
+
+    if isinteger(α)
+
+        T = max(n, α + n + 1) > 20 ? BigInt : Int
+
+        den = factorial(T(n - m)) * factorial(T(m))
+        num = T(sgn)
+
+        for i = 1:(n-m)
+            num *= T(α + m + i)
+        end
+
+        o = num // den
+
+    else
+
+        T = n > 20 ? BigInt : Int
+        F = n > 20 ? BigFloat : Float64
+
+        den = factorial(T(n - m)) * factorial(T(m))
+        num = F(sgn)
+        den = F(den)
+
+        for i = 1:(n-m)
+            num *= F(α + m + i)
+        end
+
+        o = num / den
+
+    end
+
+    return o
+
+end
+
+# ------------------------------------------------------------------------------
+#               generalized_laguerre_polynom(n::Int [, α=0])
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    generalized_laguerre_polynom(n::Int [, α=0])
+
+The coefficients of [`generalized_laguerreL`](@ref) for degree `n` and
+parameter `α`,
+```math
+    c(n, α)[k] = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
+    \frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
+```
+#### Example:
+```
+o = generalized_laguerre_polynom(8,3); println(o)
+    Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
+```
+"""
+function generalized_laguerre_polynom(n::Int, α=0)
+
+    α ≠ 0 || return laguerre_polynom(n)
+
+    o = [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
 
     return o
 
