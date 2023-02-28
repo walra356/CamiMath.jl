@@ -4,6 +4,7 @@ using Test
 @testset "CamiMath.jl" begin
 
     @test conditionalType(1, 1) == Int64
+    @test conditionalType(big(1), 1) == BigInt
     @test conditionalType(2, 1) == BigInt
 
     @test_throws DomainError bernoulliB(-1)

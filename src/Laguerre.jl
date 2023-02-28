@@ -16,6 +16,9 @@ flag the conversion from `Int` to `BigInt`.
 julia> conditionalType(1, 1)
 Int64
 
+julia> conditionalType(big(1), 1)
+BigInt
+
 julia> conditionalType(2, 1)
 BigInt
 
