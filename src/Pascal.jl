@@ -47,11 +47,11 @@ end
 @doc raw"""
     pascal_triangle(n::Integer [; arr=false [, msg=true]])
 
-Row `n` of Pascal triangle, ``[\binom{n}{1},\cdots\ \binom{n}{n}]``
+Row `n` of Pascal triangle, ``r_n = [\binom{n}{1},\cdots\ \binom{n}{n}]``
 
-`arr` : output full Pascal triangle
+- `arr` : output full Pascal triangle
 
-`msg` : integer-overflow protection (IOP) - warning on activation 
+- `msg` : integer-overflow protection (IOP) - warning on activation 
 (for `n > 10000`)
 #### Examples:
 ```
