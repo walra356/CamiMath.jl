@@ -7,10 +7,10 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#               faulhaber_polynom(p::Integer [; msg=true])
+#               _generalized_laguerre_coeff(n, α, m)
 # ------------------------------------------------------------------------------
 
-function _generalized_laguerre_polynom(n, α, m)
+function _generalized_laguerre_coeff(n, α, m)
 
     sgn = iseven(m) ? 1 : -1
 
@@ -49,14 +49,14 @@ function _generalized_laguerre_polynom(n, α, m)
 end
 
 # ------------------------------------------------------------------------------
-#               generalized_laguerre_polynoms(p::Integer [; msg=true])
+#               generalized_laguerre_polynom(n::Int [, α=0])
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    generalized_laguerre_polynoms(n::Int, α::T) where T<:Real
+    generalized_laguerre_polynom(n::Int [, α=0])
 
-The coefficients of the generalized Laguerre polynomals of degree `n` for
-parameter `α`.
+The coefficients of the generalized Laguerre polynomal of degree `n` for
+parameter `α` (see [`generalized_laguerreL`](@ref)),
 ```math
     c(n, α)[m] = \frac{\Gamma(α+n+1)}{\Gamma(α+m+1)}
     \frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}
@@ -67,43 +67,18 @@ o = generalized_laguerre_polynoms(8,3); println(o)
     Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
 ```
 """
-function generalized_laguerre_polynoms(n::Int, α::T) where {T<:Real}
+function generalized_laguerre_polynom(n::Int, α=0)
 
-    coords = [_generalized_laguerre_polynom(n, α, m) for m = 0:n]
+    α ≠ 0 || return laguerre_polynom(n)
 
-    return coords
+    o = [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
 
-end
-
-# ------------------------------------------------------------------------------
-#                         laguerre_polynoms(n::Int)
-# ------------------------------------------------------------------------------
-
-@doc raw"""
-    laguerre_polynoms(n::Int)
-
-The coefficients of the Laguerre polynomals of degree `n`.
-```math
-    c(n)[m] = \frac{\Gamma(n+1)}{\Gamma(m+1)}\frac{(-1)^{m}}{(n-m)!}\frac{1}{m!}
-```
-#### Example:
-```
-o = laguerre_polynoms(8); println(o)
-    Rational{Int64}[1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320]
-```
-"""
-function laguerre_polynoms(n::Int)
-
-    coords = [_generalized_laguerre_polynom(n, 0, m) for m = 0:n]
-
-    return coords
+    return o
 
 end
 
-
-
 # ------------------------------------------------------------------------------
-#                     laguerre_polynom(p::Integer; msg=true)
+#                     laguerre_polynom(n::Integer; msg=true)
 # ------------------------------------------------------------------------------
 
 function _laguerre_polynom(n)
@@ -117,14 +92,14 @@ function _laguerre_polynom(n)
 
         sgn = iseven(k) ? 1 : -1
 
-        D = Base.factorial(T(n - k)) * Base.factorial(T(k))
-        N = T(sgn)
+        den = Base.factorial(T(n - k)) * Base.factorial(T(k))
+        num = T(sgn)
 
         for i = 1:(n-k)
-            N *= T(k + i)
+            num *= T(k + i)
         end
 
-        push!(o, N // D)
+        push!(o, num // den)
 
     end
 
@@ -132,14 +107,14 @@ function _laguerre_polynom(n)
 end
 
 @doc raw"""
-    laguerre_polynom(n::Integer; msg=true)
+    laguerre_polynom(n::Integer [; msg=true])
     
 The coefficients of the Laguerre polynomal of degree `n` 
-(see [`laguerreL`](@ref) )
+(see [`laguerreL`](@ref))
 ```math
     v_n=[c_0, c_1, \cdots\ c_n],
 ```
-where, with ``k=0,1,⋯,n``, 
+where, with ``k=0,1,⋯,n`` , 
 ```math
     c_k = \frac{\Gamma(n+1)}{\Gamma(k+1)}\frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}.
 ```
@@ -209,7 +184,7 @@ function laguerre_polynom(n::Integer; msg=true)
         str = "IOP capture: "
         str *= "laguerre_polynom($n) converted to Rational{BigInt}"
         msg && U ≠ BigInt && println(str)
-        return _laguerre_polynom(n) 
+        return _laguerre_polynom(n)
     end
 
 end
