@@ -92,7 +92,7 @@ function laguerre_polynom(n::Integer; msg=true)
     )
 
     nc = 18  # NB. length(D) = nc+1 (zero based notation)
-    T = Type_IOP(n, nc; fnam="laguerre_polynom", msg)
+    T = Type_IOP(n, nc; nam="laguerre_polynom", msg)
 
     if n < 0
         throw(DomainError(n))
@@ -208,6 +208,20 @@ o = generalized_laguerre_polynom(8,3); println(o)
 ```
 """
 function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
+
+    α ≠ 0 || return laguerre_polynom(n; msg=false)
+
+    n ≥ 0 || throw(DomainError(n))
+
+    nc = min(18, n - floor(Int, α))  # NB. length(D) = nc+1 (zero based notation)
+
+    T = Type_IOP(n, nc, α; nam="generalized_laguerre_polynom", msg)
+
+    return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
+
+end
+
+function generalized_laguerre_polynom1(n::Integer, α=0; msg=true)
 
     α ≠ 0 || return laguerre_polynom(n; msg=false)
 

@@ -119,7 +119,7 @@ function bernoulliB(n::Integer; arr=false, msg=true)
     nc = 35
     no = 86
 
-    T = Type_IOP(n, nc; fnam="bernoulliB", msg)
+    T = Type_IOP(n, nc; nam="bernoulliB", msg)
 
     n = convert(Int, n)
     n ≥ 0 || throw(DomainError(n))

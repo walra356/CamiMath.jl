@@ -150,7 +150,7 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
 
         n ≥ 0 || throw(DomainError(n))
         
-        T = Type_IOP(n, nc, p; fnam="harmonicNumber", msg)
+        T = Type_IOP(n, nc, p; nam="harmonicNumber", msg)
 
         n = convert(Int, n)
 
