@@ -116,32 +116,36 @@ function bernoulliB(n::Integer; arr=false, msg=true)
         2577687858367 // 6, 0 // 1
     )
 
-    U = typeof(n)
-    T = n > 35 ? BigInt : U
+    nc = 35
+    no = 86
 
-    n′ = 1 + n
+    T = Type_IOP(n, nc; fnam="bernoulliB", msg)
 
-    iseven(n) || Rational{U}(0, 1)
+    n = convert(Int, n)
+    n ≥ 0 || throw(DomainError(n))
 
-    if n < 0
-        throw(DomainError(n))
-    elseif n ≤ 35
-        o = arr ? Rational{T}[rat[i] for i = 1:n′] :
-            Rational{T}(rat[n′])
-        return o
-    elseif n ≤ 86
-        str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
-        msg && U ≠ BigInt && println(str)
-        o = arr ? Rational{BigInt}[num[i] // den[i] for i = 1:n′] :
-            Rational{BigInt}(num[n′], den[n′])
-        return o
+    if arr
+        if n ≤ nc
+            return Rational{T}[rat[i] for i = 1:1+n] 
+        elseif n ≤ no
+            return Rational{BigInt}[num[i] // den[i] for i = 1:1+n] 
+        else
+            o = Rational{BigInt}[num[i] // den[i] for i = 1:1+no] 
+            return _bernoulli_BigInt(n, o) 
+        end
+       
     else
-        str = "IOP capture: bernoulliB($n)) converted to Rational{BigInt}"
-        msg && U ≠ BigInt && println(str)
-        o = Rational{BigInt}[num[i] // den[i] for i ∈ eachindex(num)]
-        o = _bernoulli_BigInt(n, o)
-        o = arr ? o : o[n′]
-        return o
+        if n ≤ nc
+            k = 1 + n
+            return Rational{T}(rat[k]) 
+        elseif n ≤ no
+            iseven(n) || return big(0) // big(1)
+            return Rational{BigInt}(num[1+n] // den[1+n])
+        else
+            iseven(n) || return big(0) // big(1)
+            o = Rational{BigInt}[num[i] // den[i] for i=1:1+no]
+            return _bernoulli_BigInt(n, o)[end]
+        end
     end
 
 end

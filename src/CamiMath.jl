@@ -7,9 +7,10 @@
 
 module CamiMath
 
-export conditionalType
+export Type_IOP
 
 export bernoulliB
+export bernoulliB1
 export bigfactorial
 export divisor
 export faulhaber_polynom
@@ -55,6 +56,7 @@ include("Permutations.jl")
 include("Pascal.jl")
 include("Pochhammer.jl")
 include("Polynomials.jl")
+include("Toolbox.jl")
 include("Triangle.jl")
 
 end

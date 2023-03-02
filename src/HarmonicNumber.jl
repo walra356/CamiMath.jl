@@ -140,7 +140,7 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
         2305393332480000000, 167961600000000, 10077696000000000,
         604661760000000000)
 
-    no = (42, 22, 16, 12, 10, 8, 7, 6, 6, 6)     # no(p) 6 for p=10
+    no = (42, 22, 16, 12, 10, 8, 7, 6, 6, 6)     # no(p) == 6 for p=10
 
     n ≠ 0 || return n
     p ≠ 0 || return n
@@ -148,18 +148,9 @@ function harmonicNumber(n::Integer, p=1; arr=false, msg=true)
     if p > 0 # -----------------------------------------------------------------
         nc = p < 11 ? no[p] : p < 18 ? 4 : p < 25 ? 3 : 0
 
-        if n < 0
-            throw(DomainError(n))
-        elseif n ≤ nc
-            T = typeof(n)
-        elseif n > nc
-            T = BigInt
-            if typeof(n) == Int
-                str = "IOP capture: "
-                str *= "harmonicNumber($n, $p) converted to Rational{BigInt}"
-                msg && println(str)
-            end
-        end
+        n ≥ 0 || throw(DomainError(n))
+        
+        T = Type_IOP(n, nc, p; fnam="harmonicNumber", msg)
 
         n = convert(Int, n)
 

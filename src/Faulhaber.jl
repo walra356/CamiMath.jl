@@ -22,7 +22,7 @@ function _faulhaber_BigInt(p::Integer)
 
     F = Base.reverse(F)               # reverse to standard order
 
-    F[1] = big(0) // big(1)           # add polynomial constant: c_0 = 0//1
+    F[1] = big(0) // big(1)           # set polynomial constant: c_0 = 0//1
 
     return Tuple(F)
 

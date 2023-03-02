@@ -1,7 +1,7 @@
 ## Julia Toolbox
 
 ```@docs
-conditionalType(n::Integer, nc::Integer, str="")
+Type_IOP(n::Integer, nc::Integer, str="")
 ```
 
 ## Bernoulli number

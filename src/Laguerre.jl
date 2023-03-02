@@ -1,53 +1,17 @@
 # SPDX-License-Identifier: MIT
 
-# author: Jook Walraven - 12-2-2023
-
 # ==============================================================================
 #                          Laguerre.jl
+#                    Jook Walraven - 1-3-2023
 # ==============================================================================
 
-@doc raw"""
-    conditionalType(n::Integer, nc::Integer, str="")
-
-`BigInt` if `n` is a `BigInt` or `n > nc`, otherwise `Int`; optional `str` to
-flag the change from `Int` to `BigInt`.
-#### Examples:
-```
-julia> conditionalType(1, 1)
-Int64
-
-julia> conditionalType(big(1), 1)
-BigInt
-
-julia> conditionalType(2, 1)
-BigInt
-
-julia> conditionalType(1, 1, " n > nc")
-Int64
-
-julia> conditionalTypeType(2, 1, " n > nc")
- n > nc
-BigInt
-```
-"""
-function conditionalType(n::Integer, nc::Integer, str="")
-
-    if n isa BigInt
-        return BigInt
-    else
-        isempty(str) ? nothing : n ≤ nc ? nothing : println(str)
-        return n ≤ nc ? Int : BigInt
-    end
-
-end
-
 # ------------------------------------------------------------------------------
-#                     laguerre_polynom(n::Integer; msg=true)
+#                  laguerre_polynom(n::Integer [; msg=true])
 # ------------------------------------------------------------------------------
 
 function _laguerre_polynom_coeff(n, k)
 
-    T = conditionalType(n, 20)
+    T = Type_IOP(n, 20)
 
     sgn = iseven(k) ? 1 : -1
 
@@ -128,17 +92,13 @@ function laguerre_polynom(n::Integer; msg=true)
     )
 
     nc = 18  # NB. length(D) = nc+1 (zero based notation)
-    U = typeof(n)
-    T = n ≤ nc ? Int : BigInt
+    T = Type_IOP(n, nc; fnam="laguerre_polynom", msg)
 
     if n < 0
         throw(DomainError(n))
     elseif n ≤ nc
         return N[n+1] .// T(D[n+1])
     else
-        str = "IOP capture: "
-        str *= "laguerre_polynom($n) converted to Rational{BigInt}"
-        msg && U ≠ BigInt && println(str)
         return [_laguerre_polynom_coeff(n, k) for k = 0:n]
     end
 
@@ -259,7 +219,7 @@ function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
         throw(DomainError(n))
     elseif n < nc
         str = "IOP capture: "
-        str *= "generalized laguerre_polynom($n) converted to Rational{BigInt}"
+        str *= "generalized_laguerre_polynom($n) converted to Rational{BigInt}"
         msg && U ≠ BigInt && println(str)
         return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
     else

@@ -30,6 +30,7 @@ function pascal_next(a)
 
     n = Base.length(a) + 1
     o = Base.ones(eltype(a), n)
+    n ≠ 2 || return o
 
     for k = 1:n÷2
         o[k+1] = a[k+1] + a[k]
@@ -119,39 +120,31 @@ function pascal_triangle(n::Integer; arr=false, msg=true)
             3268760, 4457400, 5200300, 5200300, 4457400, 3268760, 2042975,
             1081575, 480700, 177100, 53130, 12650, 2300, 300, 25, 1))
 
-    nc = 25
+    no = 25
 
-    U = typeof(n)
-    T = n > 10000 ? BigInt : U
-
+    T = Type_IOP(n, 10000, "pascal_triangle($n)"; msg)
+    
     n = convert(Int, n)
-
-    if n < 0
-        throw(DomainError(n))
-    elseif n == 0
-        return [T(1)]
-    elseif n > nc
-        str = "IOP capture: pascal_triangle($n) converted to BigInt"
-        msg && n > 10000 && U ≠ BigInt && println(str)
-    end
+    n ≠ 0 || return arr ? [[T(1)]] : [T(1)]
+    n > 0 || throw(DomainError(n))
 
     if arr
-        if n ≤ nc
+        if n ≤ no
             return collect(collect.(T, o))[1:n]
         else
             o = collect(collect.(T, o))
-            for i = 1:n-nc
+            for i = 1:n-no
                 a = pascal_next(o[end])
                 o = push!(o, a)
             end
             return o
         end
     else
-        if n ≤ nc
+        if n ≤ no
             return collect(T, o[n])
         else
-            o = collect(T, o[nc])
-            for i = 1:n-nc
+            o = collect(T, o[no])
+            for i = 1:n-no
                 o = pascal_next(o)
             end
             return o
