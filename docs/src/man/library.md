@@ -2,6 +2,9 @@
 
 ```@docs
 Type_IOP(n::Integer, nc::Integer, str="")
+log10_characteristic_power(x)
+log10_mantissa(x)
+texp(x::T, a::T, p::Int) where {T<:Real}
 ```
 
 ## Bernoulli number
@@ -27,8 +30,8 @@ bigfactorial(n::Integer; msg=true)
 ## Faulhaber polynomial
 
 ```@docs
-faulhaber_polynom(p::Integer; msg=true)
 faulhaber_polynomial(n::Integer, p::Int; msg=true)
+faulhaber_polynom(p::Integer; msg=true)
 faulhaber_summation(n::Integer, p::Int)
 ```
 
@@ -52,13 +55,13 @@ canonical_partitions(n::Int, m=0; header=true, reverse=true)
 integer_partitions(n::Int, m=0; transpose=false, count=false)
 ```
 
-## Laguerre polynomials
+## Laguerre polynomial
 
 ```@docs
-laguerre_polynom(p::Integer; msg=true)
-generalized_laguerre_polynom(n::Int, α=0)
 laguerreL(n::Int, x::T; deriv=0) where {T<:Real}
+laguerre_polynom(p::Integer; msg=true)
 generalized_laguerreL(n::Int, x::T, α=0; deriv=0) where {T<:Real}
+generalized_laguerre_polynom(n::Int, α=0)
 ```
 
 ## Pascal triangle
@@ -96,10 +99,3 @@ istriangle(a::Real, b::Real, c::Real)
 triangle_coefficient(a::Real, b::Real, c::Real)
 ```
 
-## Truncated exponentials
-
-```@docs
-texp(x::T, a::T, p::Int) where {T<:Real}
-log10_characteristic_power(x)
-log10_mantissa(x)
-```
