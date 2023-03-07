@@ -168,9 +168,10 @@ end
 The coefficients of [`generalized_laguerreL`](@ref) for degree `n` and
 parameter `α`,
 ```math
-    c(n, α)[k] = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
+    _k(n, α) = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
     \frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
 ```
+- `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
 julia> o =  generalized_laguerre_polynom(6,3); println(o)
@@ -187,10 +188,10 @@ function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
     n ≥ 0 || throw(DomainError(n))
 
     if α isa Integer
-        T = Type_IOP(abs(α)+n, 18, α; nam="generalized_laguerre_polynom", msg)
+        T = Type_IOP(abs(α) + n, 18, α; nam="generalized_laguerre_polynom", msg)
         return T ≠ BigInt ?
                [_generalized_laguerre_Int(n, α, k) for k = 0:n] :
-               [_generalized_laguerre_BigInt(n, α, k) for k = 0:n] 
+               [_generalized_laguerre_BigInt(n, α, k) for k = 0:n]
     else
         T = Type_IOP(n, 18, α; nam="generalized_laguerre_polynom", msg)
         return T ≠ BigInt ?
@@ -217,15 +218,24 @@ Laguerre polynomal of degree `n`,
 where ``c_k(n)`` is a Laguerre coefficient from [`laguerre_polynom`](@ref).
 #### Example:
 ```
-(xmin, Δx, xmax) = (0, 0.1, 11)
-n = 8
-L = [laguerreL(n, x) for x=xmin:Δx:xmax]
-f = Float64.(L);
+julia> coords = laguerre_polynom(8); println(coords)
+(1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320)
+
+julia> laguerreL(8, 5)
+18029//8064
+
+julia> polynomial(coords, 5)
+18029//8064
+
+julia> (xmin, Δx, xmax) = (0, 0.1, 11);
+julia> n = 8;
+julia> L = [laguerreL(n, x) for x=xmin:Δx:xmax];
+julia> f = Float64.(L);
 plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n)")
 ```
 The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
-![Image](./assets/laguerreL8.png)
+![Image](../assets/laguerreL8.png)
 """
 function laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
 
@@ -257,16 +267,15 @@ where ``c_k(n,α)`` is a generalized Laguerre coefficient from
 [`generalized_laguerre_polynom`](@ref).
 #### Example:
 ```
-(xmin, Δx, xmax) = (0, 0.1, 11)
-n = 8
-α = -0.3
-gL = [generalized_laguerreL(n, α, x) for x=xmin:Δx:xmax]
-f = Float64.(gL);
-plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n for α =$α)")
+julia> coords = generalized_laguerre_polynom(5, 3); println(coords)
+Rational{Int64}[56//1, -70//1, 28//1, -14//3, 1//3, -1//120]
+
+julia> polynomial(coords, 10.0)
+-10.666666666667311
+
+julia> generalized_laguerreL(5, 10.0, 3)
+-10.666666666667311
 ```
-The plot is made using `CairomMakie`.
-NB.: `plot_function` is not included in the `CamiXon` package.
-![Image](../assets/laguerreL8.png)
 """
 function generalized_laguerreL(n::Integer, x::T, α=0; deriv=0, msg=true) where {T<:Real}
 

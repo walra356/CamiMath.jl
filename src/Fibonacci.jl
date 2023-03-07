@@ -34,8 +34,7 @@ with ``F_1=1`` and ``F_0=0``.
 
 - `arr` : output full Pascal triangle
 
-- `msg` : integer-overflow protection (IOP) - warning on activation 
-(for `n > 92`)
+- `msg` : integer-overflow protection (IOP) - warning on activation
 #### Examples:
 ```
 julia> fibonacci(92)
@@ -73,19 +72,13 @@ function fibonacci(n::Integer; arr=false, msg=true)
 
     nc = 92
 
-    U = typeof(n)
-    T = n > nc ? BigInt : U
+    n ≥ 0 || throw(DomainError(n))
+
+    T = Type_IOP(n, nc; nam="fibonacci", msg)
+
+    n ≠ 0 || return [T(0)]
 
     n = convert(Int, n)
-
-    if n < 0
-        throw(DomainError(n))
-    elseif n == 0
-        return [T(0)]
-    elseif n > nc
-        str = "IOP capture: fibonaci($n) converted to BigInt"
-        msg && U ≠ BigInt && println(str)
-    end
 
     if arr # -------------------------------------------------------------------
         if n ≤ nc
