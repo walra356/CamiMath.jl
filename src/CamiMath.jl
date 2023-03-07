@@ -44,7 +44,6 @@ export triangle_coefficient
 
 include("Bernoulli.jl")
 include("Divisor.jl")
-include("Exponential.jl")
 include("Factorial.jl")
 include("Faulhaber.jl")
 include("Fibonacci.jl")
