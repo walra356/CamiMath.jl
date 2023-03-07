@@ -211,10 +211,10 @@ Laguerre polynomal of degree `n`,
 ```math
     L_{n}(x)
     = \frac{1}{n!}e^{x}\frac{d^{n}}{dx^{n}}(e^{-x}x^{n})
-    = \sum_{m=0}^{n}(-1)^{m}\binom{n}{n-m}\frac{x^{m}}{m!}
-    = \sum_{m=0}^{n}c(n)[m]x^{m}
+    = \sum_{k=0}^{n}(-1)^{k}\binom{n}{n-k}\frac{x^{k}}{k!}
+    = \sum_{k=0}^{n}c_k(n)x^{k}
 ```
-where ``c(n)[m]`` is the Laguerre coordinate from [`laguerre_polynoms`](@ref).
+where ``c_k(n)`` is a Laguerre coefficient from [`laguerre_polynom`](@ref).
 #### Example:
 ```
 (xmin, Δx, xmax) = (0, 0.1, 11)
@@ -250,11 +250,11 @@ Generalized Laguerre polynomal of degree `n` for parameter `α`,
 ```math
     L_{n}^{α}(x)
     = \frac{1}{n!}e^{x}x^{-α}\frac{d^{n}}{dx^{n}}(e^{-x}x^{n+α})
-    = \sum_{m=0}^{n}(-1)^{m}\binom{n+α}{n-m}\frac{x^{m}}{m!}
-    = \sum_{m=0}^{n}c(n,α)[m]x^{m}
+    = \sum_{k=0}^{n}(-1)^{k}\binom{n+α}{n-k}\frac{x^{k}}{k!}
+    = \sum_{k=0}^{n}c_k(n,α)x^{k}
 ```
-where ``c(n,α)[m]`` is the generalized Laguerre coordinate from
-[`generalized_laguerre_polynoms`](@ref).
+where ``c_k(n,α)`` is a generalized Laguerre coefficient from
+[`generalized_laguerre_polynom`](@ref).
 #### Example:
 ```
 (xmin, Δx, xmax) = (0, 0.1, 11)
@@ -266,7 +266,7 @@ plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n for �
 ```
 The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
-![Image](./assets/laguerreL8.png)
+![Image](../assets/laguerreL8.png)
 """
 function generalized_laguerreL(n::Integer, x::T, α=0; deriv=0, msg=true) where {T<:Real}
 

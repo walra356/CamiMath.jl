@@ -47,7 +47,7 @@ Polynomial of degree ``d``,
 ```math
     P(x)=c_0 + c_1 x + ⋯ + c_d x^d,
 ```
-where `coords` = ``(c_0,⋯\ c_d)`` are the coordinates defining the vector 
+where the coefficients `coords` = ``(c_0,⋯\ c_d)`` define the vector 
 representation of the polynomial in a vector space of dimension ``d+1``.
 #### Examples:
 ```
@@ -104,10 +104,8 @@ end
 @doc raw"""
     polynom_power(coords, p)
 
-Coordinates of the polynomial defined by `coords` raised to the power `p`,
-which define a polynomial in a vector space of dimension ``p d + 1``,
-where ``d`` is the degree of the polynomial defined by `coords`.
-
+The `coords` of a polynomial of degree ``d`` raised to the power `p`,
+which define a polynomial in a vector space of dimension ``p d + 1``.
 #### Examples:
 ```
 julia> coords = (1,1,1)    # coordinates of polynomial vector of degree d = 2
@@ -146,15 +144,15 @@ function polynom_power(coords, p::Int)
 end
 
 # ------------------------------------------------------------------------------
-#                    polynom_power(coords, p::Int)
+#                    polynom_product(coords1, coords2)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
     polynom_product(coords1, coords2)
 
-Coordinate representation of the product of two polynomials, a = b`coords1` and 
-b = `coords2` of degree ``m`` and ``n``, which is a polynomial in a vector 
-space of dimension ``d=m+n+1``,
+The coefficients of the product of two polynomials, a = `coords1` and 
+b = `coords2` of degree ``m`` and ``n``, which represents a polynomial 
+in a vector space of dimension ``d=m+n+1``,
 ```math
     P(x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
 ```
@@ -216,9 +214,9 @@ end
 @doc raw"""
     polynom_product_expansion(coords1, coords2, p::Int)
 
-Vector representation of the product of two polynomials, a = `coords1` 
-(of degree ``n``) and b = `coords2` (of degree ``m``), with ``m ≤ n``
-truncated at the order `p`, which is a polynomial in a vector space of 
+The coefficients of the product of two polynomials, a = `coords1` 
+(of degree ``n``) and b = `coords2` (of degree ``m``), truncated at the 
+order `p`, which represents a polynomial in a vector space of 
 dimension ``d=p+1``
 ####
 ```
@@ -240,8 +238,8 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
     n = Base.length(a)
     m = Base.length(b)
-    n′= n - 1
-    m′= m - 1
+    n′ = n - 1
+    m′ = m - 1
 
     if m > n
 
