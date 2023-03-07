@@ -10,12 +10,10 @@ module CamiMath
 export Type_IOP
 
 export bernoulliB
-export bernoulliB1
 export bigfactorial
 export divisor
 export faulhaber_polynom
 export faulhaber_polynomial
-export faulhaber_polynomial1
 export faulhaber_summation
 export fibonacci
 export harmonicNumber
@@ -30,12 +28,14 @@ export pascal_triangle
 export pascal_next
 export permutations_unique_count
 
-#export laguerre_polynoms
+export laguerreL
 export laguerre_polynom
 export generalized_laguerre_polynom
+export generalized_laguerreL
 
 export pochhammer
 export polynomial
+export polynomial1
 export polynom_power
 export polynom_product
 export polynom_product1

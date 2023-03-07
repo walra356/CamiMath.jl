@@ -43,7 +43,7 @@ function bigfactorial(n::Integer; msg=true)
     n = Int(n)
     nc = 20
 
-    o = n > nc ? factorial(big(n)) : o = factorial(n)
+    o = n > nc ? factorial(big(n)) : factorial(n)
 
     msg && n > nc && println(str)
 

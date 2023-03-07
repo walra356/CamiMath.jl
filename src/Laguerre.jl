@@ -9,20 +9,13 @@
 #                  laguerre_polynom(n::Integer [; msg=true])
 # ------------------------------------------------------------------------------
 
-function _laguerre_polynom_coeff(n, k)
+function _laguerre_polynom_BigInt(n, k)
 
-    T = Type_IOP(n, 20)
+    sgn = iseven(k) ? big(1) : -big(1)
+    den = Base.factorial(big(n - k)) * Base.factorial(big(k))
+    num = prod(k+1:n; init=sgn)
 
-    sgn = iseven(k) ? 1 : -1
-
-    den = Base.factorial(T(n - k)) * Base.factorial(T(k))
-    num = T(sgn)
-
-    for i = 1:(n-k)
-        num *= T(k + i)
-    end
-
-    return num // den
+    return num .// den
 
 end
 
@@ -91,18 +84,160 @@ function laguerre_polynom(n::Integer; msg=true)
         355687428096000, 6402373705728000
     )
 
+    n ≥ 0 || throw(DomainError(n))
+
     nc = 18  # NB. length(D) = nc+1 (zero based notation)
+
     T = Type_IOP(n, nc; nam="laguerre_polynom", msg)
 
-    if n < 0
-        throw(DomainError(n))
-    elseif n ≤ nc
+    if n ≤ nc
         return N[n+1] .// T(D[n+1])
     else
-        return [_laguerre_polynom_coeff(n, k) for k = 0:n]
+        return [_laguerre_polynom_BigInt(n, k) for k = 0:n]
     end
 
 end
+
+# ------------------------------------------------------------------------------
+#                   _generalized_laguerre_coeff(n, α, m)
+# ------------------------------------------------------------------------------
+
+function _generalized_laguerre_Int(n::Int, α::Int, m::Int)
+
+    sgn = iseven(m) ? 1 : -1
+    den = Base.factorial(n - m) * factorial(m)
+    num = prod(α+m+1:α+n; init=sgn)
+
+    return num .// den
+
+end
+
+function _generalized_laguerre_BigInt(n::Integer, α::Integer, m::Integer)
+
+    n = big(n)
+    α = big(α)
+    m = big(m)
+
+    sgn = iseven(m) ? big(1) : -big(1)
+    den = Base.factorial(n - m) * factorial(m)
+    num = prod(α+m+big(1):α+n; init=sgn)
+
+    return num .// den
+
+end
+
+function _generalized_laguerre_Float64(n::Int, α, m::Int)
+
+    F = Float64
+
+    num = iseven(m) ? F(1.0) : -F(1.0)
+    den = factorial(n - m) * factorial(m)
+    den = F(den)
+
+    for i = 1:(n-m)
+        num *= F(α + m + i)
+    end
+
+    return num ./ den
+
+end
+
+function _generalized_laguerre_BigFloat(n::Integer, α, m::Integer)
+
+    F = BigFloat
+
+    num = iseven(m) ? F(1.0) : -F(1.0)
+    den = factorial(big(n - m)) * factorial(big(m))
+    den = F(den)
+
+    for i = 1:(n-m)
+        num *= F(α + m + i)
+    end
+
+    return num ./ den
+
+end
+
+# ------------------------------------------------------------------------------
+#            generalized_laguerre_polynom(n::Int [, α=0 [; msg=true]])
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    generalized_laguerre_polynom(n::Int [, α=0 [; msg=true]])
+
+The coefficients of [`generalized_laguerreL`](@ref) for degree `n` and
+parameter `α`,
+```math
+    c(n, α)[k] = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
+    \frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
+```
+#### Example:
+```
+julia> o =  generalized_laguerre_polynom(6,3); println(o)
+Rational{Int64}[84//1, -126//1, 63//1, -14//1, 3//2, -3//40, 1//720]
+
+julia> o =  generalized_laguerre_polynom(6,3.0); println(o)
+[84.0, -126.0, 63.0, -14.0, 1.5, -0.075, 0.001388888888888889]
+```
+"""
+function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
+
+    α === 0 && return laguerre_polynom(n; msg)
+
+    n ≥ 0 || throw(DomainError(n))
+
+    T = Type_IOP(n, 18, α; nam="generalized_laguerre_polynom", msg)
+
+    if α isa Integer
+        return T ≠ BigInt ?
+               [_generalized_laguerre_Int(n, α, k) for k = 0:n] :
+               [_generalized_laguerre_BigInt(n, α, k) for k = 0:n]
+    else
+        return T ≠ BigInt ?
+               [_generalized_laguerre_Float64(n, α, k) for k = 0:n] :
+               [_generalized_laguerre_BigFloat(n, α, k) for k = 0:n]
+    end
+
+end
+
+# ------------------------------------------------------------------------------
+#              laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    laguerreL(n::Int, x::T; deriv=0) where T<:Real
+
+Laguerre polynomal of degree `n`,
+```math
+    L_{n}(x)
+    = \frac{1}{n!}e^{x}\frac{d^{n}}{dx^{n}}(e^{-x}x^{n})
+    = \sum_{m=0}^{n}(-1)^{m}\binom{n}{n-m}\frac{x^{m}}{m!}
+    = \sum_{m=0}^{n}c(n)[m]x^{m}
+```
+where ``c(n)[m]`` is the Laguerre coordinate from [`laguerre_polynoms`](@ref).
+#### Example:
+```
+(xmin, Δx, xmax) = (0, 0.1, 11)
+n = 8
+L = [laguerreL(n, x) for x=xmin:Δx:xmax]
+f = Float64.(L);
+plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n)")
+```
+The plot is made using `CairomMakie`.
+NB.: `plot_function` is not included in the `CamiXon` package.
+![Image](./assets/laguerreL8.png)
+"""
+function laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
+
+    coords = laguerre_polynom(n; msg)
+
+    o = polynomial(coords, x; deriv)
+
+    return o
+
+end
+
+
 
 # ------------------------------------------------------------------------------
 #              generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
@@ -133,148 +268,9 @@ The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
 ![Image](./assets/laguerreL8.png)
 """
-function generalized_laguerreL(n::Int, x::T, α=0; deriv=0) where {T<:Real}
+function generalized_laguerreL(n::Integer, x::T, α=0; deriv=0, msg=true) where {T<:Real}
 
-    coords = generalized_laguerre_polynoms(n, α)
-    coords = T.(coords)
-
-    o = polynomial(coords, x; deriv)
-
-    return o
-
-end
-
-
-
-# ------------------------------------------------------------------------------
-#               _generalized_laguerre_coeff(n, α, m)
-# ------------------------------------------------------------------------------
-
-function _generalized_laguerre_coeff(n, α, m)
-
-    sgn = iseven(m) ? 1 : -1
-
-    if α isa Int
-
-        T = max(n, α + n + 1) > 20 ? BigInt : Int
-
-        den = factorial(T(n - m)) * factorial(T(m))
-        num = T(sgn)
-
-        for i = 1:(n-m)
-            num *= T(α + m + i)
-        end
-
-        o = num // den
-
-    else
-
-        T = n > 20 ? BigInt : Int
-        F = n > 20 ? BigFloat : Float64
-
-        den = factorial(T(n - m)) * factorial(T(m))
-        num = F(sgn)
-        den = F(den)
-
-        for i = 1:(n-m)
-            num *= F(α + m + i)
-        end
-
-        o = num / den
-
-    end
-
-    return o
-
-end
-
-# ------------------------------------------------------------------------------
-#               generalized_laguerre_polynom(n::Int [, α=0])
-# ------------------------------------------------------------------------------
-
-@doc raw"""
-    generalized_laguerre_polynom(n::Int [, α=0])
-
-The coefficients of [`generalized_laguerreL`](@ref) for degree `n` and
-parameter `α`,
-```math
-    c(n, α)[k] = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
-    \frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
-```
-#### Example:
-```
-o = generalized_laguerre_polynom(8,3); println(o)
-    Rational{Int64}[165//1, -330//1, 231//1, -77//1, 55//4, -11//8, 11//144, -11//5040, 1//40320]
-```
-"""
-function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
-
-    α ≠ 0 || return laguerre_polynom(n; msg=false)
-
-    n ≥ 0 || throw(DomainError(n))
-
-    nc = min(18, n - floor(Int, α))  # NB. length(D) = nc+1 (zero based notation)
-
-    T = Type_IOP(n, nc, α; nam="generalized_laguerre_polynom", msg)
-
-    return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
-
-end
-
-function generalized_laguerre_polynom1(n::Integer, α=0; msg=true)
-
-    α ≠ 0 || return laguerre_polynom(n; msg=false)
-
-    nc = 18  # NB. length(D) = nc+1 (zero based notation)
-    U = typeof(n)
-    T = max(n, α + n + 1) ≤ nc ? Int : BigInt
-
-    if n < 0
-        throw(DomainError(n))
-    elseif n < nc
-        str = "IOP capture: "
-        str *= "generalized_laguerre_polynom($n) converted to Rational{BigInt}"
-        msg && U ≠ BigInt && println(str)
-        return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
-    else
-        str = "IOP capture: "
-        str *= "laguerre_polynom($n) converted to $(typeof(α))"
-        msg && U ≠ BigInt && println(str)
-        return [_generalized_laguerre_coeff(n, α, k) for k = 0:n]
-    end
-end
-
-# ------------------------------------------------------------------------------
-#              laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
-# ------------------------------------------------------------------------------
-
-@doc raw"""
-    laguerreL(n::Int, x::T; deriv=0) where T<:Real
-
-Laguerre polynomal of degree `n`,
-```math
-    L_{n}(x)
-    = \frac{1}{n!}e^{x}\frac{d^{n}}{dx^{n}}(e^{-x}x^{n})
-    = \sum_{m=0}^{n}(-1)^{m}\binom{n}{n-m}\frac{x^{m}}{m!}
-    = \sum_{m=0}^{n}c(n)[m]x^{m}
-```
-where ``c(n)[m]`` is the Laguerre coordinate from [`laguerre_polynoms`](@ref).
-#### Example:
-```
-(xmin, Δx, xmax) = (0, 0.1, 11)
-n = 8
-L = [laguerreL(n, x) for x=xmin:Δx:xmax]
-f = Float64.(L);
-plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n)")
-```
-The plot is made using `CairomMakie`.
-NB.: `plot_function` is not included in the `CamiXon` package.
-![Image](./assets/laguerreL8.png)
-"""
-function laguerreL(n::Int, x::T; deriv=0) where {T<:Real}
-
-    coords = generalized_laguerre_polynoms(n, 0)
-    coords = T.(coords)
+    coords = generalized_laguerre_polynom(n, α; msg)
 
     o = polynomial(coords, x; deriv)
 

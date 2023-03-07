@@ -15,7 +15,7 @@ function _bernoulli_BigInt(n, o)
     nul = big(0)
     one = big(1)
     l = length(o)
-    o = [o[n] for n = 1:l]    # transform tuple to array
+    o = collect(o)       # [o[n] for n = 1:l]    # transform tuple to array
 
     for k = l+1:n+1
         a = nul
@@ -106,16 +106,6 @@ function bernoulliB(n::Integer; arr=false, msg=true)
         1, 3404310, 1, 6
     )
 
-    rat = (
-        1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1,
-        1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66, 0 // 1, -691 // 2730,
-        0 // 1, 7 // 6, 0 // 1, -3617 // 510, 0 // 1, 43867 // 798, 0 // 1,
-        -174611 // 330, 0 // 1, 854513 // 138, 0 // 1, -236364091 // 2730,
-        0 // 1, 8553103 // 6, 0 // 1, -23749461029 // 870, 0 // 1,
-        8615841276005 // 14322, 0 // 1, -7709321041217 // 510, 0 // 1,
-        2577687858367 // 6, 0 // 1
-    )
-
     nc = 35
     no = 86
 
@@ -126,26 +116,25 @@ function bernoulliB(n::Integer; arr=false, msg=true)
 
     if arr
         if n ≤ nc
-            return Rational{T}[rat[i] for i = 1:1+n] 
+            return (num[1:1+n] .// den[1:1+n])
         elseif n ≤ no
-            return Rational{BigInt}[num[i] // den[i] for i = 1:1+n] 
+            return (num[1:1+n] .// den[1:1+n])
         else
-            o = Rational{BigInt}[num[i] // den[i] for i = 1:1+no] 
-            return _bernoulli_BigInt(n, o) 
+            o = num .// den
+            return _bernoulli_BigInt(n, o)
         end
-       
     else
         if n ≤ nc
-            k = 1 + n
-            return Rational{T}(rat[k]) 
+            return Rational{T}(num[1+n], den[1+n])
         elseif n ≤ no
             iseven(n) || return big(0) // big(1)
-            return Rational{BigInt}(num[1+n] // den[1+n])
+            return Rational{BigInt}(num[1+n], den[1+n])
         else
             iseven(n) || return big(0) // big(1)
-            o = Rational{BigInt}[num[i] // den[i] for i=1:1+no]
+            o = num .// den
             return _bernoulli_BigInt(n, o)[end]
         end
     end
 
 end
+

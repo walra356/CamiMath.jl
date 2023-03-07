@@ -11,7 +11,7 @@ using Test
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}
     @test eltype(bernoulliB(big(35))) == Rational{BigInt}
-    @test bernoulliB(10; arr=true) == [1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66]
+    @test bernoulliB(10; arr=true) == (1 // 1, -1 // 2, 1 // 6, 0 // 1, -1 // 30, 0 // 1, 1 // 42, 0 // 1, -1 // 30, 0 // 1, 5 // 66)
     @test sum([Rational{BigInt}(bernoulliB(n, msg=false)) for n = 1:90]) == 17080392099538483734383296956025848377395298523292305346008923087528282372539916092669722994190437011 // 3961456982724258461775089600226385
     @test bernoulliB(60; msg=false) == bernoulliB(60; msg=false, arr=true)[end]
     #...........................................................................
@@ -80,9 +80,19 @@ using Test
     @test integer_partitions(7, 4; transpose=true) == [[2, 2, 2, 1], [3, 2, 1, 1], [4, 1, 1, 1]]
 
     @test_throws DomainError laguerre_polynom(-1)
+    @test typeof(laguerre_polynom(18)) == NTuple{19,Rational{Int}}
+    @test typeof(laguerre_polynom(19, msg=false)) == Vector{Rational{BigInt}}
     @test sum(laguerre_polynom(20; msg=false)) == -21032925955607701 // 128047474114560000
+    @test isapprox(sum(generalized_laguerre_polynom(20, 0.0; msg=false)), -big(21032925955607701) / big(128047474114560000); atol=1.0e-75)
+    @test laguerre_polynom(8) == (1 // 1, -8 // 1, 14 // 1, -28 // 3, 35 // 12, -7 // 15, 7 // 180, -1 // 630, 1 // 40320)
 
     @test_throws DomainError generalized_laguerre_polynom(-1, 3)
+    @test typeof(generalized_laguerre_polynom(18, 0; msg=false)) == NTuple{19,Rational{Int64}}
+    @test typeof(generalized_laguerre_polynom(19, 0; msg=false)) == Vector{Rational{BigInt}}
+    @test typeof(generalized_laguerre_polynom(18, 0.0; msg=false)) == Vector{Float64}
+    @test typeof(generalized_laguerre_polynom(19, 0.0; msg=false)) == Vector{BigFloat}
+    @test sum(generalized_laguerre_polynom(20, 0; msg=false)) == -21032925955607701 // 128047474114560000
+    @test sum(generalized_laguerre_polynom(20, 0.0; msg=false)) ≈ -big(21032925955607701) / big(128047474114560000)
     @test generalized_laguerre_polynom(8, 3; msg=false) == [165 // 1, -330 // 1, 231 // 1, -77 // 1, 55 // 4, -11 // 8, 11 // 144, -11 // 5040, 1 // 40320]
 
     @test_throws DomainError pascal_triangle(-1)
@@ -100,6 +110,10 @@ using Test
     @test pochhammer(big(-1) // big(50), 20) == -21605762356630090481082546653745369902321614221999 // 9536743164062500000000000000000000
 
     @test_throws DomainError polynomial((1, 1, 1, 1, 1), 1; deriv=-2)
+    @test typeof(polynomial((1, 1, 1, 1, 1), 1)) == Int
+    @test typeof(polynomial((1, 1, 1, 1, 1), big(1))) == BigInt
+    @test typeof(polynomial((1, 1, 1, 1, 1), 1.0)) == Float64
+    @test typeof(polynomial((1, 1, 1, 1, 1), big(1.0))) == BigFloat
     @test polynomial((1, 1, 1, 1, 1), 1; deriv=-1) == 137 // 60
     @test polynomial((1, 1, 1, 1, 1), 1; deriv=0) == 5
     @test polynomial((1, 1, 1, 1, 1), 1; deriv=1) == 10

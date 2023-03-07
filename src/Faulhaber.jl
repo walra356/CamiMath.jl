@@ -15,14 +15,16 @@ function _faulhaber_BigInt(p::Integer)
     p = big(p)
 
     P = CamiMath.pascal_triangle(p)
-    B = CamiMath.bernoulliB(p; msg=false, arr=true)
-    B[2] = -B[2]
+    B = CamiMath.bernoulliB(p; arr=true)
 
     F = (B .* P) // p
+
+    F[2] = -F[2]                      # equivalent to B[2] = -B[2]
 
     F = Base.reverse(F)               # reverse to standard order
 
     F[1] = big(0) // big(1)           # set polynomial constant: c_0 = 0//1
+
 
     return Tuple(F)
 
@@ -148,19 +150,15 @@ function faulhaber_polynom(p::Integer; msg=true)
         14322, 7392, 117810, 7140, 210, 72
     )
 
-    U = typeof(p)
-    T = p > 36 ? BigInt : U
+    pc = 36
 
-    if p < 0
-        throw(DomainError(p))
-    elseif p ≤ 36
-        return N[p] .// T(D[p])
-    else
-        str = "IOP capture: "
-        str *= "faulhaber_polynomial($p) converted to Rational{BigInt}"
-        msg && U ≠ BigInt && println(str)
-        return _faulhaber_BigInt(p)
-    end
+    T = Type_IOP(p, pc, "pascal_triangle($p)"; msg)
+
+    p ≥ 0 || throw(DomainError(p))
+    
+    o = p ≤ pc ? N[p] .// T(D[p]) : _faulhaber_BigInt(p)
+    
+    return o
 
 end
 
