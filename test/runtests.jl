@@ -97,6 +97,13 @@ using Test
     @test sum(generalized_laguerre_polynom(20, 0.0; msg=false)) ≈ -big(21032925955607701) / big(128047474114560000)
     @test generalized_laguerre_polynom(8, 3; msg=false) == [165 // 1, -330 // 1, 231 // 1, -77 // 1, 55 // 4, -11 // 8, 11 // 144, -11 // 5040, 1 // 40320]
 
+    @test laguerreL(10, 5) == 254927 // 145152
+    @test laguerreL(10, 15 // 3) == 254927 // 145152
+    @test laguerreL(10, 5.0) == 1.7562761794536978
+
+    @test generalized_laguerreL(10, 5, 5) == -425219//145152
+    @test generalized_laguerreL(10, 5.0, 5) == -2.9294739307867648
+
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
     @test pascal_triangle(0) == [1]
