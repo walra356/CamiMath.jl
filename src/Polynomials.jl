@@ -97,36 +97,6 @@ function polynomial(coords, x::T; deriv=0) where {T<:Real}
 
 end
 
-function polynomial1(coords, x::T; deriv=0) where {T<:Real}
-
-    coords = typeof(coords) == NTuple{} ? coords : Tuple(coords)
-
-    isinteger(deriv) || error("Error: deriv not integer")
-
-    d = Base.length(coords) - 1               # degree of polynomial
-
-    coords = deriv == 0 ? coords :
-             deriv ≥ d + 1 ? T(0) :
-             deriv > 0 ? _polynom_derivatives(coords; deriv) :
-             deriv == -1 ? _polynom_primitive(coords) :
-             throw(DomainError(deriv))
-
-    x === 1 && return sum(coords)
-
-    d -= deriv
-    
-    v = Base.ones(T, d + 1)
-
-    #x = (log10(abs(x)) * d + log10(abs(a)) > 308.0) ? BigFloat(x) : x 
-
-    for i ∈ 1:d
-        v[i+1] = v[i] * x
-    end
-
-    return sum(v .* coords)
-
-end
-
 # ------------------------------------------------------------------------------
 #                 polynom_power(coords, p::Int)
 # ------------------------------------------------------------------------------

@@ -38,7 +38,6 @@ export polynomial
 export polynomial1
 export polynom_power
 export polynom_product
-export polynom_product1
 export polynom_product_expansion
 export texp
 export triangle_coefficient
