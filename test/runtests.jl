@@ -88,8 +88,10 @@ using Test
 
     @test_throws DomainError generalized_laguerre_polynom(-1, 3)
     @test typeof(generalized_laguerre_polynom(18, 0; msg=false)) == NTuple{19,Rational{Int64}}
-    @test typeof(generalized_laguerre_polynom(19, 0; msg=false)) == Vector{Rational{BigInt}}
+    @test typeof(generalized_laguerre_polynom(18, big(0); msg=false)) == Vector{Rational{BigInt}}
     @test typeof(generalized_laguerre_polynom(18, 0.0; msg=false)) == Vector{Float64}
+    @test typeof(generalized_laguerre_polynom(18, big(0.0); msg=false)) == Vector{BigFloat}
+    @test typeof(generalized_laguerre_polynom(19, 0; msg=false)) == Vector{Rational{BigInt}}
     @test typeof(generalized_laguerre_polynom(19, 0.0; msg=false)) == Vector{BigFloat}
     @test sum(generalized_laguerre_polynom(20, 0; msg=false)) == -21032925955607701 // 128047474114560000
     @test sum(generalized_laguerre_polynom(20, 0.0; msg=false)) ≈ -big(21032925955607701) / big(128047474114560000)

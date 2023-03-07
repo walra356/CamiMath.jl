@@ -128,7 +128,7 @@ end
 
 function _generalized_laguerre_Float64(n::Int, α, m::Int)
 
-    F = Float64
+    F = typeof(α)
 
     num = iseven(m) ? F(1.0) : -F(1.0)
     den = factorial(n - m) * factorial(m)
@@ -186,13 +186,13 @@ function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 
     n ≥ 0 || throw(DomainError(n))
 
-    T = Type_IOP(n, 18, α; nam="generalized_laguerre_polynom", msg)
-
     if α isa Integer
+        T = Type_IOP(abs(α)+n, 18, α; nam="generalized_laguerre_polynom", msg)
         return T ≠ BigInt ?
                [_generalized_laguerre_Int(n, α, k) for k = 0:n] :
-               [_generalized_laguerre_BigInt(n, α, k) for k = 0:n]
+               [_generalized_laguerre_BigInt(n, α, k) for k = 0:n] 
     else
+        T = Type_IOP(n, 18, α; nam="generalized_laguerre_polynom", msg)
         return T ≠ BigInt ?
                [_generalized_laguerre_Float64(n, α, k) for k = 0:n] :
                [_generalized_laguerre_BigFloat(n, α, k) for k = 0:n]
