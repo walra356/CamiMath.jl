@@ -24,12 +24,14 @@ end
     
 The coefficients of [`laguerreL`](@ref) for degree `n`, 
 ```math
-    v_n=[c_0, c_1, \cdots\ c_n],
+    v(n)=[c_0, c_1, \cdots\ c_n],
 ```
-where, with ``k=0,1,⋯,n`` , 
+where
 ```math
-    c_k = \frac{\Gamma(n+1)}{\Gamma(k+1)}\frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}.
+    c_k(n) = \frac{\Gamma(n+1)}{\Gamma(k+1)}\frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
 ```
+with ``k=0,1,⋯,n``.
+
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
@@ -166,11 +168,16 @@ end
     generalized_laguerre_polynom(n::Int [, α=0 [; msg=true]])
 
 The coefficients of [`generalized_laguerreL`](@ref) for degree `n` and
-parameter `α`,
+parameter `α`, 
 ```math
-    _k(n, α) = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
+    v(n, α)=[c_0, c_1, \cdots\ c_n],
+```
+where
+```math
+    c_k(n, α) = \frac{\Gamma(α+n+1)}{\Gamma(α+k+1)}
     \frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
 ```
+with ``k=0,1,⋯,n``. 
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
 ```
@@ -221,10 +228,10 @@ where ``c_k(n)`` is a Laguerre coefficient from [`laguerre_polynom`](@ref).
 julia> coords = laguerre_polynom(8); println(coords)
 (1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320)
 
-julia> laguerreL(8, 5)
+julia> polynomial(coords, 5)
 18029//8064
 
-julia> polynomial(coords, 5)
+julia> laguerreL(8, 5)
 18029//8064
 
 julia> (xmin, Δx, xmax) = (0, 0.1, 11);
