@@ -1,6 +1,6 @@
 # CamiMath.jl
 
-Mathematics library with integer-overload protection (IOP)
+Mathematics library with integer-overflow protection (IOP)
 
 ---
 
