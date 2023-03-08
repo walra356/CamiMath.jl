@@ -5,11 +5,10 @@ version = "0.1.1"
 
 [deps]
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
-#CamiXon = "e90a53f3-3599-4ebe-999f-6f75af03d43f"
+CamiXon = "e90a53f3-3599-4ebe-999f-6f75af03d43f"
 
 [compat]
 BenchmarkTools = "1"
-#CamiXon = "1"
 julia = "1"
 
 [extras]

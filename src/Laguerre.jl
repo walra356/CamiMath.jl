@@ -261,7 +261,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+    generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
 
 Generalized Laguerre polynomal of degree `n` for parameter `α`,
 ```math
@@ -280,11 +280,11 @@ Rational{Int64}[56//1, -70//1, 28//1, -14//3, 1//3, -1//120]
 julia> polynomial(coords, 10.0)
 -10.666666666667311
 
-julia> generalized_laguerreL(5, 10.0, 3)
+julia> generalized_laguerreL(5, 3, 10.0)
 -10.666666666667311
 ```
 """
-function generalized_laguerreL(n::Integer, x::T, α=0; deriv=0, msg=true) where {T<:Real}
+function generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
 
     coords = generalized_laguerre_polynom(n, α; msg)
 

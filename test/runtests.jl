@@ -102,7 +102,7 @@ using Test
     @test laguerreL(10, 5.0) == 1.7562761794536978
 
     @test generalized_laguerreL(10, 5, 5) == -425219//145152
-    @test generalized_laguerreL(10, 5.0, 5) == -2.9294739307867648
+    @test generalized_laguerreL(10, 5, 5.0) == -2.9294739307867648
 
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
