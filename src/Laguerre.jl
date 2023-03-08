@@ -209,11 +209,11 @@ function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 end
 
 # ------------------------------------------------------------------------------
-#              laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+#       laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    laguerreL(n::Int, x::T; deriv=0) where T<:Real
+    laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
 
 Laguerre polynomal of degree `n`,
 ```math
@@ -257,7 +257,7 @@ end
 
 
 # ------------------------------------------------------------------------------
-#              generalized_laguerreL(n::Int, α::U, x::T; deriv=0) where {U<:Real, T<:Real}
+# generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
 # ------------------------------------------------------------------------------
 
 @doc raw"""
