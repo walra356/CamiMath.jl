@@ -222,8 +222,7 @@ Laguerre polynomal of degree `n`,
     = \sum_{k=0}^{n}(-1)^{k}\binom{n}{n-k}\frac{x^{k}}{k!}
     = \sum_{k=0}^{n}c_k(n)x^{k}
 ```
-where the ``c_k(n)`` are Laguerre coefficients collected in
-[`laguerre_polynom`](@ref).
+where the ``c_k(n)`` are Laguerre coefficients of [`laguerre_polynom`](@ref).
 #### Example:
 ```
 julia> coords = laguerre_polynom(8); println(coords)
@@ -271,7 +270,7 @@ Generalized Laguerre polynomal of degree `n` for parameter `α`,
     = \sum_{k=0}^{n}(-1)^{k}\binom{n+α}{n-k}\frac{x^{k}}{k!}
     = \sum_{k=0}^{n}c_k(n,α)x^{k}
 ```
-where the ``c_k(n,α)`` are the generalized Laguerre coefficients collected in
+where the ``c_k(n,α)`` are the generalized Laguerre coefficients of
 [`generalized_laguerre_polynom`](@ref).
 #### Example:
 ```
