@@ -222,7 +222,8 @@ Laguerre polynomal of degree `n`,
     = \sum_{k=0}^{n}(-1)^{k}\binom{n}{n-k}\frac{x^{k}}{k!}
     = \sum_{k=0}^{n}c_k(n)x^{k}
 ```
-where ``c_k(n)`` is a Laguerre coefficient from [`laguerre_polynom`](@ref).
+where ``{c_k(n)}`` is the set of Laguerre coefficients collected in
+[`laguerre_polynom`](@ref).
 #### Example:
 ```
 julia> coords = laguerre_polynom(8); println(coords)

@@ -59,8 +59,8 @@ integer_partitions(n::Int, m=0; transpose=false, count=false)
 
 ```@docs
 laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
-laguerre_polynom(p::Integer; msg=true)
 generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
+laguerre_polynom(p::Integer; msg=true)
 generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 ```
 
