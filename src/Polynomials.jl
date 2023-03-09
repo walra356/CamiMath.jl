@@ -70,8 +70,6 @@ julia> polynomial(coords,x; deriv=-1)   # primitive (zero integration constant)
 """
 function polynomial(coords, x::T; deriv=0) where {T<:Real}
 
-    #coords = typeof(coords) == NTuple{} ? coords : NTuple(coords)
-
     isinteger(deriv) || error("Error: deriv not integer")
 
     d = Base.length(coords) - 1               # degree of polynomial
@@ -126,12 +124,10 @@ julia> polynom_power(coords, 3)
 """
 function polynom_power(coords, p::Int)
 
-    #coords = typeof(coords) == NTuple{} ? coords : NTuple(coords)
-
     p >= 0 || error("Error: negative polynom powers not allowed")
     p == 2 && return CamiMath.polynom_product(coords, coords)
     p == 1 && return coords
-    p == 0 && return (1)
+    p == 0 && return [1]
 
     o = CamiMath.polynom_product(coords, coords)
 
@@ -174,9 +170,6 @@ julia> polynom_product((1, 1), (1, -1.0, 2))
 ```
 """
 function polynom_product(coords1, coords2)
-
-    #a = typeof(coords1) == NTuple{} ? coords1 : NTuple(coords1)
-    #b = typeof(coords2) == NTuple{} ? coords2 : NTuple(coords2)
 
     a = coords1
     b = coords2
@@ -235,9 +228,6 @@ julia> o = polynom_product_expansion(a, b, 4); println(o)
 ```
 """
 function polynom_product_expansion(coords1, coords2, p::Int)
-
-    #a = typeof(coords1) == NTuple{} ? coords1 : NTuple(coords1)
-    #b = typeof(coords2) == NTuple{} ? coords2 : NTuple(coords2)
 
     a = coords1
     b = coords2
