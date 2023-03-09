@@ -6,21 +6,6 @@ log10_characteristic(x)
 log10_mantissa(x)
 texp(x::T, a::T, p::Int) where {T<:Real}
 ```
-## Vector coupling
-
-### Triangle relations
-
-```@docs
-istriangle(a::Real, b::Real, c::Real)
-triangle_coefficient(a::Real, b::Real, c::Real)
-```
-
-### Vector-coupling coefficients
-
-```@docs
-threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
-CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
-```
 
 ## Bernoulli number
 
@@ -105,4 +90,19 @@ polynomial(coords, x::T; deriv=0) where {T<:Real}
 polynom_power(coords, power::Int)
 polynom_product(coords1, coords2)
 polynom_product_expansion(coords1, coords2, p::Int)
+```
+
+## Vector coupling
+
+### Triangle relations
+
+```@docs
+istriangle(a::Real, b::Real, c::Real)
+triangle_coefficient(a::Real, b::Real, c::Real)
+```
+### Vector-coupling coefficients
+
+```@docs
+threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
+CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
 ```
