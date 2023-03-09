@@ -20,7 +20,7 @@ export harmonicNumber
 export istriangle
 export canonical_partitions
 export integer_partitions
-export log10_characteristic_power
+export log10_characteristic
 export log10_mantissa
 export normalize_rationals
 export numerators

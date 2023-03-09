@@ -2,7 +2,7 @@
 
 ```@docs
 Type_IOP(n::Integer, nc::Integer, str="")
-log10_characteristic_power(x)
+log10_characteristic(x)
 log10_mantissa(x)
 texp(x::T, a::T, p::Int) where {T<:Real}
 ```

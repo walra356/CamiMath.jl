@@ -101,7 +101,7 @@ using Test
     @test laguerreL(10, 15 // 3) == 254927 // 145152
     @test laguerreL(10, 5.0) == 1.7562761794536978
 
-    @test generalized_laguerreL(10, 5, 5) == -425219//145152
+    @test generalized_laguerreL(10, 5, 5) == -425219 // 145152
     @test generalized_laguerreL(10, 5, 5.0) == -2.9294739307867648
 
     @test_throws DomainError pascal_triangle(-1)
@@ -156,7 +156,7 @@ using Test
     @test typeof(texp(1.0, 0.0, 5)) == Float64
     @test typeof(texp(big(1.0), big(0.0), 5)) == BigFloat
 
-    @test log10_characteristic_power.([3, 30, 300]) == [0, 1, 2]
+    @test log10_characteristic.([3, 30, 300]) == [0, 1, 2]
     @test log10_mantissa.([3, 30, 300]) ≈ [0.47712125471966244, 0.4771212547196624, 0.4771212547196626]
 
     @test istriangle(3, 4, 5) == true
