@@ -75,7 +75,7 @@ function istriangle(a::Real, b::Real, c::Real)
 end
 
 # ------------------------------------------------------------------------------
-#              threeJsymbol(j1, m1, j2, m2, j3, m3 [; msg=false])
+#              threeJsymbol(j1, m1, j2, m2, j3, m3 [; msg=true])
 # ------------------------------------------------------------------------------
 
 function _strRational(n::T) where {T<:Union{Rational{},Int,BigInt}}
@@ -146,7 +146,7 @@ end
 # ........................................................
 
 @doc raw"""
-    threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
+    threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=true)
 
 Wigner 3j symbol. This is a vector coupling coefficient with optimized symmetry
 properties. The 3j symbols are zero unless ``Δ(j_{1},j_{2},j_{3})>0``
@@ -171,17 +171,17 @@ m_{1} & m_{2} & m_{3}
 ```
 #### Example:
 ```
-julia> o = threeJsymbol(3, 0, 4, -1, 5, 1; msg=true); println(" = $o")
+julia> o = threeJsymbol(3, 0, 4, -1, 5, 1); println(" = $o")
 -√(361/30030) = -0.1096417439724123565166029917781360897459044055433631161836138910409772907333476
 
-julia> threeJsymbol(3, 0, 4, -1, 5, 1)
+julia> threeJsymbol(3, 0, 4, -1, 5, 1; msg=false)
 -0.1096417439724123565166029917781360897459044055433631161836138910409772907333476
 
-julia> threeJsymbol(0, 0, 0, 0, 0, 0)
+julia> threeJsymbol(0, 0, 0, 0, 0, 0; msg=false)
 1.0
 ```
 """
-function threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
+function threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=true)
 
     (j1, m1, j2, m2, j3, m3) = promote(j1, m1, j2, m2, j3, m3)
 
@@ -204,11 +204,11 @@ function threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real
 end
 
 # ------------------------------------------------------------------------------
-#              CGC(j1, m1, j2, m2l, J, M [; msg=false])
+#              CGC(j1, m1, j2, m2l, J, M [; msg=true])
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
+    CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=true)
 
 Clebsch-Gordan coefficient (CGC). This is a vector-coupling coefficient in
 Dirac notation. The CGCs are zero unless ``Δ(j_{1},j_{2},j_{3})>0``
@@ -226,22 +226,25 @@ m_{1} & m_{2} & -M
 ```
 julia> j1=3; m1=0; j2=4; m2=-1; J=5; M=-1;
 
-julia> o = CGC(j1, m1, j2, m2, J, M; msg=true); println(" = $o")
+julia> o = CGC(j1, m1, j2, m2, J, M); println(" = $o")
 -√(361/2730) = -0.36364052611670255269921486774521555203216489725107181148303161368088211274565
 
-julia> o = CGC(j1, m1, j2, m2, J, M); println(o)
+julia> o = CGC(j1, m1, j2, m2, J, M; msg=false); println(o)
 -0.36364052611670255269921486774521555203216489725107181148303161368088211274565
 
-julia> o = (-1)^(j1-j2+M) * sqrt(2J+1) * threeJsymbol(j1, m1, j2, m2, J, -M); println(o)
+julia> o = (-1)^(j1-j2+M) * sqrt(2J+1) * threeJsymbol(j1, m1, j2, m2, J, -M; msg=false); println(o)
 -0.36364052611670255269921486774521555203216489725107181148303161368088211274565
+
+julia> CGC(3, 0, 4, -1, 5, -1);
+-√(361/2730)
 ```
 """
-function CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
+function CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=true)
 
     (j1, m1, j2, m2, J, M) = promote(j1, m1, j2, m2, J, M)
 
     sgn = iseven(j1 - j2 + M) ? 1 : -1
-    tJs = threeJsymbol(j1, m1, j2, m2, J, -M)
+    tJs = threeJsymbol(j1, m1, j2, m2, J, -M; msg=false)
 
     if msg
         Δ = CamiMath.triangle_coefficient(j1, j2, J)

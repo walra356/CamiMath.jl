@@ -161,9 +161,10 @@ using Test
 
     @test istriangle(3, 4, 5) == true
     @test istriangle(1 // 2, 1, 1.5) == true
-    @test triangle_coefficient(3, 4, 5) == 1//180180
-    @test triangle_coefficient(1//2, 1, 1.5) == 1//12
-    @test threeJsymbol(3, 0, 4, -1, 5, 1) ≈ -0.10964174397241236
+    @test triangle_coefficient(3, 4, 5) == 1 // 180180
+    @test triangle_coefficient(1 // 2, 1, 1.5) == 1 // 12
+    @test threeJsymbol(3, 0, 4, -1, 5, 1; msg=false) ≈ -0.10964174397241236
+    @test CGC(3, 0, 4, -1, 5, -1; msg=false) ≈ -0.36364052611670256
     @test CGC(3, 0, 4, -1, 5, -1) ≈ -0.36364052611670256
 
 end
