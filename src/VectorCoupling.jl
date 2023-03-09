@@ -78,6 +78,20 @@ end
 #              threeJsymbol(j1, m1, j2, m2, j3, m3 [; msg=false])
 # ------------------------------------------------------------------------------
 
+function _strRational(n::T) where {T<:Union{Rational{},Int,BigInt}}
+
+
+    isinteger(n) && return repr(n)
+
+    sgn = n < 0 ? "-" : ""
+
+    num = repr(numerator(abs(n)))
+    den = repr(denominator(abs(n)))
+
+    return sgn * num * '/' * den
+
+end
+# ........................................................
 function _Racah_sqrt2(j1, m1, j2, m2, J, M)
 
     a = Int(j1 + m1)
@@ -98,7 +112,7 @@ function _Racah_sqrt2(j1, m1, j2, m2, J, M)
 
 end
 # ........................................................
-function _Racah_denom(j1, m1, j2, m2, J, t:: Int)
+function _Racah_denom(j1, m1, j2, m2, J, t::Int)
 
     a = Int(J - j2 + t + m1)
     b = Int(J - j1 + t - m2)
@@ -120,10 +134,10 @@ function _Racah_sum(j1, m1, j2, m2, J)
 
     o = big(0)
 
-    for t=0:(j1+j2-J)
+    for t = 0:(j1+j2-J)
         sign = iseven(t) ? 1 : -1
         d = _Racah_denom(j1, m1, j2, m2, J, t)
-        o += d > 0 ? sign//d : 0
+        o += d > 0 ? sign // d : 0
     end
 
     return o
@@ -157,14 +171,14 @@ m_{1} & m_{2} & m_{3}
 ```
 #### Example:
 ```
-o = threeJsymbol(3, 0, 4, -1, 5, 1; msg=true); println(" = $o")
-    -√(361/30030) = -0.10964174397241236
+julia> o = threeJsymbol(3, 0, 4, -1, 5, 1; msg=true); println(" = $o")
+-√(361/30030) = -0.1096417439724123565166029917781360897459044055433631161836138910409772907333476
 
-threeJsymbol(3, 0, 4, -1, 5, 1)
-    -0.10964174397241236
+julia> threeJsymbol(3, 0, 4, -1, 5, 1)
+-0.1096417439724123565166029917781360897459044055433631161836138910409772907333476
 
-threeJsymbol(0, 0, 0, 0, 0, 0)
-    1.0
+julia> threeJsymbol(0, 0, 0, 0, 0, 0)
+1.0
 ```
 """
 function threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
@@ -183,13 +197,11 @@ function threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real
     sgn_racah = sign(R)
     sgn = sgn_phase * sgn_racah
 
-    msg && print((sgn < 0 ? "-" : "") * "√(" * strRational(A) * ")")
+    msg && print((sgn < 0 ? "-" : "") * "√(" * _strRational(A) * ")")
 
     return sgn * sqrt(A)
 
 end
-
-
 
 # ------------------------------------------------------------------------------
 #              CGC(j1, m1, j2, m2l, J, M [; msg=false])
@@ -212,22 +224,23 @@ m_{1} & m_{2} & -M
 ```
 #### Example:
 ```
-j1=3; m1=0
-j2=4; m2=-1
-J=5; M=-1
-o = CGC(j1, m1, j2, m2, J, M; msg=true); println(" = $o")
-o = CGC(j1, m1, j2, m2, J, M); println(o)
-o = (-1)^(j1-j2+M) * sqrt(2J+1) * threeJsymbol(j1, m1, j2, m2, J, -M); println(o)
-    -√(361/2730) = -0.36364052611670256
-    -0.36364052611670256
-    -0.36364052611670256
+julia> j1=3; m1=0; j2=4; m2=-1; J=5; M=-1;
+
+julia> o = CGC(j1, m1, j2, m2, J, M; msg=true); println(" = $o")
+-√(361/2730) = -0.36364052611670255269921486774521555203216489725107181148303161368088211274565
+
+julia> o = CGC(j1, m1, j2, m2, J, M); println(o)
+-0.36364052611670255269921486774521555203216489725107181148303161368088211274565
+
+julia> o = (-1)^(j1-j2+M) * sqrt(2J+1) * threeJsymbol(j1, m1, j2, m2, J, -M); println(o)
+-0.36364052611670255269921486774521555203216489725107181148303161368088211274565
 ```
 """
 function CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
 
-    (j1,m1,j2,m2,J,M) = promote(j1,m1,j2,m2,J,M)
+    (j1, m1, j2, m2, J, M) = promote(j1, m1, j2, m2, J, M)
 
-    sgn = iseven(j1-j2+M) ? 1 : -1
+    sgn = iseven(j1 - j2 + M) ? 1 : -1
     tJs = threeJsymbol(j1, m1, j2, m2, J, -M)
 
     if msg
@@ -237,9 +250,9 @@ function CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false
         S = R * R
         A = Δ * T * S
         s = sign(R) < 0 ? "-" : ""
-        print(s * "√(" * strRational(A * (2J+1)) * ")")
+        print(s * "√(" * _strRational(A * (2J + 1)) * ")")
     end
 
-    return sgn * sqrt(2J+1) * tJs
+    return sgn * sqrt(2J + 1) * tJs
 
 end

@@ -6,7 +6,7 @@ log10_characteristic(x)
 log10_mantissa(x)
 texp(x::T, a::T, p::Int) where {T<:Real}
 ```
-## Angular momentum
+## Vector coupling
 
 ### Triangle relations
 
