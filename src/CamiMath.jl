@@ -17,7 +17,6 @@ export faulhaber_polynomial
 export faulhaber_summation
 export fibonacci
 export harmonicNumber
-export istriangle
 export canonical_partitions
 export integer_partitions
 export log10_characteristic
@@ -35,12 +34,15 @@ export generalized_laguerreL
 
 export pochhammer
 export polynomial
-export polynomial1
 export polynom_power
 export polynom_product
 export polynom_product_expansion
 export texp
+
+export istriangle
 export triangle_coefficient
+export threeJsymbol
+export CGC
 
 include("Bernoulli.jl")
 include("Divisor.jl")
@@ -55,6 +57,6 @@ include("Pascal.jl")
 include("Pochhammer.jl")
 include("Polynomials.jl")
 include("Toolbox.jl")
-include("Triangle.jl")
+include("VectorCoupling.jl")
 
 end

@@ -6,6 +6,21 @@ log10_characteristic(x)
 log10_mantissa(x)
 texp(x::T, a::T, p::Int) where {T<:Real}
 ```
+## Angular momentum
+
+### Triangle relations
+
+```@docs
+istriangle(a::Real, b::Real, c::Real)
+triangle_coefficient(a::Real, b::Real, c::Real)
+```
+
+### Vector-coupling coefficients
+
+```@docs
+threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=false)
+CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=false)
+```
 
 ## Bernoulli number
 
@@ -13,7 +28,7 @@ texp(x::T, a::T, p::Int) where {T<:Real}
 bernoulliB(n::Integer; arr=false, msg=true)
 ```
 
-## Divisor (common denominator of Rationals)
+## Divisor
 
 ```@docs
 normalize_rationals(v::Vector{Rational{T}}) where {T<:Integer}
@@ -91,11 +106,3 @@ polynom_power(coords, power::Int)
 polynom_product(coords1, coords2)
 polynom_product_expansion(coords1, coords2, p::Int)
 ```
-
-## Triangle relations
-
-```@docs
-istriangle(a::Real, b::Real, c::Real)
-triangle_coefficient(a::Real, b::Real, c::Real)
-```
-
