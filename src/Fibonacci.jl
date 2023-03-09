@@ -76,7 +76,7 @@ function fibonacci(n::Integer; arr=false, msg=true)
 
     T = Type_IOP(n, nc; nam="fibonacci", msg)
 
-    n ≠ 0 || return [T(0)]
+    n ≠ 0 || return T(0)
 
     n = convert(Int, n)
 

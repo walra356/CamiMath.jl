@@ -66,7 +66,7 @@ using Test
     @test sum(harmonicNumber(10, 12; msg=false, arr=true)) == 655998094465816276746306450592922582177267 // 65585296971568246764230148096000000000000
 
     @test_throws DomainError fibonacci(-1)
-    @test fibonacci(0) == [0]
+    @test fibonacci(0) == 0
     @test typeof(fibonacci(92)) == Int
     @test typeof(fibonacci(99; msg=false)) == BigInt
     sum(fibonacci(92; arr=true)) == sum([fibonacci(i) for i = 1:92])
