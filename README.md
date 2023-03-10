@@ -1,6 +1,6 @@
 # CamiMath
 
-*Mathematics library with integer-overflow protection*
+A [Julia](http://julialang.org) Mathematics library with integer-overflow protection.
 
 | **Documentation**                  | **Build status**                     | **Code coverage**                               | **Tag status**                                | **Compatibility status**                                    
 |:----------------------------------:|:------------------------------------:|:-----------------------------------------------:|:-----------------------------------------:|:----------------------------------------:|
