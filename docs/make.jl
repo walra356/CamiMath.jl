@@ -4,11 +4,11 @@ using CamiMath
 makedocs(;
     modules=[CamiMath],
     authors="<walra356@planet.nl> and contributors",
-    #repo = "github.com/walra356/CamiMath.jl.git",
+    repo = "github.com/walra356/CamiMath.jl.git",
     sitename="CamiMath.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        #canonical="https://walra356.github.io/CamiMath.jl",
+        repolink="https://walra356.github.io/CamiMath.jl",
         assets=String[]
     ),
     pages=[
