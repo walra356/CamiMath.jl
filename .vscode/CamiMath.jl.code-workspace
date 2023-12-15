@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+    ],
+    "settings": {
+        "workbench.colorTheme": "Visual Studio Dark",
+        "terminal.integrated.commandsToSkipShell": [
+            "language-julia.interrupt"
+        ],
+        "julia.enableTelemetry": true,
+        "git.confirmSync": false,
+        "explorer.confirmDelete": false,
+        "julia.environmentPath": "c:\\Users\\jwalrav1\\.julia\\dev\\CamiMath.jl"
+    }
+}
