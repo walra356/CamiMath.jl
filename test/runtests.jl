@@ -3,7 +3,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    @test Type_IOP(1, 1) == Int64
+    @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
     @test Type_IOP(2, 1) == BigInt
     @test Type_IOP(2, 1, "test(2)"; msg=false) == BigInt
