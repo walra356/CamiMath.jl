@@ -1,4 +1,4 @@
-# using CamiMath
+using CamiMath
 using Test
 
 @testset "CamiMath.jl" begin 
