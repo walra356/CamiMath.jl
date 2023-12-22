@@ -1,7 +1,7 @@
 using CamiMath
 using Test
 
-@testset "CamiMath.jl" begin 
+@testset "CamiMath.jl" begin
 
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
