@@ -1,4 +1,4 @@
-## Structs
+## Singletons
 
 ```@docs
 fwd

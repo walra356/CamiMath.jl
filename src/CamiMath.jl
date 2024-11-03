@@ -52,7 +52,7 @@ export triangle_coefficient
 export threeJsymbol
 export CGC
 
-include("Structs.jl")
+include("Singleton.jl")
 include("Bernoulli.jl")
 include("Divisor.jl")
 include("Factorial.jl")
