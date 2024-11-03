@@ -3,15 +3,15 @@
 ```@docs
 fwd
 bwd
-isforward(sense::Type)
 reg
 rev
-isregular(sense::Type)
 ```
 
 ## Julia Toolbox
 
 ```@docs
+isforward(sense::Type)
+isregular(sense::Type)
 Type_IOP(n::Integer, nc::Integer, str="")
 log10_characteristic(x)
 log10_mantissa(x)
