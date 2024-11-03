@@ -9,7 +9,7 @@
 @doc raw"""
     fwd
 
-Singleton type indicating `forward`
+Singleton type indicating `forward` sense
 """
 struct fwd
 end
@@ -17,7 +17,7 @@ end
 @doc raw"""
     bwd
 
-Singleton type indicating `backward`
+Singleton type indicating `backward` sense
 """
 struct bwd
 end
