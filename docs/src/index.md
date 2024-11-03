@@ -128,7 +128,7 @@ pochhammer(x::T, p::Int) where {T<:Real}
 ## Polynomials
 
 ```@docs
-polynomial(coords, x::T; deriv=0) where {T<:Real}
+polynomial(coords, x::T; deriv=0) where T<:Real
 polynom_power(coords, power::Int)
 polynom_product(coords1, coords2)
 polynom_product_expansion(coords1, coords2, p::Int)

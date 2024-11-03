@@ -68,7 +68,7 @@ julia> polynomial(coords,x; deriv=-1)   # primitive (zero integration constant)
 137 // 60
 ```
 """
-function polynomial(coords, x::T; deriv=0) where {T<:Real}
+function polynomial(coords, x::T; deriv=0) where T<:Real
 
     isinteger(deriv) || error("Error: deriv not integer")
 

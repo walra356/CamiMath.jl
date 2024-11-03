@@ -242,7 +242,7 @@ plot_function(f, xmin, Δx, xmax; title="laguerre polynomial (of degree $n)")
 ```
 The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
-![Image](../assets/laguerreL8.png)
+![Image](./assets/laguerreL8.png)
 """
 function laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
 
