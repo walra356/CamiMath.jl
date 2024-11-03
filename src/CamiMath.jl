@@ -7,7 +7,14 @@
 
 module CamiMath
 
+export fwd
+export bwd
+export reg
+export rev
 export Type_IOP
+
+export isforward
+export isregular
 
 export bernoulliB
 export bigfactorial
@@ -31,6 +38,7 @@ export laguerreL
 export laguerre_polynom
 export generalized_laguerre_polynom
 export generalized_laguerreL
+export lagrange_polynom
 
 export pochhammer
 export polynomial
@@ -44,6 +52,7 @@ export triangle_coefficient
 export threeJsymbol
 export CGC
 
+include("Structs.jl")
 include("Bernoulli.jl")
 include("Divisor.jl")
 include("Factorial.jl")

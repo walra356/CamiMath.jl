@@ -7,6 +7,10 @@ using Test
     @test Type_IOP(big(1), 1) == BigInt
     @test Type_IOP(2, 1) == BigInt
     @test Type_IOP(2, 1, "test(2)"; msg=false) == BigInt
+    @test isforward(fwd)
+    @test !isforward(bwd)
+    @test !isregular(rev)
+    @test isregular(reg)
 
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}
@@ -146,6 +150,10 @@ using Test
     @test polynom_power((1, 1, 1), 1) == (1, 1, 1)
     @test polynom_power((1, 1, 1), 2) == [1, 2, 3, 2, 1]
     @test polynom_power((1, 1, 1), 3) == [1, 3, 6, 7, 6, 3, 1]
+
+    f = [0.0, 1.0, 4.0, 9.0, 16.0, 25.0];
+    @test lagrange_polynom(f, 1, 4, fwd) == (0.0, 0.0, 1.0, 0.0)
+    @test lagrange_polynom(f, 1, 4, bwd) == (9.0, 6.0, 1.0, -4.440892098500626e-16)
 
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
     @test texp(1, 0, 5) == 163 // 60
