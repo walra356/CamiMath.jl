@@ -1,3 +1,14 @@
+## structs
+
+```@docs
+fwd
+bwd
+isforward(sense::Type)
+reg
+rev
+isregular(sense::Type)
+```
+
 ## Julia Toolbox
 
 ```@docs
@@ -55,6 +66,12 @@ canonical_partitions(n::Int, m=0; header=true, reverse=true)
 integer_partitions(n::Int, m=0; transpose=false, count=false)
 ```
 
+## Lagrange polynomial
+
+```@docs
+lagrange_polynom(f::Vector{T}, start::Int, stop::Int, sense=fwd) where T<:Real
+```
+
 ## Laguerre polynomial
 
 ```@docs
@@ -90,6 +107,9 @@ polynomial(coords, x::T; deriv=0) where {T<:Real}
 polynom_power(coords, power::Int)
 polynom_product(coords1, coords2)
 polynom_product_expansion(coords1, coords2, p::Int)
+CamiMath.isforward :: Tuple{Any}
+lagrange_polynom :: Union{Tuple{T}, Tuple{Vector{T}, Int64, Int64}, Tuple{Vector{T}, Int64, Int64, Any}} where T<:Real
+│     CamiMath.isregular :: Tuple{Any}
 ```
 
 ## Vector coupling

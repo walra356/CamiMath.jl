@@ -46,7 +46,7 @@ with ``j∈\{ 1,⋯\ p\}``. The ``B_{p-j}`` are [`bernoulliB`](@ref) in the
 
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 (for `p > 36`)
-### Example:
+#### Example:
 ```
 faulhaber_polynom(6)
 7-element Vector{Rational{Int64}}:

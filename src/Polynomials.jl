@@ -214,7 +214,7 @@ The coefficients of the product of two polynomials, a = `coords1`
 (of degree ``n``) and b = `coords2` (of degree ``m``), truncated at the 
 order `p`, which represents a polynomial in a vector space of 
 dimension ``d=p+1``
-####
+#### Examples:
 ```
 julia> a = (1,-1,1);
 
@@ -265,43 +265,4 @@ function polynom_product_expansion(coords1, coords2, p::Int)
 
     return o
 
-end
-
-# ------------------------------------------------------------------------------
-#            polynom_product_expansion(coords1, coords2, p::Int)
-# ------------------------------------------------------------------------------
-
-@doc raw"""
-    lagrange_polynom(f::Vector{T}, start::Int, stop::Int [, sense=fwd]) where T<:Real
-    lagrange_polynom(f::Vector{T}, itr::UnitRange [, sense=fwd]) where T<:Real
-
-The coefficients of the polynomial of degree ``d = stop-start`` running through
-``d+1`` subsequent points ``f[n::n+k]`` of the tabulated smooth function ``f[n]``. 
-####
-```
-julia> a = (1,-1,1);
-
-julia> b = (1,1,-1,1,1,1);
-
-julia> o = polynom_product(a, b); println(o)
-[1, 0, -1, 3, -1, 1, 0, 1]
- 
-julia> o = polynom_product_expansion(a, b, 4); println(o)
-[1, 0, -1, 3, -1] 
-```
-"""
-function lagrange_polynom(f::Vector{T}, start::Int, stop::Int, sense=fwd) where T<:Real
-
-    k = stop-start
-
-    coords = isforward(sense) ? inv([T(m)^j for m=0:k, j=0:k])*f[start:stop] : 
-                                  inv([T(-m)^j for m=0:k, j=0:k])*f[stop:-1:start]
-        
-    return Tuple(coords)
-    
-end
-function lagrange_polynom(f::Vector{T}, itr::UnitRange, sense=fwd) where T<:Real
-        
-    return lagrange_polynom(f, itr.start, itr.stop, sense)
-    
 end

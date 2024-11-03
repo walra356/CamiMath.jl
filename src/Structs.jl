@@ -6,54 +6,74 @@
 #                              Structs.jl
 # ==============================================================================
 
+@doc raw"""
+    fwd
+
+Singleton type indicating ``forward``
+"""
 struct fwd
 end
 
+@doc raw"""
+    bwd
+
+Singleton type indicating ``backward``
+"""
 struct bwd
 end
 
+@doc raw"""
+    reg
+
+Singleton type indicating ``regular``
+"""
 struct reg
 end
 
+@doc raw"""
+    rev
+
+Singleton type indicating ``reverse``
+"""
 struct rev
 end
 
 # ============================= isforward(notation) ===========================
 
 @doc raw"""
-function isforward(val)
+function isforward(sense)
 
-Boolean status of `val`, with options: `fwd` (forward) and `bwd` (backward).
+Boolean status of `sense`, with options: `fwd` (forward) and `bwd` (backward).
 #### Example:
 ```
-julia? isforward(fwd)
+julia> isforward(fwd)
 true
 ```
 """
-function isforward(val)
+function isforward(sense)
 
-strErr = "Error: invalid value of val (options: fwd, bwd)"
+strErr = "Error: invalid sense (options: fwd, bwd)"
 
-return val === fwd ? true : val === bwd ? false : error(strErr)
+return sense === fwd ? true : sense === bwd ? false : error(strErr)
 
 end
 
 # ============================= isregular(ordering) ============================
 @doc raw"""
-function isregular(val)
+function isregular(sense::Type)
 
-Boolean status of `val`, with options: `reg` (regular) and `rev` (reversed).
+Boolean status of `sense`, with options: `reg` (regular) and `rev` (reversed).
 #### Example:
 ```
-isregular(reg)
+julia> isregular(reg)
 true
 ```
 """
-function isregular(val)
+function isregular(sense)
 
-strErr = "Error: invalid value of val (options: reg, rev)" 
+strErr = "Error: invalid sense (options: reg, rev)" 
 
-return val === reg ? true : val === rev ? false : error(strErr)
+return sense === reg ? true : sense === rev ? false : error(strErr)
 
 end
 # ============================= End ===========================

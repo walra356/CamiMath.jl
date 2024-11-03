@@ -83,6 +83,10 @@ using Test
     @test integer_partitions(5) == [[1, 1, 1, 1, 1], [2, 2, 1], [2, 1, 1, 1], [3, 2], [3, 1, 1], [4, 1], [5]]
     @test integer_partitions(7, 4; transpose=true) == [[2, 2, 2, 1], [3, 2, 1, 1], [4, 1, 1, 1]]
 
+    ftab = [0.0, 1.0, 4.0, 9.0, 16.0, 25.0];
+    @test lagrange_polynom(ftab, 1, 4, fwd) == [0.0, 0.0, 1.0, 0.0]
+    @test lagrange_polynom(ftab, 1, 4, bwd) == [9.0, 6.0, 1.0, -4.440892098500626e-16]
+
     @test_throws DomainError laguerre_polynom(-1)
     @test typeof(laguerre_polynom(18)) == NTuple{19,Rational{Int}}
     @test typeof(laguerre_polynom(19, msg=false)) == Vector{Rational{BigInt}}
@@ -150,10 +154,6 @@ using Test
     @test polynom_power((1, 1, 1), 1) == (1, 1, 1)
     @test polynom_power((1, 1, 1), 2) == [1, 2, 3, 2, 1]
     @test polynom_power((1, 1, 1), 3) == [1, 3, 6, 7, 6, 3, 1]
-
-    f = [0.0, 1.0, 4.0, 9.0, 16.0, 25.0];
-    @test lagrange_polynom(f, 1, 4, fwd) == (0.0, 0.0, 1.0, 0.0)
-    @test lagrange_polynom(f, 1, 4, bwd) == (9.0, 6.0, 1.0, -4.440892098500626e-16)
 
     @test texp(1 // 1, 0 // 1, 5) == 163 // 60
     @test texp(1, 0, 5) == 163 // 60
