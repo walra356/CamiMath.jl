@@ -1,3 +1,7 @@
+```@meta
+CurrentModule = CamiMath
+```
+
 # CamiMath.jl
 
 Mathematics library with integer-overflow protection (IOP)
