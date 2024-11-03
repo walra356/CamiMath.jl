@@ -10,9 +10,9 @@
     lagrange_polynom(f::Vector{T}, start::Int, stop::Int [, sense=fwd]) where T<:Real
     lagrange_polynom(f::Vector{T}, itr::UnitRange [, sense=fwd]) where T<:Real
 
-The coefficients of the polynomial of degree ``d = stop-start`` running through
+The coefficients of the polynomial of degree ``d = ```stop`-`start` running through
 ``d+1`` subsequent points, ``f[n::n+d]``, of the tabulated regular function ``f[n]``. 
-The corresponding polynomial expansion is most accurate near ``start``/``stop`` (for ``fwd/bwd``). 
+The corresponding polynomial expansion is most accurate near `start`/`stop` (for `fwd/bwd`). 
 #### Examples:
 ```
 julia> ftab = [0.0, 1.0, 4.0, 9.0, 16.0, 25.0];

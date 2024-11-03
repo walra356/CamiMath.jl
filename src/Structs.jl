@@ -9,7 +9,7 @@
 @doc raw"""
     fwd
 
-Singleton type indicating ``forward``
+Singleton type indicating `forward`
 """
 struct fwd
 end
@@ -17,7 +17,7 @@ end
 @doc raw"""
     bwd
 
-Singleton type indicating ``backward``
+Singleton type indicating `backward`
 """
 struct bwd
 end
@@ -25,7 +25,7 @@ end
 @doc raw"""
     reg
 
-Singleton type indicating ``regular``
+Singleton type indicating `regular` ordering
 """
 struct reg
 end
@@ -33,7 +33,7 @@ end
 @doc raw"""
     rev
 
-Singleton type indicating ``reverse``
+Singleton type indicating `reverse` ordering
 """
 struct rev
 end
@@ -41,7 +41,7 @@ end
 # ============================= isforward(notation) ===========================
 
 @doc raw"""
-function isforward(sense)
+    function isforward(sense)
 
 Boolean status of `sense`, with options: `fwd` (forward) and `bwd` (backward).
 #### Example:
@@ -60,7 +60,7 @@ end
 
 # ============================= isregular(ordering) ============================
 @doc raw"""
-function isregular(sense::Type)
+    function isregular(sense::Type)
 
 Boolean status of `sense`, with options: `reg` (regular) and `rev` (reversed).
 #### Example:
