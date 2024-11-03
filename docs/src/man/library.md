@@ -107,9 +107,6 @@ polynomial(coords, x::T; deriv=0) where {T<:Real}
 polynom_power(coords, power::Int)
 polynom_product(coords1, coords2)
 polynom_product_expansion(coords1, coords2, p::Int)
-CamiMath.isforward :: Tuple{Any}
-lagrange_polynom :: Union{Tuple{T}, Tuple{Vector{T}, Int64, Int64}, Tuple{Vector{T}, Int64, Int64, Any}} where T<:Real
-│     CamiMath.isregular :: Tuple{Any}
 ```
 
 ## Vector coupling
