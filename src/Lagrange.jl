@@ -41,7 +41,7 @@ function lagrange_polynom(f::Vector{T}, start::Int, stop::Int, sense=fwd) where 
     k = stop-start
 
     coords = isforward(sense) ? inv([T(m)^j for m=0:k, j=0:k])*f[start:stop] : 
-                                  inv([T(-m)^j for m=0:k, j=0:k])*f[stop:-1:start]
+                                inv([T(-m)^j for m=0:k, j=0:k])*f[stop:-1:start]
         
     return coords
     
