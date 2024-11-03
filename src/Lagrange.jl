@@ -10,7 +10,7 @@
     lagrange_polynom(f::Vector{T}, start::Int, stop::Int [, sense=fwd]) where T<:Real
     lagrange_polynom(f::Vector{T}, itr::UnitRange [, sense=fwd]) where T<:Real
 
-The coefficients of the []'polynomial'](@ref) of degree ``d = ```stop`-`start` running 
+The coefficients of the ['polynomial'](@ref) of degree ``d = ```stop`-`start` running 
 through ``d+1`` subsequent points of the tabulated regular function ``f[n]``. 
 For `sense` = [`fwd](@ref) these are the points ``f[n:n+d]``, for `sense` = [`bwd`](@ref) 
 the points ``f[n-k:n]``.
