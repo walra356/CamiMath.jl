@@ -6,6 +6,51 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
+#                            isforward(sense) 
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    function isforward(sense)
+
+Boolean status of `sense`, with options: [`fwd`](@ref) (forward) and [`bwd`](@ref) (backward).
+#### Example:
+```
+julia> isforward(fwd)
+true
+```
+"""
+function isforward(sense)
+
+strErr = "Error: invalid sense (options: fwd, bwd)"
+
+return sense === fwd ? true : sense === bwd ? false : error(strErr)
+
+end
+
+# ------------------------------------------------------------------------------
+#                            isregular(sense) 
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    function isregular(sense::Type)
+
+Boolean status of `sense`, with options: [`reg`](@ref) (regular) and [`rev`](@ref) (reversed).
+#### Example:
+```
+julia> isregular(reg)
+true
+```
+"""
+function isregular(sense)
+
+strErr = "Error: invalid sense (options: reg, rev)" 
+
+return sense === reg ? true : sense === rev ? false : error(strErr)
+
+end
+# ============================= End ===========================
+
+# ------------------------------------------------------------------------------
 #                     log10_characteristic(x)   
 # ------------------------------------------------------------------------------
 
