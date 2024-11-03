@@ -8,11 +8,6 @@ Mathematics library with integer-overflow protection (IOP)
 
 ---
 
-## Table of contents
-
-```@contents
-```
-
 ## Install
 
 The package is installed using the Julia package manager
@@ -21,6 +16,11 @@ The package is installed using the Julia package manager
 julia> using Pkg; Pkg.add("CamiMath")
 
 julia> using CamiMath
+```
+
+## Table of contents
+
+```@contents
 ```
 
 ## Singletons
