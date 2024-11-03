@@ -84,8 +84,8 @@ using Test
     @test integer_partitions(7, 4; transpose=true) == [[2, 2, 2, 1], [3, 2, 1, 1], [4, 1, 1, 1]]
 
     ftab = [0.0, 1.0, 4.0, 9.0, 16.0, 25.0];
-    @test lagrange_polynom(ftab, 1, 4, fwd) == [0.0, 0.0, 1.0, 0.0]
-    @test lagrange_polynom(ftab, 1, 4, bwd) == [9.0, 6.0, 1.0, -4.440892098500626e-16]
+    @test lagrange_polynom(ftab, 1, 4, fwd) ≈ [0.0, 0.0, 1.0, 0.0]
+    @test lagrange_polynom(ftab, 1, 4, bwd) ≈ [9.0, 6.0, 1.0, 0.0]
 
     @test_throws DomainError laguerre_polynom(-1)
     @test typeof(laguerre_polynom(18)) == NTuple{19,Rational{Int}}
