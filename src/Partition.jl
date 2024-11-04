@@ -29,7 +29,7 @@ Canonical partition of `n` in parts of maximum size `m` (`m` = 0 for any size)
 `header` : unit partition included in output
 #### Examples:
 ```
-julia> canonical_partitions(6, 0, reg ; header=true)
+julia> canonical_partitions(6, 0, reg; header=true)
 6-element Vector{Vector{Int64}}:
  [6]
  [5, 1]
