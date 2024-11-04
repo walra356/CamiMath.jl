@@ -7,7 +7,7 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#     canonical_partitions(n::Int, [[[m=0]; header=true,] reverse=true])
+#     canonical_partitions(n::Int, [m=0 , [sense=rev [; header=true]]])
 # ------------------------------------------------------------------------------
 
 function _canonical_partition(n::Int, m::Int)
@@ -21,14 +21,14 @@ function _canonical_partition(n::Int, m::Int)
 end
 
 @doc raw"""
-    canonical_partitions(n::Int, [m=0 [; header=true [, reverse=true]]])
+    canonical_partitions(n::Int, [m=0 , [sense=rev [; header=true]]])
 
 Canonical partition of `n` in parts of maximum size `m` (`m` = 0 for any size)
 
 `header` : unit partition included in output
 #### Examples:
 ```
-julia> canonical_partitions(6; header=true, reverse=false)
+julia> canonical_partitions(6, 0, reg ; header=true)
 6-element Vector{Vector{Int64}}:
  [6]
  [5, 1]
