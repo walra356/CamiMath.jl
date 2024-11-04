@@ -9,8 +9,12 @@ using Test
     @test Type_IOP(2, 1, "test(2)"; msg=false) == BigInt
     @test isforward(fwd)
     @test !isforward(bwd)
+    @test isbackward(bwd)
+    @test !isbackward(fwd)
     @test !isregular(rev)
     @test isregular(reg)
+    @test isreverse(rev)
+    @test !isreverse(reg)
 
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}

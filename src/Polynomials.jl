@@ -41,7 +41,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    polynomial(coords, x::T [; deriv=0]) where {T<:Real}
+    polynomial(coords, x::T [; deriv=0]) where T<:Real
 
 Polynomial of degree ``d``,
 ```math

@@ -146,7 +146,7 @@ end
 # ........................................................
 
 @doc raw"""
-    threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real; msg=true)
+    threeJsymbol(j1::Real, m1::Real, j2::Real, m2::Real, j3::Real, m3::Real [; msg=true])
 
 Wigner 3j symbol. This is a vector coupling coefficient with optimized symmetry
 properties. The 3j symbols are zero unless ``Δ(j_{1},j_{2},j_{3})>0``
@@ -208,7 +208,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real; msg=true)
+    CGC(j1::Real, m1::Real, j2::Real, m2::Real, J::Real, M::Real [; msg=true])
 
 Clebsch-Gordan coefficient (CGC). This is a vector-coupling coefficient in
 Dirac notation. The CGCs are zero unless ``Δ(j_{1},j_{2},j_{3})>0``

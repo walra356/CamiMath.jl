@@ -209,11 +209,11 @@ function generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 end
 
 # ------------------------------------------------------------------------------
-#       laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
+#       laguerreL(n::Integer, x::T; deriv=0, msg=true) where T<:Real
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
+    laguerreL(n::Integer, x::T [; deriv=0 [, msg=true]]) where T<:Real
 
 Laguerre polynomal of degree `n`,
 ```math
@@ -244,7 +244,7 @@ The plot is made using `CairomMakie`.
 NB.: `plot_function` is not included in the `CamiXon` package.
 ![Image](./assets/laguerreL8.png)
 """
-function laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
+function laguerreL(n::Integer, x::T; deriv=0, msg=true) where T<:Real
 
     coords = laguerre_polynom(n; msg)
 
@@ -257,11 +257,11 @@ end
 
 
 # ------------------------------------------------------------------------------
-# generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
+# generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where T<:Real
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
+    generalized_laguerreL(n::Integer, α, x::T [; deriv=0 [, msg=true]]) where T<:Real
 
 Generalized Laguerre polynomal of degree `n` for parameter `α`,
 ```math

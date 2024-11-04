@@ -33,7 +33,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    divisor(v::Vector{Rational{T}}) where {T<:Integer}
+    divisor(v::Vector{Rational{T}}) where T<:Integer
 
 Greatest common denominator of the set of rational numbers `v`
 #### Example:
@@ -42,7 +42,7 @@ julia> divisor([1//1, 1//2, 1//3])
 6
 ```
 """
-function divisor(v::Vector{Rational{T}}) where {T<:Integer}
+function divisor(v::Vector{Rational{T}}) where T<:Integer
 
     return Base.gcd(v).den
 
@@ -53,7 +53,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    numerators(v::Vector{Rational{T}}) where {T<:Integer}
+    numerators(v::Vector{Rational{T}}) where T<:Integer
 
 Numerators for the standard devisor of the set of rational numbers `v`
 #### Example:
@@ -65,7 +65,7 @@ julia> numerators([1//1, 1//2, 1//3])
  2
 ```
 """
-function numerators(v::Vector{Rational{T}}) where {T<:Integer}
+function numerators(v::Vector{Rational{T}}) where T<:Integer
 
     den = Base.gcd(v).den
     num = Base.convert(Vector{T}, (v .* den))

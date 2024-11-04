@@ -28,6 +28,28 @@ return sense === fwd ? true : sense === bwd ? false : error(strErr)
 end
 
 # ------------------------------------------------------------------------------
+#                            isbackward(sense) 
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    function isbackward(sense)
+
+Boolean status of `sense`, with options: [`fwd`](@ref) (forward) and [`bwd`](@ref) (backward).
+#### Example:
+```
+julia> isbackward(fwd)
+true
+```
+"""
+function isbackward(sense)
+
+strErr = "Error: invalid sense (options: fwd, bwd)"
+
+return sense === bwd ? true : sense === fwd ? false : error(strErr)
+
+end
+
+# ------------------------------------------------------------------------------
 #                            isregular(sense) 
 # ------------------------------------------------------------------------------
 
@@ -48,6 +70,29 @@ strErr = "Error: invalid sense (options: reg, rev)"
 return sense === reg ? true : sense === rev ? false : error(strErr)
 
 end
+
+# ------------------------------------------------------------------------------
+#                            isreverse(sense) 
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+    function isreverse(sense::Type)
+
+Boolean status of `sense`, with options: [`reg`](@ref) (regular) and [`rev`](@ref) (reversed).
+#### Example:
+```
+julia> isreverse(rev)
+true
+```
+"""
+function isreverse(sense)
+
+strErr = "Error: invalid sense (options: reg, rev)" 
+
+return sense === rev ? true : sense === reg ? false : error(strErr)
+
+end
+
 # ============================= End ===========================
 
 # ------------------------------------------------------------------------------
@@ -138,7 +183,7 @@ function Type_IOP(n::Integer, nc::Integer, a=nothing; nam="", msg=true)
 end
 
 # ------------------------------------------------------------------------------
-#               texp(x::T, a::T, p::Int) where {T<:Real}
+#               texp(x::T, a::T, p::Int) where T<:Real
 # ------------------------------------------------------------------------------
 
 @doc raw"""
@@ -158,7 +203,7 @@ julia> texp(1, 0, 5)
 163//60
 ```
 """
-function texp(x::T, a::T, p::Int) where {T<:Real}
+function texp(x::T, a::T, p::Int) where T<:Real
 
     x = x - a
 

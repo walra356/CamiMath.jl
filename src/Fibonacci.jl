@@ -23,7 +23,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    fibonacci(n::Integer [[; arr=false], msg=true])
+    fibonacci(n::Integer [; arr=false [, msg=true]])
 
 The sequence of integers,  ``F_0,⋯\ F_{nmax}``, in which each element is 
 the sum of the two preceding ones, 

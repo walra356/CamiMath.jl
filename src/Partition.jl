@@ -21,7 +21,7 @@ function _canonical_partition(n::Int, m::Int)
 end
 
 @doc raw"""
-    canonical_partitions(n::Int, [[[m=0]; header=true,] reverse=true])
+    canonical_partitions(n::Int, [m=0 [; header=true [, reverse=true]]])
 
 Canonical partition of `n` in parts of maximum size `m` (`m` = 0 for any size)
 
@@ -62,7 +62,28 @@ julia> o = canonical_partitions(9, 3); println(o)
 [3, 3, 3]
 ```
 """
-function canonical_partitions(n::Int, m=0; header=true, reverse=true)
+function canonical_partitions(n::Int, m=0, sense=rev; header=true)
+
+    h = header ? n : n - 1
+
+    if m < 0
+        throw(DomainError(m))
+    elseif m == 0
+        if isreverse(sense)
+            o = [_canonical_partition(n, m) for m = 1:h]
+        else
+            o = [_canonical_partition(n, m) for m = h:-1:1]
+        end
+    elseif 0 < m ≤ n
+        o = _canonical_partition(n, m)
+    else
+        throw(DomainError(m))
+    end
+
+    return o
+
+end
+function canonical_partitions1(n::Int, m=0; header=true, reverse=true)
 
     h = header ? n : n - 1
 
@@ -127,7 +148,7 @@ end
 
 # ..............................................................................
 @doc raw"""
-    integer_partitions(n [[[,m]; transpose=false], count=false])
+    integer_partitions(n [,m [; transpose=false [, count=false]]])
 
 `default`                      : The integer partitions of `n`
 

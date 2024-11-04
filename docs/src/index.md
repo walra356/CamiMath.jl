@@ -36,11 +36,13 @@ rev
 
 ```@docs
 isforward(sense::Type)
+isbackward(sense::Type)
 isregular(sense::Type)
+isreverse(sense::Type)
 Type_IOP(n::Integer, nc::Integer, str="")
 log10_characteristic(x)
 log10_mantissa(x)
-texp(x::T, a::T, p::Int) where {T<:Real}
+texp(x::T, a::T, p::Int) where T<:Real
 ```
 
 ## Bernoulli number
@@ -52,9 +54,9 @@ bernoulliB(n::Integer; arr=false, msg=true)
 ## Divisor
 
 ```@docs
-normalize_rationals(v::Vector{Rational{T}}) where {T<:Integer}
-divisor(v::Vector{Rational{T}}) where {T<:Integer}
-numerators(v::Vector{Rational{T}}) where {T<:Integer}
+normalize_rationals(v::Vector{Rational{T}}) where T<:Integer
+divisor(v::Vector{Rational{T}}) where T<:Integer
+numerators(v::Vector{Rational{T}}) where T<:Integer
 ```
 
 ## Factorial
@@ -100,8 +102,8 @@ lagrange_polynom(f::Vector{T}, start::Int, stop::Int, sense=fwd) where T<:Real
 ## Laguerre polynomial
 
 ```@docs
-laguerreL(n::Integer, x::T; deriv=0, msg=true) where {T<:Real}
-generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
+laguerreL(n::Integer, x::T; deriv=0, msg=true) where T<:Real
+generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where T<:Real
 laguerre_polynom(p::Integer; msg=true)
 generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 ```
@@ -122,7 +124,7 @@ permutations_unique_count(p::Vector{Vector{Int}}, i::Int)
 ## Pochhammer product
 
 ```@docs
-pochhammer(x::T, p::Int) where {T<:Real}
+pochhammer(x::T, p::Int) where T<:Real
 ```
 
 ## Polynomials

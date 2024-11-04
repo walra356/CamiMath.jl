@@ -37,7 +37,7 @@ function _harmonicNumbers_next(n::Int, nc::Int, p::Int, o)
 end
 
 @doc raw"""
-    harmonicNumber(n::Integer [, p=1 [; arr=false [], msg=true]]])
+    harmonicNumber(n::Integer [, p=1 [; arr=false [, msg=true]]])
 
 Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 ```math
@@ -51,10 +51,10 @@ Sum of the ``p^{th}`` power of reciprocals of the first ``n`` positive integers,
 julia> o = [harmonicNumber(n) for n=1:8]; println(o)
 Rational{Int64}[1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280]
 
-julia> @btime harmonicNumber(8; arr=true)
+julia> harmonicNumber(8; arr=true)
 (1//1, 3//2, 11//6, 25//12, 137//60, 49//20, 363//140, 761//280)
 
-julia> @btime harmonicNumber(42)
+julia> harmonicNumber(42)
 12309312989335019//2844937529085600
 
 julia> harmonicNumber(43)
@@ -64,8 +64,8 @@ IOP capture: harmonicNumber(43, 1) converted to Rational{BigInt}
 julia> harmonicNumber(12) == harmonicNumber(12, 1)
 true
 
-harmonicNumber(12, -3) == faulhaber_summation(12, 3)
-  true
+julia> harmonicNumber(12, -3) == faulhaber_summation(12, 3)
+true
 
 julia> o = [harmonicNumber(i, 5) for i=1:4]; println(o)
 Rational{Int64}[1//1, 33//32, 8051//7776, 257875//248832]
