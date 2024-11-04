@@ -254,8 +254,6 @@ function laguerreL(n::Integer, x::T; deriv=0, msg=true) where T<:Real
 
 end
 
-
-
 # ------------------------------------------------------------------------------
 # generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where T<:Real
 # ------------------------------------------------------------------------------

@@ -25,6 +25,7 @@ end
 
 Canonical partition of `n` in parts of maximum size `m` (`m` = 0 for any size)
 
+` sense` : regular ([`reg`](@ref)) or reverse ([`rev`](@ref))    
 `header` : unit partition included in output
 #### Examples:
 ```
