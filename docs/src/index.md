@@ -38,7 +38,7 @@ rev
 isforward(sense::Type)
 isbackward(sense::Type)
 isregular(sense::Type)
-isreverse(sense::Type)
+isreversed(sense::Type)
 Type_IOP(n::Integer, nc::Integer, str="")
 log10_characteristic(x)
 log10_mantissa(x)

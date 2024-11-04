@@ -70,7 +70,7 @@ function canonical_partitions(n::Int, m=0, sense=rev; header=true)
     if m < 0
         throw(DomainError(m))
     elseif m == 0
-        if isreverse(sense)
+        if isreversed(sense)
             o = [_canonical_partition(n, m) for m = 1:h]
         else
             o = [_canonical_partition(n, m) for m = h:-1:1]

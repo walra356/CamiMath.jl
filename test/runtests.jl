@@ -13,8 +13,8 @@ using Test
     @test !isbackward(fwd)
     @test !isregular(rev)
     @test isregular(reg)
-    @test isreverse(rev)
-    @test !isreverse(reg)
+    @test isreversed(rev)
+    @test !isreversed(reg)
 
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}

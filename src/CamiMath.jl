@@ -16,7 +16,7 @@ export Type_IOP
 export isforward
 export isbackward
 export isregular
-export isreverse
+export isreversed
 
 export bernoulliB
 export bigfactorial

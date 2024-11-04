@@ -76,7 +76,7 @@ end
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    function isreverse(sense::Type)
+    function isreversed(sense::Type)
 
 Boolean status of `sense`, with options: [`reg`](@ref) (regular) and [`rev`](@ref) (reversed).
 #### Example:
@@ -85,7 +85,7 @@ julia> isreverse(rev)
 true
 ```
 """
-function isreverse(sense)
+function isreversed(sense)
 
 strErr = "Error: invalid sense (options: reg, rev)" 
 
