@@ -83,27 +83,6 @@ function canonical_partitions(n::Int, m=0, sense=rev; header=true)
     return o
 
 end
-function canonical_partitions1(n::Int, m=0; header=true, reverse=true)
-
-    h = header ? n : n - 1
-
-    if m < 0
-        throw(DomainError(m))
-    elseif m == 0
-        if reverse
-            o = [_canonical_partition(n, m) for m = 1:h]
-        else
-            o = [_canonical_partition(n, m) for m = h:-1:1]
-        end
-    elseif 0 < m ≤ n
-        o = _canonical_partition(n, m)
-    else
-        throw(DomainError(m))
-    end
-
-    return o
-
-end
 
 # ------------------------------------------------------------------------------
 #      integer_partitions(n [[[,m]; transpose=false], count=false])
