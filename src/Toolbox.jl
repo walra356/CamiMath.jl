@@ -81,7 +81,7 @@ end
 Boolean status of `sense`, with options: [`reg`](@ref) (regular) and [`rev`](@ref) (reversed).
 #### Example:
 ```
-julia> isreverse(rev)
+julia> isreversed(rev)
 true
 ```
 """
