@@ -129,24 +129,30 @@ pochhammer(x::T, p::Int) where T<:Real
 
 ## Polynomials
 
-Polynomials can be regarded as the elements of vector spaces. As a first example we consider the set of all real polynomials of degree ``d``
+Polynomials can be regarded as the elements of a vector space. As an example 
+we consider the set of all real polynomials of degree ``d``
 ```math
-f_{\alpha}(x)=\alpha_{0}+\alpha_{1}x+\cdots+\alpha_{n}x^{d}.
+P_α(x) = α_0 + α_1 x + ⋯ + α_d x^d.
 ```
-These are maps 
+These are maps ``P_α:\mathbb{\mathbb{R\rightarrow\mathbb{R}}}`` that 
+satisfy the group operation 'addition of polynomials' because the sum of two 
+polynomials of degree ``d`` is again a polynomial of degree ``nd``
 ```math
-f_{\alpha}:\mathbb{\mathbb{R\rightarrow\mathbb{R}}} 
+(P_α + P_β)(x) ≡ (α_0 + β_{0})+(α_1 + β_1)x + ⋯ + (α_d + β_d) x^d = P_α(x) + P_β(x),
 ```
-which satisfy the group operation addition of polynomials because the sum of two polynomials of degree ``d`` is again a polynomial of degree ``n``
+and remains a polynomial of degree ``d`` under scalar multiplication,
 ```math
-(f_{\alpha}+f_{\beta})(x)\equiv(\alpha_{0}+\beta_{0})+(\alpha_{1}+\beta_{1})x+\cdots+(\alpha_{n}+\beta_{n})x^{n}=f_{\alpha}(x)+f_{\beta}(x),
+(λ P_α)(x) ≡ P_{\lambdaα}(x)=\lambdaα_0+\lambdaα_1 x + ⋯ + \lambdaα_d x^d = λ P_α(x).
 ```
-and remains a polynomial of degree n under scalar multiplication,
-```math
-(\lambda f_{\alpha})(x)\equiv f_{\lambda\alpha}(x)=\lambda\alpha_{0}+\lambda\alpha_{1}x+\cdots+\lambda\alpha_{n}x^{n}=\lambda f_{\alpha}(x).
-```
-The zero element of the vector space is the polynomial ``f_{\alpha}(x)=0`` and the inverse element of the element ``f_{\alpha}(x)`` is the polynomial ``-f_{\alpha}(x)``. Also the associative and distributive properties are easily verified. Hence, the set of all real polynomials of order n is a vector space over the field ``\mathbb{R}`` and the polynomials 
-``1,x,x^{2},\cdots x^{d}`` represent a basis. This vector space is denoted by ``\mathcal{P}{}_{v}``. The coefficients ``\alpha_{0},\cdots\alpha_{v}`` are the coordinates of the vector ``f_{\alpha}`` with respect to this basis. Note that the set of all polynomials of degree ``m\leq d`` forms a subspace of the vector space of all polynomials of degree ``v``; i.e., ``\mathcal{P}{}_{m}\subseteq\mathcal{P}{}_{v}``. 
+The zero element of the vector space is the polynomial ``P_α(x)=0`` and the inverse 
+element of the element ``P_α(x)`` is the polynomial ``-P_α(x)``. Also the associative 
+and distributive properties are easily verified. Hence, the set of all real polynomials 
+of order ``d`` is a vector space over the field ``\mathbb{R}`` and the polynomials 
+``1,x,x^{2},\cdots x^{d}`` represent a basis. This vector space is denoted by 
+``\mathcal{P}{}_{v}``. The coefficients ``α_0,\cdotsα_v`` are the coordinates of the 
+vector ``P_α`` with respect to this basis. Note that the set of all polynomials of 
+degree ``n \leq d`` forms a subspace of the vector space of all polynomials of degree 
+``v``; i.e., ``\mathcal{P}_{m}\subseteq\mathcal{P}_{v}``. 
 
 @doc raw"""
 polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real
