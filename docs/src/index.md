@@ -152,7 +152,7 @@ Hence, the set of all Real polynomials of order ``d`` defines  a vector space ov
 field ``\mathbb{R}`` and the polynomials ``1,x,x^{2},\cdots x^d`` represent a *basis*. 
 This vector space is denoted by ``\mathcal{P}_d``. The Array of coefficients, 
 ```
-polynom = [α_0, ⋯, α_v],
+polynom = [α_0, ⋯, α_d],
 ``` 
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 ```@docs
