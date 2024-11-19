@@ -151,7 +151,7 @@ and 'distributive' properties are easily verified.
 Hence, the set of all Real polynomials of degree ``d`` defines  a vector space (of 
 dimension ``d + 1``) over the field ``\mathbb{R}`` and the polynomials 
 ``1,x,x^{2},\cdots x^d`` represent a *basis*. This vector space is denoted by 
-``\mathcal{P}_d``. The coefficients ``α_0, ⋯, α_d,
+``\mathcal{P}_d``. The coefficients ``α_0, ⋯, α_d``,
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 
 ```@docs
