@@ -130,54 +130,31 @@ pochhammer(x::T, p::Int) where T<:Real
 ## Polynomials
 
 Polynomials can be regarded as the elements of a vector space. As an example 
-we consider the set of all real polynomials of degree ``d``
+we consider the set of all Real polynomials of degree ``d``
 ```math
 P_α(x) = α_0 + α_1 x + ⋯ + α_d x^d.
 ```
 These are maps ``P_α:\mathbb{\mathbb{R\rightarrow\mathbb{R}}}`` that 
 satisfy the group operation 'addition of polynomials' because the sum of two 
-polynomials of degree ``d`` is again a polynomial of degree ``nd``
+polynomials of degree ``d`` is again a polynomial of degree ``d``,
 ```math
 (P_α + P_β)(x) ≡ (α_0 + β_{0})+(α_1 + β_1)x + ⋯ + (α_d + β_d) x^d = P_α(x) + P_β(x),
 ```
-and remains a polynomial of degree ``d`` under scalar multiplication,
+and remains a polynomial of degree ``d`` under 'scalar multiplication',
 ```math
 (λ P_α)(x) ≡ P_{\lambdaα}(x)=\lambdaα_0+\lambdaα_1 x + ⋯ + \lambdaα_d x^d = λ P_α(x).
 ```
-The zero element of the vector space is the polynomial ``P_α(x)=0`` and the inverse 
-element of the element ``P_α(x)`` is the polynomial ``-P_α(x)``. Also the associative 
-and distributive properties are easily verified. Hence, the set of all real polynomials 
-of order ``d`` is a vector space over the field ``\mathbb{R}`` and the polynomials 
-``1,x,x^{2},\cdots x^{d}`` represent a basis. This vector space is denoted by 
-``\mathcal{P}{}_{v}``. The coefficients ``α_0,\cdotsα_v`` are the coordinates of the 
-vector ``P_α`` with respect to this basis. Note that the set of all polynomials of 
-degree ``n \leq d`` forms a subspace of the vector space of all polynomials of degree 
-``v``; i.e., ``\mathcal{P}_{m}\subseteq\mathcal{P}_{v}``. 
+The 'zero element' of the vector space is the polynomial ``P_α(x)=0`` and the 'inverse 
+element' of the element ``P_α(x)`` is the polynomial ``-P_α(x)``. Also the 'associative' 
+and 'distributive' properties are easily verified. 
 
-@doc raw"""
-polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real
-
-The polynomial 
+Hence, the set of all Real polynomials of order ``d`` defines  a vector space over the 
+field ``\mathbb{R}`` and the polynomials ``1,x,x^{2},\cdots x^d`` represent a *basis*. 
+This vector space is denoted by ``\mathcal{P}_d``. The Array of coefficients, 
 ```
-p(x) = c_0 + c_1 x + c_2 x^2 + ⋯ + c_3 x^p  
-```
-is defined by the coefficient vector
-```
-polynom = [c_0,c_1,⋯,c_p]
-```
-which represents the coordinates of a point in the vector space of the 
-polynomial. 
-the elements .
-#### Example:
-julia> polynom = [1,1,1,1,1]
-[1,1,1,1,1]
-
-julia> polynom = (1,1,1,1,1)
-(1,1,1,1,1)
-"""
-struct polynom <: {Vector{T}, Tuple{T}} where T<:Real 
-end
-
+polynom = [α_0, ⋯, α_v],
+``` 
+represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 ```@docs
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
