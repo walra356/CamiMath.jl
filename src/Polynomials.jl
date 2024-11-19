@@ -30,7 +30,7 @@ julia> polynom = [1,1,1,1,1]
 julia> polynom = (1,1,1,1,1)
 (1,1,1,1,1)
 """
-struct polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real 
+struct polynom <: {Vector{T}, Tuple{T}} where T<:Real 
 end
 
 # ------------------------------------------------------------------------------
