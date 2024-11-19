@@ -8,7 +8,11 @@
 @doc raw"""
     polynom
 
-Coordinate vector used to define a [`polynomial`](@ref).
+The set of coordinates defining the vector representation of a [`polynomial`](@ref).
+#### Example:
+```
+julia> polynom = (1, 1, 1, 1, 1)
+(1, 1, 1, 1, 1)
 """
 struct polynom
 end
