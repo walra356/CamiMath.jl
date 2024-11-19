@@ -129,6 +129,49 @@ pochhammer(x::T, p::Int) where T<:Real
 
 ## Polynomials
 
+Polynomials can be regarded as the elements of vector spaces. As a first example we consider the set of all real polynomials of degree ``d``
+```math
+f_{\alpha}(x)=\alpha_{0}+\alpha_{1}x+\cdots+\alpha_{n}x^{d}.
+```
+These are maps 
+```math
+f_{\alpha}:\mathbb{\mathbb{R\rightarrow\mathbb{R}}} 
+```
+which satisfy the group operation addition of polynomials because the sum of two polynomials of degree ``d`` is again a polynomial of degree ``n``
+```math
+(f_{\alpha}+f_{\beta})(x)\equiv(\alpha_{0}+\beta_{0})+(\alpha_{1}+\beta_{1})x+\cdots+(\alpha_{n}+\beta_{n})x^{n}=f_{\alpha}(x)+f_{\beta}(x),
+```
+and remains a polynomial of degree n under scalar multiplication,
+```math
+(\lambda f_{\alpha})(x)\equiv f_{\lambda\alpha}(x)=\lambda\alpha_{0}+\lambda\alpha_{1}x+\cdots+\lambda\alpha_{n}x^{n}=\lambda f_{\alpha}(x).
+```
+The zero element of the vector space is the polynomial ``f_{\alpha}(x)=0`` and the inverse element of the element ``f_{\alpha}(x)`` is the polynomial ``-f_{\alpha}(x)``. Also the associative and distributive properties are easily verified. Hence, the set of all real polynomials of order n is a vector space over the field ``\mathbb{R}`` and the polynomials 
+``1,x,x^{2},\cdots x^{d}`` represent a basis. This vector space is denoted by ``\mathcal{P}{}_{v}``. The coefficients ``\alpha_{0},\cdots\alpha_{v}`` are the coordinates of the vector ``f_{\alpha}`` with respect to this basis. Note that the set of all polynomials of degree ``m\leq d`` forms a subspace of the vector space of all polynomials of degree ``v``; i.e., ``\mathcal{P}{}_{m}\subseteq\mathcal{P}{}_{v}``. 
+
+@doc raw"""
+polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real
+
+The polynomial 
+```
+p(x) = c_0 + c_1 x + c_2 x^2 + ⋯ + c_3 x^p  
+```
+is defined by the coefficient vector
+```
+polynom = [c_0,c_1,⋯,c_p]
+```
+which represents the coordinates of a point in the vector space of the 
+polynomial. 
+the elements .
+#### Example:
+julia> polynom = [1,1,1,1,1]
+[1,1,1,1,1]
+
+julia> polynom = (1,1,1,1,1)
+(1,1,1,1,1)
+"""
+struct polynom <: {Vector{T}, Tuple{T}} where T<:Real 
+end
+
 ```@docs
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
