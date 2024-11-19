@@ -6,11 +6,11 @@
 # ==============================================================================
 
 @doc raw"""
-    polynom
+    Polynom:: Vector{T} where T<:Real
 
 Coordinate vector used to define a [`polynomial`](@ref).
 """
-struct polynom
+struct Polynom:: Vector{T} where T<:Real
 end
 
 # ------------------------------------------------------------------------------

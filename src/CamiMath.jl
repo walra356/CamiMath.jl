@@ -44,7 +44,7 @@ export lagrange_polynom
 
 export pochhammer
 export polynomial
-export polynom
+export Polynom
 export polynom_power
 export polynom_product
 export polynom_product_expansion

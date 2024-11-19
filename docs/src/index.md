@@ -130,7 +130,7 @@ pochhammer(x::T, p::Int) where T<:Real
 ## Polynomials
 
 Polynomials can be regarded as the elements of a vector space. As an example 
-we consider the set of all Real polynomials of degree ``d``,
+we consider the set of all *real* polynomials of degree ``d``,
 ```math
 P_α(x) = α_0 + α_1 x + ⋯ + α_d x^d.
 ```
@@ -148,16 +148,15 @@ The 'zero element' of the vector space is the polynomial ``P_α(x)=0`` and the '
 element' of the element ``P_α(x)`` is the polynomial ``-P_α(x)``. Also the 'associative' 
 and 'distributive' properties are easily verified. 
 
-Hence, the set of all Real polynomials of degree ``d`` defines  a vector space (of 
+Hence, the set of all *real* polynomials of degree ``d`` defines  a vector space (of 
 dimension ``d + 1``) over the field ``\mathbb{R}`` and the polynomials 
-``1,x,x^{2},\cdots x^d`` represent a *basis*. This vector space is denoted by 
-``\mathcal{P}_d``. The coefficients ``α_0, ⋯, α_d``,
+``1,x,x^{2},\cdots x^d`` represent a *basis*. The coefficients ``α_0, ⋯, α_d``,
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 
-In `CamiMath` we define a polynomial by specifying the coordinate vector [`polynom`](@ref).
+In `CamiMath` we define a polynomial by specifying the coordinate vector [`Polynom`](@ref).
 
 ```@docs
-polynom
+Polynom
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
 polynom_product(polynom1, polynom2)
