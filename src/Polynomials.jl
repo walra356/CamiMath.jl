@@ -11,6 +11,7 @@
 Coordinate vector used to define a [`polynomial`](@ref).
 """
 struct polynom
+end
 
 # ------------------------------------------------------------------------------
 #          polynomial(polynom::NTuple{}, x::T; deriv=0) where {T<:Real}
