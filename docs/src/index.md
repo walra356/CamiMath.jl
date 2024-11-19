@@ -130,7 +130,7 @@ pochhammer(x::T, p::Int) where T<:Real
 ## Polynomials
 
 Polynomials can be regarded as the elements of a vector space. As an example 
-we consider the set of all Real polynomials of degree ``d``
+we consider the set of all Real polynomials of degree ``d``,
 ```math
 P_α(x) = α_0 + α_1 x + ⋯ + α_d x^d.
 ```
@@ -150,11 +150,9 @@ and 'distributive' properties are easily verified.
 
 Hence, the set of all Real polynomials of order ``d`` defines  a vector space over the 
 field ``\mathbb{R}`` and the polynomials ``1,x,x^{2},\cdots x^d`` represent a *basis*. 
-This vector space is denoted by ``\mathcal{P}_d``. The Array of coefficients, 
-```
-polynom = [α_0, ⋯, α_d],
-``` 
+This vector space is denoted by ``\mathcal{P}_d``. The coefficients ``α_0, ⋯, α_d,
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
+
 ```@docs
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
