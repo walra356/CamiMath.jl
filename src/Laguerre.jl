@@ -225,10 +225,10 @@ Laguerre polynomal of degree `n`,
 where the ``c_k(n)`` are Laguerre coefficients of [`laguerre_polynom`](@ref).
 #### Example:
 ```
-julia> coords = laguerre_polynom(8); println(coords)
+julia> polynom = laguerre_polynom(8); println(polynom)
 (1//1, -8//1, 14//1, -28//3, 35//12, -7//15, 7//180, -1//630, 1//40320)
 
-julia> polynomial(coords, 5)
+julia> polynomial(polynom, 5)
 18029//8064
 
 julia> laguerreL(8, 5)
@@ -246,9 +246,9 @@ NB.: `plot_function` is not included in the `CamiXon` package.
 """
 function laguerreL(n::Integer, x::T; deriv=0, msg=true) where T<:Real
 
-    coords = laguerre_polynom(n; msg)
+    polynom = laguerre_polynom(n; msg)
 
-    o = polynomial(coords, x; deriv)
+    o = polynomial(polynom, x; deriv)
 
     return o
 
@@ -272,10 +272,10 @@ where the ``c_k(n,α)`` are the generalized Laguerre coefficients of
 [`generalized_laguerre_polynom`](@ref).
 #### Example:
 ```
-julia> coords = generalized_laguerre_polynom(5, 3); println(coords)
+julia> polynom = generalized_laguerre_polynom(5, 3); println(polynom)
 Rational{Int64}[56//1, -70//1, 28//1, -14//3, 1//3, -1//120]
 
-julia> polynomial(coords, 10.0)
+julia> polynomial(polynom, 10.0)
 -10.666666666667311
 
 julia> generalized_laguerreL(5, 3, 10.0)
@@ -284,9 +284,9 @@ julia> generalized_laguerreL(5, 3, 10.0)
 """
 function generalized_laguerreL(n::Integer, α, x::T; deriv=0, msg=true) where {T<:Real}
 
-    coords = generalized_laguerre_polynom(n, α; msg)
+    polynom = generalized_laguerre_polynom(n, α; msg)
 
-    o = polynomial(coords, x; deriv)
+    o = polynomial(polynom, x; deriv)
 
     return o
 

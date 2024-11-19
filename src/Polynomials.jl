@@ -6,89 +6,89 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-#          polynomial(coords::NTuple{}, x::T; deriv=0) where {T<:Real}
+#          polynomial(polynom::NTuple{}, x::T; deriv=0) where {T<:Real}
 # ------------------------------------------------------------------------------
 
-function _polynom_primitive(coords)
+function _polynom_primitive(polynom)
 
-    d = [1 // p for p ∈ Base.eachindex(coords)]
+    d = [1 // p for p ∈ Base.eachindex(polynom)]
 
-    coords = coords .* d
+    polynom = polynom .* d
 
-    return Base.pushfirst!(coords, 0)    # constant of integration equal to zero
-
-end
-
-# ..............................................................................
-function _polynom_derivative(coords)
-
-    d = Base.length(coords) - 1
-
-    return [coords[p+1] * p for p = 1:d]
+    return Base.pushfirst!(polynom, 0)    # constant of integration equal to zero
 
 end
 
 # ..............................................................................
-function _polynom_derivatives(coords; deriv=0)
+function _polynom_derivative(polynom)
+
+    d = Base.length(polynom) - 1
+
+    return [polynom[p+1] * p for p = 1:d]
+
+end
+
+# ..............................................................................
+function _polynom_derivatives(polynom; deriv=0)
 
     for k = 1:deriv
-        coords = _polynom_derivative(coords)
+        polynom = _polynom_derivative(polynom)
     end
 
-    return coords
+    return polynom
 
 end
 
 # ..............................................................................
 @doc raw"""
-    polynomial(coords, x::T [; deriv=0]) where T<:Real
+    polynomial(polynom, x::T [; deriv=0]) where T<:Real
 
 Polynomial of degree ``d``,
 ```math
     P(x)=c_0 + c_1 x + ⋯ + c_d x^d,
 ```
-where the coefficients `coords` = ``(c_0,⋯\ c_d)`` define the vector 
+where the coefficients `polynom` = ``(c_0,⋯\ c_d)`` define the vector 
 representation of the polynomial in a vector space of dimension ``d+1``.
 #### Examples:
 ```
-julia> coords = (1, 1, 1, 1, 1);
+julia> polynom = (1, 1, 1, 1, 1);
            
-julia> P(x) = polynomial(coords,x);
+julia> P(x) = polynomial(polynom,x);
 
 julia> P(1)
 5
 
-julia> polynomial(coords, 1; deriv=1)     # P′(1)
+julia> polynomial(polynom, 1; deriv=1)     # P′(1)
 10
 
-julia> polynomial(coords, 2; deriv=2)     # P″(1)
+julia> polynomial(polynom, 2; deriv=2)     # P″(1)
 20
 
-julia> polynomial(coords,x; deriv=-1)   # primitive (zero integration constant)
+julia> polynomial(polynom,x; deriv=-1)   # primitive (zero integration constant)
 137 // 60
 ```
 """
-function polynomial(coords, x::T; deriv=0) where T<:Real
+function polynomial(polynom, x::T; deriv=0) where T<:Real
 
     isinteger(deriv) || error("Error: deriv not integer")
 
-    d = Base.length(coords) - 1               # degree of polynomial
+    d = Base.length(polynom) - 1               # degree of polynomial
 
-    coords = deriv == 0 ? coords :
+    polynom = deriv == 0 ? polynom :
              deriv ≥ d + 1 ? T(0) :
-             deriv > 0 ? _polynom_derivatives(coords; deriv) :
-             deriv == -1 ? _polynom_primitive(coords) :
+             deriv > 0 ? _polynom_derivatives(polynom; deriv) :
+             deriv == -1 ? _polynom_primitive(polynom) :
              throw(DomainError(deriv))
 
-    x === 1 && return sum(coords)
+    x === 1 && return sum(polynom)
 
     d -= deriv
-    o = coords[1]
+    o = polynom[1]
     a = T(1)
 
     for i = 1:d
         a *= x
-        o += (coords[1+i] * a)
+        o += (polynom[1+i] * a)
     end
 
     return o
@@ -96,22 +96,22 @@ function polynomial(coords, x::T; deriv=0) where T<:Real
 end
 
 # ------------------------------------------------------------------------------
-#                 polynom_power(coords, p::Int)
+#                 polynom_power(polynom, p::Int)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    polynom_power(coords, p)
+    polynom_power(polynom, p)
 
-The `coords` of a polynomial of degree ``d`` raised to the power `p`,
+The `polynom` of a polynomial of degree ``d`` raised to the power `p`,
 which define a polynomial in a vector space of dimension ``p d + 1``.
 #### Examples:
 ```
-julia> coords = (1,1,1)    # coordinates of polynomial vector of degree d = 2
+julia> polynom = (1,1,1)    # coordinates of polynomial vector of degree d = 2
 (1, 1, 1)
 
-julia> coords = (1,1,1);
+julia> polynom = (1,1,1);
 
-julia> polynom_power(coords, 3)
+julia> polynom_power(polynom, 3)
 7-element Vector{Int64}:
  1
  3
@@ -122,17 +122,17 @@ julia> polynom_power(coords, 3)
  1
 ```
 """
-function polynom_power(coords, p::Int)
+function polynom_power(polynom, p::Int)
 
     p >= 0 || error("Error: negative polynom powers not allowed")
-    p == 2 && return CamiMath.polynom_product(coords, coords)
-    p == 1 && return coords
+    p == 2 && return CamiMath.polynom_product(polynom, polynom)
+    p == 1 && return polynom
     p == 0 && return [1]
 
-    o = CamiMath.polynom_product(coords, coords)
+    o = CamiMath.polynom_product(polynom, polynom)
 
     for i = 1:p-2
-        o = CamiMath.polynom_product(o, coords)
+        o = CamiMath.polynom_product(o, polynom)
     end
 
     return o
@@ -140,14 +140,14 @@ function polynom_power(coords, p::Int)
 end
 
 # ------------------------------------------------------------------------------
-#                    polynom_product(coords1, coords2)
+#                    polynom_product(polynom1, polynom2)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    polynom_product(coords1, coords2)
+    polynom_product(polynom1, polynom2)
 
-The coefficients of the product of two polynomials, a = `coords1` and 
-b = `coords2` of degree ``m`` and ``n``, which represents a polynomial 
+The coefficients of the product of two polynomials, a = `polynom1` and 
+b = `polynom2` of degree ``m`` and ``n``, which represents a polynomial 
 in a vector space of dimension ``d=m+n+1``,
 ```math
     P(x)=a_0b_0 + (a_0b_1 + b_0a_1)x + ⋯ + a_n b_m x^{n+m}.
@@ -169,10 +169,10 @@ julia> polynom_product((1, 1), (1, -1.0, 2))
  2  
 ```
 """
-function polynom_product(coords1, coords2)
+function polynom_product(polynom1, polynom2)
 
-    a = coords1
-    b = coords2
+    a = polynom1
+    b = polynom2
 
     n = Base.length(a)
     m = Base.length(b)
@@ -204,14 +204,14 @@ function polynom_product(coords1, coords2)
 end
 
 # ------------------------------------------------------------------------------
-#            polynom_product_expansion(coords1, coords2, p::Int)
+#            polynom_product_expansion(polynom1, polynom2, p::Int)
 # ------------------------------------------------------------------------------
 
 @doc raw"""
-    polynom_product_expansion(coords1, coords2, p::Int)
+    polynom_product_expansion(polynom1, polynom2, p::Int)
 
-The coefficients of the product of two polynomials, a = `coords1` 
-(of degree ``n``) and b = `coords2` (of degree ``m``), truncated at the 
+The coefficients of the product of two polynomials, a = `polynom1` 
+(of degree ``n``) and b = `polynom2` (of degree ``m``), truncated at the 
 order `p`, which represents a polynomial in a vector space of 
 dimension ``d=p+1``
 #### Examples:
@@ -227,10 +227,10 @@ julia> o = polynom_product_expansion(a, b, 4); println(o)
 [1, 0, -1, 3, -1] 
 ```
 """
-function polynom_product_expansion(coords1, coords2, p::Int)
+function polynom_product_expansion(polynom1, polynom2, p::Int)
 
-    a = coords1
-    b = coords2
+    a = polynom1
+    b = polynom2
 
     n = Base.length(a)
     m = Base.length(b)
