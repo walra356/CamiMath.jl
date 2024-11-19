@@ -7,10 +7,8 @@
 
 @doc raw"""
     polynom
-#### Example:
-```
-\text(polynom) = (α_0, ⋯, α_d).
-`` 
+
+Coordinate vector used to define a [`polynomial`](@ref).
 """
 struct polynom
 end
