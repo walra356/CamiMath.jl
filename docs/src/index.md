@@ -153,10 +153,10 @@ dimension ``d + 1``) over the field ``\mathbb{R}`` and the polynomials
 ``1,x,x^{2},\cdots x^d`` represent a *basis*. The coefficients ``α_0, ⋯, α_d``,
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 
-In `CamiMath` we define a polynomial by specifying the coordinate vector [`Polynom`](@ref).
+In `CamiMath` we define a polynomial by specifying the coordinate vector [`polynom`](@ref).
 
 ```@docs
-Polynom
+polynom
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
 polynom_product(polynom1, polynom2)

@@ -6,12 +6,11 @@
 # ==============================================================================
 
 @doc raw"""
-    Polynom:: Vector{T} where T<:Real
+    polynom
 
 Coordinate vector used to define a [`polynomial`](@ref).
 """
-struct Polynom:: Vector{T} where T<:Real
-end
+struct polynom
 
 # ------------------------------------------------------------------------------
 #          polynomial(polynom::NTuple{}, x::T; deriv=0) where {T<:Real}
