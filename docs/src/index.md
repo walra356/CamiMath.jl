@@ -154,7 +154,10 @@ dimension ``d + 1``) over the field ``\mathbb{R}`` and the polynomials
 ``\mathcal{P}_d``. The coefficients ``α_0, ⋯, α_d``,
 represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 
+In `CaiMath` we define a polynomial by specifying the vector `polynom`.
+
 ```@docs
+polynom
 polynomial(polynom, x::T; deriv=0) where T<:Real
 polynom_power(polynom, power::Int)
 polynom_product(polynom1, polynom2)
