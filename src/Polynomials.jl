@@ -6,6 +6,34 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
+#                               polynom
+# ------------------------------------------------------------------------------
+
+@doc raw"""
+polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real
+
+The polynomial 
+```
+p(x) = c_0 + c_1 x + c_2 x^2 + ⋯ + c_3 x^p  
+```
+is defined by the coefficient vector
+```
+polynom = [c_0,c_1,⋯,c_p]
+```
+which represents the coordinates of a point in the vector space of the 
+polynomial. 
+the elements .
+#### Example:
+julia> polynom = [1,1,1,1,1]
+[1,1,1,1,1]
+
+julia> polynom = (1,1,1,1,1)
+(1,1,1,1,1)
+"""
+struct polynom :: Union{Vector{T}, Ntuple{T}} where T<:Real 
+end
+
+# ------------------------------------------------------------------------------
 #          polynomial(polynom::NTuple{}, x::T; deriv=0) where {T<:Real}
 # ------------------------------------------------------------------------------
 
