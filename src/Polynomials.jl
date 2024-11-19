@@ -9,7 +9,7 @@
     polynom
 #### Example:
 ```
-polynom = (α_0, ⋯, α_d).
+\text(polynom) = (α_0, ⋯, α_d).
 `` 
 """
 struct polynom
