@@ -15,6 +15,13 @@ using Test
     @test isregular(reg)
     @test isreversed(rev)
     @test !isreversed(reg)
+    
+    @test sup(-5 // 2) == "⁻⁵ᐟ²"
+    @test sub(-5 // 2) == "₋₅⸝₂"
+    @test sub("e") == "ₑ"
+    @test frac(-5 // 2) == "-⁵/₂"
+    @test strRational(-5) == "-5"
+    @test strRational(-5 // 2) == "-5/2"
 
     @test_throws DomainError bernoulliB(-1)
     @test eltype(bernoulliB(35)) == Rational{Int}
