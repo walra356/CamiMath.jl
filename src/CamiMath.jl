@@ -7,6 +7,10 @@
 
 module CamiMath
 
+export sup
+export sub
+export frac
+export strRational
 export fwd
 export bwd
 export reg

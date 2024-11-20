@@ -23,22 +23,35 @@ julia> using CamiMath
 ```@contents
 ```
 
-## Singletons
+## Julia Toolbox
+
+### Tools
+
+#### String tools
+
+```@docs
+sup(i::T) where T<:Real
+sub(i::T) where T<:Real
+frac(i::Rational{Int})
+strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
+```
+
+#### logical tools
 
 ```@docs
 fwd
+isforward(sense::Type)
 bwd
+isbackward(sense::Type)
 reg
+isregular(sense::Type)
 rev
+isreversed(sense::Type)
 ```
 
-## Julia Toolbox
+#### Mathematics tools
 
 ```@docs
-isforward(sense::Type)
-isbackward(sense::Type)
-isregular(sense::Type)
-isreversed(sense::Type)
 Type_IOP(n::Integer, nc::Integer, str="")
 log10_characteristic(x)
 log10_mantissa(x)
