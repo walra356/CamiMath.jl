@@ -1,7 +1,7 @@
 name = "CamiMath"
 uuid = "d302b3f7-c8ae-418d-9fc2-2c0a42bddda0"
 authors = ["Jook Walraven <69215586+walra356@users.noreply.github.com> and contributors"]
-version = "0.1.12"
+version = "0.1.13"
 
 [deps]
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
