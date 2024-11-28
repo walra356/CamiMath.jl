@@ -96,7 +96,7 @@ julia> polynomial(polynom, 1; deriv=1)     # P′(1)
 julia> polynomial(polynom, 2; deriv=2)     # P″(1)
 20
 
-julia> polynomial(polynom,x; deriv=-1)   # primitive (zero integration constant)
+julia> polynomial(polynom, 1; deriv=-1)   # primitive (zero integration constant)
 137 // 60
 ```
 """
