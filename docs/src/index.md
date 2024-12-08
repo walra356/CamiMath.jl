@@ -89,7 +89,7 @@ faulhaber_summation(n::Integer, p::Int)
 ## HarmonicNumber
 
 ```@docs
-harmonicNumber(n::Integer; arr=false, msg=true)
+# harmonicNumber(n::Integer; arr=false, msg=true)
 harmonicNumber(n::Integer, p::Int; arr=false, msg=true)
 ```
 
