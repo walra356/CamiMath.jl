@@ -26,6 +26,9 @@
 
 module CamiMath
 
+import Documenter
+import DocumenterInterLinks
+
 export sup
 export sub
 export frac
