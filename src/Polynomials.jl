@@ -30,7 +30,7 @@
 The set of coordinates defining the vector representation of a [`polynomial`](@ref).
 #### Example:
 ```
-julia> polynom = (1, 1, 1, 1, 1)
+julia> polynom = (1, 1, 1, 1, 1) 
 (1, 1, 1, 1, 1)
 ```
 """
