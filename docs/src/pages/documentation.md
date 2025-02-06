@@ -1,4 +1,6 @@
-# Polynomials
+# Documentation
+
+## Polynomials
 
 A set of polynomials can be regarded as the elements of a vector space. As an example 
 we consider the set of all *real* polynomials of degree ``d``,

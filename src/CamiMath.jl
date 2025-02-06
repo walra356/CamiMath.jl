@@ -81,6 +81,7 @@ export triangle_coefficient
 export threeJsymbol
 export CGC
 
+include("Polynomials.jl")
 include("Bernoulli.jl")
 include("Divisor.jl")
 include("Factorial.jl")
@@ -92,7 +93,6 @@ include("Partition.jl")
 include("Permutations.jl")
 include("Pascal.jl")
 include("Pochhammer.jl")
-include("Polynomials.jl")
 include("Lagrange.jl")
 include("Toolbox.jl")
 include("VectorCoupling.jl")
