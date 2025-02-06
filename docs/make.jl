@@ -8,7 +8,6 @@ makedocs(;
     sitename="CamiMath.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        repolink="https://walra356.github.io/CamiMath.jl",
         assets=String[]
     ),
     pages=[
