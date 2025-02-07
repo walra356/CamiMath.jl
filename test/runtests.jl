@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 157 runtests | start")
+    println("CamiMath.jl | 157 runtests | runtume 35.6s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
