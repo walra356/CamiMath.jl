@@ -12,11 +12,11 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Library" => "pages/library.md",
-        "Polynomials" => "pages/polynomials.md",
-        "Vector Coupling" => "pages/vectorcoupling.md",
-        "Toolbox" => "pages/toolbox.md",
-        "Index" => "pages/index.md"
+        "Library" => "man/library.md",
+        "Polynomials" => "man/polynomials.md",
+        "Vector Coupling" => "man/vectorcoupling.md",
+        "Toolbox" => "man/toolbox.md",
+        "Index" => "man/index.md"
     ]    
 )
 

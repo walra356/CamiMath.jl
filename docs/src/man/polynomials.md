@@ -26,31 +26,31 @@ represent the *coordinates* of the vector ``P_α`` with respect to this basis.
 
 In `CamiMath` we define a polynomial by specifying the coordinate vector [`polynom`](@ref).
 
-### polynom
+## polynom
 
 ```@docs
 polynom
 ```
 
-### polynom power
+## polynom power
 
 ```@docs
 polynom_power(polynom, power::Int)
 ```
 
-### polynom product
+## polynom product
 
 ```@docs
 polynom_product(polynom1, polynom2)
 ```
 
-### polynom product expansion
+## polynom product expansion
 
 ```@docs
 polynom_product_expansion(polynom1, polynom2, p::Int)
 ```
 
-### polynomial
+## polynomial
 
 ```@docs
 polynomial(polynom, x::T; deriv=0) where T<:Real
