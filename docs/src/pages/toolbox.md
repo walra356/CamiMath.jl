@@ -38,15 +38,3 @@ normalize_rationals(v::Vector{Rational{T}}) where T<:Integer
 divisor(v::Vector{Rational{T}}) where T<:Integer
 numerators(v::Vector{Rational{T}}) where T<:Integer
 ```
-
-## Factorial
-
-```@docs
-bigfactorial(n::Integer; msg=true)
-```
-
-## Pochhammer product
-
-```@docs
-pochhammer(x::T, p::Int) where T<:Real
-```

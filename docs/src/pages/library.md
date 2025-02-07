@@ -61,3 +61,15 @@ pascal_next(a)
 ```@docs
 permutations_unique_count(p::Vector{Vector{Int}}, i::Int)
 ```
+
+## Factorial
+
+```@docs
+bigfactorial(n::Integer; msg=true)
+```
+
+## Pochhammer product
+
+```@docs
+pochhammer(x::T, p::Int) where T<:Real
+```
