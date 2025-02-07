@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 157 runtests | runtume 35.6s (estimated) | start")
+    println("CamiMath.jl | 158 runtests | runtume 37.6s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
@@ -61,6 +61,8 @@ using Test
     @test typeof(bigfactorial(5)) == Int
     typeof(bigfactorial(big(5))) == BigInt
     @test bigfactorial(21; msg=false) == 51090942171709440000
+ #   @test bigconvert([[1 // 1, 1 // 2], [1 // 1, 1 // 2]]) == Vector{Vector{Rational{BigInt}}}
+    @test convertToBig([[1 // 1, 1 // 2], [1 // 1, 1 // 2]]) == [[1 // 1, 1 // 2], [1 // 1, 1 // 2]]
     #...........................................................................
     @test_throws DomainError faulhaber_polynom(-1)
     @test eltype(faulhaber_polynom(10)) == Rational{Int}

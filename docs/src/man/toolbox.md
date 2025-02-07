@@ -38,3 +38,8 @@ normalize_rationals(v::Vector{Rational{T}}) where T<:Integer
 divisor(v::Vector{Rational{T}}) where T<:Integer
 numerators(v::Vector{Rational{T}}) where T<:Integer
 ```
+## Conversion to Big types
+
+```@docs
+bigconvert(x::T) where T
+```

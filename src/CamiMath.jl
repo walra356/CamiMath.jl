@@ -38,6 +38,7 @@ export bwd
 export reg
 export rev
 export Type_IOP
+export convertToBig
 
 export isforward
 export isbackward
