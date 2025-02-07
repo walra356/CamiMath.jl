@@ -27,7 +27,7 @@
 module CamiMath
 
 import Documenter
-import DocumenterInterLinks
+#import DocumenterInterLinks
 
 export sup
 export sub
@@ -70,7 +70,7 @@ export lagrange_polynom
 
 export pochhammer
 export polynomial
-export Polynom
+export polynom
 export polynom_power
 export polynom_product
 export polynom_product_expansion
