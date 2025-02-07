@@ -113,7 +113,7 @@ end
     sub(str::String)
 
 Subscript notation for integers, rational numbers and a *subset* of lowercase 
-characters ('a','e','h','k','l','m','n','o','p','r','s','t','x')
+characters ('a', 'e', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'x')
 #### Examples:
 ```
 'D' * sub(5//2)
