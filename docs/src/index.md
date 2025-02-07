@@ -18,4 +18,13 @@ julia> using Pkg; Pkg.add("CamiMath")
 julia> using CamiMath
 ```
 
+# Manual Outline
 
+pages=[
+        "Home" => "index.md",
+        "Polynomials" => "pages/polynomials.md",
+        "VectorCoupling" => "pages/vectorcoupling.md",
+        "Toolbox" => "pages/toolbox.md",
+        "Index" => "pages/index.md"
+    ]  
+Depth = 1
