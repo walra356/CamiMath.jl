@@ -27,7 +27,7 @@
 @doc raw"""
     polynom
 
-The set of coordinates defining the vector representation of a [`polynomial`](@ref).
+The set of coordinates defining the vector or tuple representation of a [`polynomial`](@ref).
 #### Example:
 ```
 julia> polynom = (1, 1, 1, 1, 1) 

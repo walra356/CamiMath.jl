@@ -1,4 +1,4 @@
-# VectorCoupling
+# Vector Coupling
 
 #### Triangle relations
 
