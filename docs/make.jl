@@ -12,19 +12,11 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Documentation" => "pages/documentation.md",
+        "Polynomials" => "pages/polynomials.md",
         "VectorCoupling" => "pages/vectorcoupling.md",
         "Toolbox" => "pages/toolbox.md",
         "Index" => "pages/index.md"
-    ],
-    Depth=1,
-    doctest=true,
-    doctestargs=["--project"],
-    doctestcoverage=true,       # coverage report           (default: false)                                                
-    doctestcoverageargs=["--project"],
-    doctestcoverageformat=:lcov, # coverage report format    (default: :lcov)
-    doctestcoveragefile="lcov.info", # coverage report file      (default: "lcov.info")
-    doctestcoverageexclude=["src/CamiMath.jl"], # coverage report exclude   (default: [])               
+    ]    
 )
 
 deploydocs(;
