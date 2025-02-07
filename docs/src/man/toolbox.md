@@ -41,5 +41,5 @@ numerators(v::Vector{Rational{T}}) where T<:Integer
 ## Conversion to Big types
 
 ```@docs
-bigconvert(x::T) where T
+convertToBig(x::T) where T
 ```
