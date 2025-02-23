@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 163 runtests | runtume 40s (estimated) | start")
+    println("CamiMath.jl | 164 runtests | runtume 40s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
@@ -155,6 +155,7 @@ using Test
     @test typeof(hermite_polynom(20, msg=false)) == Vector{BigInt}
     @test sum(hermite_polynom(20; msg=false)) == 1107214478336
     @test hermite_polynom(8) == (1680, 0, -13440, 0, 13440, 0, -3584, 0, 256)
+    @test hermiteH(8, 5) == 52065680
 
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
