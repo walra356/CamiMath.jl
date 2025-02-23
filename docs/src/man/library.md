@@ -49,6 +49,13 @@ laguerre_polynom(p::Integer; msg=true)
 generalized_laguerre_polynom(n::Integer, α=0; msg=true)
 ```
 
+## Hermite polynomial
+
+```@docs
+hermiteH(n::Integer, x::T; deriv=0, msg=true) where T<:Real
+hermite_polynom(n::Integer; msg=true)
+```
+
 ## Pascal triangle
 
 ```@docs

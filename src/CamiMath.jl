@@ -67,6 +67,10 @@ export laguerreL
 export laguerre_polynom
 export generalized_laguerre_polynom
 export generalized_laguerreL
+
+export hermiteH
+export hermite_polynom
+
 export lagrange_polynom
 
 export pochhammer
@@ -90,6 +94,7 @@ include("Faulhaber.jl")
 include("Fibonacci.jl")
 include("HarmonicNumber.jl")
 include("Laguerre.jl")
+include("Hermite.jl")
 include("Partition.jl")
 include("Permutations.jl")
 include("Pascal.jl")

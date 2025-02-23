@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 158 runtests | runtume 37.6s (estimated) | start")
+    println("CamiMath.jl | 163 runtests | runtume 40s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
@@ -149,6 +149,12 @@ using Test
 
     @test generalized_laguerreL(10, 5, 5) == -425219 // 145152
     @test generalized_laguerreL(10, 5, 5.0) == -2.9294739307867648
+
+    @test_throws DomainError hermite_polynom(-1)
+    @test typeof(hermite_polynom(19)) == NTuple{20,Int}
+    @test typeof(hermite_polynom(20, msg=false)) == Vector{BigInt}
+    @test sum(hermite_polynom(20; msg=false)) == 1107214478336
+    @test hermite_polynom(8) == (1680, 0, -13440, 0, 13440, 0, -3584, 0, 256)
 
     @test_throws DomainError pascal_triangle(-1)
     @test typeof(pascal_triangle(50)) == Vector{Int}
