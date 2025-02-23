@@ -55,9 +55,9 @@ The coefficients of [`hermiteH`](@ref) for degree `n`,
 ```
 where
 ```math
-    c_k(n) = \frac{\Gamma(n+1)}{\Gamma(k+1)}\frac{(-1)^{k}}{(n-k)!}\frac{1}{k!}
+    c_k(n) = (-1)^{m}\frac{n!}{k!}\frac{2^{k}}{m!}
 ```
-with ``k=0,1,⋯,n``.
+with  ``m = (n-k)/2`` and ``k=0,1,⋯,n``.
 
 - `msg` : integer-overflow protection (IOP) - warning on activation 
 #### Example:
@@ -106,10 +106,10 @@ Hermite polynomal of degree `n`,
 ```math
     H_{n}(x)
     = (-1)^ne^{x^2}\frac{d^{n}}{dx^{n}}(e^{-x^2})
-    = \sum_{k=0}^{n}(-1)^{(n-k)÷2}\frac{n!}{k!}\frac{(2x)^{k}}{((n-k)÷2)!}
+    = \sum_{k=0}^{n}(-1)^{m}\frac{n!}{k!}\frac{(2x)^{k}}{m!}
     = \sum_{k=0}^{n}c_k(n)x^{k}
 ```
-where the ``c_k(n)`` are hermite coefficients of [`hermite_polynom`](@ref).
+where ``m = (n-k)/2`` and the ``c_k(n)`` are hermite coefficients of [`hermite_polynom`](@ref).
 #### Example:
 ```
 julia> hermite_polynom(7)
