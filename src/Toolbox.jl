@@ -49,8 +49,8 @@ end
 Superscript notation for integers and rational numbers
 #### Examples:
 ```
-sup(3) * 'P'
- "³P"
+julia> sup(3) * 'P'
+"³P"
 ```
 """
 function sup(i::T) where T<:Real
@@ -116,11 +116,11 @@ Subscript notation for integers, rational numbers and a *subset* of lowercase
 characters ('a', 'e', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'x')
 #### Examples:
 ```
-'D' * sub(5//2)
- "D₅⸝₂"
+julia> 'D' * sub(5//2)
+"D₅⸝₂"
 
-"m" * sub("e")
- "mₑ"
+julia> "m" * sub("e")
+"mₑ"
 ```
 """
 function sub(i::T) where T<:Real
@@ -157,8 +157,8 @@ end
 Fraction notation for rational numbers
 #### Examples:
 ```
-frac(-5//2)
- "-⁵/₂"
+julia> frac(-5//2)
+"-⁵/₂"
 ```
 """
 function frac(i::Rational{Int})
@@ -182,11 +182,8 @@ end
 Fraction notation for rational numbers and integers
 #### Examples:
 ```
-strRational(-5//2)
- "-5/2"
-
- strRational(-5//2)
-  "-5"
+julia> strRational(-5//2)
+"-5/2"
 ```
 """
 function strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
@@ -258,7 +255,7 @@ Boolean status of `sense`, with options: [`fwd`](@ref) (forward) and [`bwd`](@re
 #### Example:
 ```
 julia> isbackward(fwd)
-true
+false
 ```
 """
 function isbackward(sense)
@@ -348,7 +345,7 @@ end
 characteristic power-of-10 of the number `x`
 #### Examples:
 ```
-log10_characteristic.([3,30,300])
+julia> log10_characteristic.([3,30,300])
 3-element Vector{Int64}:
  0
  1
@@ -367,7 +364,7 @@ log10_characteristic(x) = Base.round(Int, Base.floor(log10(x)))
 log10 mantissa of the number `x`
 #### Examples:
 ```
-log10_mantissa.([3,30,300])
+julia> log10_mantissa.([3,30,300])
 3-element Vector{Float64}:
  0.47712125471966244
  0.4771212547196624
