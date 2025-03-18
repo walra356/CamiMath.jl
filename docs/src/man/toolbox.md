@@ -2,13 +2,36 @@
 
 ## String tools
 
+#### Dictionaries
+
 ```@docs
 dictSuperscript
-sup(i::T) where T<:Real
 dictSubscript
-sub(i::T) where T<:Real
 dictUndoSmall
+```
+
+#### Superscript tools
+
+```@docs
+sup(i::T) where T<:Real
+```
+
+#### Subscript tools
+
+```@docs
+sub(i::T) where T<:Real
+```
+
+#### Tiny fraction tools
+
+```@docs
 frac(i::Rational{Int})
+strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
+```
+
+#### Rational covert to String
+
+```@docs
 strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
 ```
 

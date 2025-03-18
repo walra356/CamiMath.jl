@@ -75,21 +75,6 @@ dictSub = Dict(
     
     )
     
-
-function _superscript(i::Int)
-
-    c = i < 0 ? [Char(0x207B)] : []
-
-    for d ∈ reverse(digits(abs(i)))
-        d == 0 ? Base.push!(c, Char(0x2070)) :
-        d == 1 ? Base.push!(c, Char(0x00B9)) :
-        d == 2 ? Base.push!(c, Char(0x00B2)) :
-        d == 3 ? Base.push!(c, Char(0x00B3)) : Base.push!(c, Char(0x2070+d))
-    end
-
-    return join(c)
-
-end
 # ------------------------------------------------------------------------------
 @doc raw"""
     sup(i::T) where T<:Real
