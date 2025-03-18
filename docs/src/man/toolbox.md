@@ -23,6 +23,11 @@ undo_sup(str::String)
 sub(i::T) where T<:Real
 undo_sub(str::String)
 ```
+#### Undo small String
+
+```@docs
+undo_small(str::String)
+```
 
 #### Tiny fraction tools
 
