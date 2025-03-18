@@ -28,6 +28,54 @@
 #                            sup(i) 
 # ------------------------------------------------------------------------------
 
+dictSup = Dict(
+    
+    '-' => Char(0x207B),
+    '0' => Char(0x2070),
+    '1' => Char(0x00B9),
+    '2' => Char(0x00B2),
+    '3' => Char(0x00B3),
+    '4' => Char(0x2074),
+    '5' => Char(0x2075),
+    '6' => Char(0x2076),
+    '7' => Char(0x2077),
+    '8' => Char(0x2078),
+    '9' => Char(0x2079),
+    '/' => Char('ᐟ') 
+    
+    )
+
+dictSub = Dict(
+    
+    '-' => Char(0x208B),
+    '0' => Char(0x2080),
+    '1' => Char(0x2081),
+    '2' => Char(0x2082),
+    '3' => Char(0x2083),
+    '4' => Char(0x2084),
+    '5' => Char(0x2085),
+    '6' => Char(0x2086),
+    '7' => Char(0x2087),
+    '8' => Char(0x2088),
+    '9' => Char(0x2089),
+    '/' => Char('⸝'),
+    'a' => Char(0x2090),
+    'e' => Char(0x2091),
+    'h' => Char(0x2095),
+    'k' => Char(0x2096),
+    'l' => Char(0x2097),
+    'm' => Char(0x2098),
+    'n' => Char(0x2099),
+    'o' => Char(0x2092),
+    'p' => Char(0x209A),
+    'r' => Char(0x1D63),
+    's' => Char(0x209B),
+    't' => Char(0x209C),
+    't' => Char(0x2093)
+    
+    )
+    
+
 function _superscript(i::Int)
 
     c = i < 0 ? [Char(0x207B)] : []
@@ -46,21 +94,55 @@ end
 @doc raw"""
     sup(i::T) where T<:Real
 
-Superscript notation for integers and rational numbers
+Superscript notation for integers and rational numbers and *all* lowercase characters
 #### Examples:
 ```
 julia> sup(3) * 'P'
 "³P"
+
+julia> 'D' * sup(5//2)
+"D₅⸝₂"
+
+julia> 'D' * sub(50//20)
+"D₅⸝₂"
+
+julia> 'D' * sub(50//21)
+"D₅₀⸝₂₁"
+```
+    sup(str::String)
+
+#### Example:
+```
+julia> 'D' * sup("superscript")
+"Dˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
 ```
 """
 function sup(i::T) where T<:Real
 
     sgn = i < 0 ? Char(0x207B) : ""
 
-    num = _superscript(numerator(abs(i)))
-    den = _superscript(denominator(abs(i)))
+    num = string(numerator(abs(i)))
+    den = string(denominator(abs(i)))
 
-    return T == Rational{Int} ? (sgn * num * '\U141F' * den) : (sgn * num)
+    num = join([get(dictSuperscript, num[k], "unknown") for k ∈ eachindex(num)])
+    den = join([get(dictSuperscript, den[k], "unknown") for k ∈ eachindex(den)])
+
+    return T == Rational{Int} ? (sgn * num * 'ᐟ' * den) : (sgn * num)
+
+end
+function sup(str::String)
+
+    U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+    c = collect(str)
+
+    for i ∈ eachindex(c)
+        c[i] ∈ U || error("Error: superscript $(c[i]) not part of Unicode")
+    end
+
+    o = join([get(dictSuperscript, c[k], "unknown") for k ∈ eachindex(c)])   
+
+    return o
 
 end
 
@@ -68,49 +150,8 @@ end
 #                                sub(i) 
 # ------------------------------------------------------------------------------
 
-function _subscript(i::Int)
-
-    c = i < 0 ? [Char(0x208B)] : []
-
-    for d ∈ reverse(digits(abs(i)))
-        Base.push!(c, Char(0x2080+d))
-    end
-
-    return join(c)
-
-end
-# ------------------------------------------------------------------------------
-function _subscript(str::String)
-
-    d = Dict(
-        'a' => Char(0x2090),
-        'e' => Char(0x2091),
-        'h' => Char(0x2095),
-        'k' => Char(0x2096),
-        'l' => Char(0x2097),
-        'm' => Char(0x2098),
-        'n' => Char(0x2099),
-        'o' => Char(0x2092),
-        'p' => Char(0x209A),
-        'r' => Char(0x1D63),
-        's' => Char(0x209B),
-        't' => Char(0x209C),
-        'x' => Char(0x2093))
-
-    c::Vector{Char} = []
-
-    for i ∈ collect(str)
-        Base.push!(c, get(d, i,'.'))
-    end
-
-    return join(c)
-
-end
-# ------------------------------------------------------------------------------
-
 @doc raw"""
     sub(i::T) where T<:Real
-    sub(str::String)
 
 Subscript notation for integers, rational numbers and a *subset* of lowercase 
 characters ('a', 'e', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'x')
@@ -119,31 +160,49 @@ characters ('a', 'e', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'x')
 julia> 'D' * sub(5//2)
 "D₅⸝₂"
 
+julia> 'D' * sub(50//20)
+"D₅⸝₂"
+
+julia> 'D' * sub(50//21)
+"D₅₀⸝₂₁"
+```
+    sub(str::String)
+
+#### Example:
+```
 julia> "m" * sub("e")
 "mₑ"
+
+julia> 'D' * sub("50/21")
+"D₅₀⸝₂₁"
 ```
 """
 function sub(i::T) where T<:Real
 
     sgn = i < 0 ? Char(0x208B) : ""
 
-    num = _subscript(numerator(abs(i)))
-    den = _subscript(denominator(abs(i)))
+    num = string(numerator(abs(i)))
+    den = string(denominator(abs(i)))
 
-    return T == Rational{Int} ? (sgn * num * '\U2E1D' * den) : (sgn * num)
+    num = join([get(dictSubscript, num[k], nothing) for k ∈ eachindex(num)])
+    den = join([get(dictSubscript, den[k], nothing) for k ∈ eachindex(den)])
+
+    return T == Rational{Int} ? (sgn * num * '⸝' * den) : (sgn * num)
 
 end
 function sub(str::String)
 
-    U = ['a','e','h','k','l','m','n','o','p','r','s','t','x']
+    U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','e','h','k','l','m','n','o','p','r','s','t','x']
 
     c = collect(str)
 
     for i ∈ eachindex(c)
-        c[i] ∈ U || error("Error: subscript $(S[i]) not part of Unicode")
+        c[i] ∈ U || error("Error: subscript $(c[i]) not part of Unicode")
     end
 
-    return _subscript(str::String)
+    o = join([get(dictSubscript, c[k], "unknown") for k ∈ eachindex(c)])   
+
+    return o
 
 end
 
@@ -165,8 +224,11 @@ function frac(i::Rational{Int})
 
     sgn = i < 0 ? "-" : ""
 
-    num = _superscript(numerator(abs(i)))
-    den = _subscript(denominator(abs(i)))
+    num = string(numerator(abs(i)))
+    den = string(denominator(abs(i)))
+
+    num = join([get(dictSuperscript, num[k], "unknown") for k ∈ eachindex(num)])
+    den = join([get(dictSubscript, den[k], "unknown") for k ∈ eachindex(den)])
 
     return sgn * num *  '/' * den
 

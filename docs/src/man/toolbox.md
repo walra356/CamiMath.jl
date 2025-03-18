@@ -3,8 +3,11 @@
 ## String tools
 
 ```@docs
+dictSuperscript
 sup(i::T) where T<:Real
+dictSubscript
 sub(i::T) where T<:Real
+dictUndoSmall
 frac(i::Rational{Int})
 strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
 ```

@@ -29,6 +29,10 @@ module CamiMath
 import Documenter
 #import DocumenterInterLinks
 
+export dictSuperscript
+export dictSubscript        
+export dictUndoSmall
+
 export sup
 export sub
 export frac
@@ -86,6 +90,7 @@ export triangle_coefficient
 export threeJsymbol
 export CGC
 
+include("Dict.jl")
 include("Polynomials.jl")
 include("Bernoulli.jl")
 include("Divisor.jl")
