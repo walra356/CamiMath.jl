@@ -10,7 +10,7 @@ DocumenterInterLinks = "d12716ef-a0f6-4df4-a9f1-a5a34e75c656"
 
 [compat]
 BenchmarkTools = "1.4.0"
-Documenter = "1.8.0"
+Documenter = "1.9.0"
 DocumenterInterLinks = "1.0.0"
 julia = "1"
 

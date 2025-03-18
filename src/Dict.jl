@@ -172,7 +172,6 @@ julia> get(dictUndoSmall, 'ⁿ', "not found")
 'n': ASCII/Unicode U+006E (category Ll: Letter, lowercase)
 ```
 """
-
 dictUndoSmall = Dict(
 
     '₋' => '-', 
