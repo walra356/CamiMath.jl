@@ -26,7 +26,6 @@ sub(i::T) where T<:Real
 
 ```@docs
 frac(i::Rational{Int})
-strRational(n::T) where T<:Union{Rational{}, Int, BigInt}
 ```
 
 #### Rational covert to String
