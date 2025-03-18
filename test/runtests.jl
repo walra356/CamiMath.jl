@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 166 runtests | runtume 40s (estimated) | start")
+    println("CamiMath.jl | 169 runtests | runtume 60s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
@@ -41,10 +41,13 @@ using Test
     @test !isreversed(reg)
     
     @test sup(-5 // 2) == "⁻⁵ᐟ²"
+    @test undo_sup("⁻⁵ᐟ²") == -5//2
     @test 'D' * sup("superscript") == "Dˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
+    @test undo_small("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ") == "superscript"
     @test sub(-5 // 2) == "₋₅⸝₂"
     @test sub("-5/2") == "₋₅⸝₂"
     @test sub("e") == "ₑ"
+    @test undo_sub("₋₅⸝₂") == -5//2
     @test frac(-5 // 2) == "-⁵/₂"
     @test strRational(-5) == "-5"
     @test strRational(-5 // 2) == "-5/2"

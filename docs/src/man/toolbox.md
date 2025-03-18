@@ -14,12 +14,14 @@ dictUndoSmall
 
 ```@docs
 sup(i::T) where T<:Real
+undo_sup(str::String)
 ```
 
 #### Subscript tools
 
 ```@docs
 sub(i::T) where T<:Real
+undo_sub(str::String)
 ```
 
 #### Tiny fraction tools

@@ -131,6 +131,34 @@ function sup(str::String)
 
 end
 
+@doc raw"""
+    undo_sup(str::String)
+
+Undo conversion of Integer or Rational{Int} to superscript String
+Examples:
+```
+julia> undo_sup("⁻⁵ᐟ²")
+-5//2
+```
+"""
+function undo_sup(str::String)
+
+    o = undo_small(str::String)
+
+    if occursin("/", o)
+        n = findfirst('/', o)
+        l = length(o)
+        i1 = Meta.parse(o[1:n-1])
+        i2 = Meta.parse(o[n+1:l])
+        o = i1 // i2
+    else
+        o = Meta.parse(o)
+    end
+
+    return o
+    
+end
+
 # ------------------------------------------------------------------------------
 #                                sub(i) 
 # ------------------------------------------------------------------------------
@@ -190,6 +218,62 @@ function sub(str::String)
     return o
 
 end
+
+
+@doc raw"""
+    undo_sub(str::String)
+
+Undo conversion of Integer or Rational{Int} to subscript String
+Examples:
+```
+undo_sub("₋₅⸝₂")
+-5//2
+```
+"""
+function undo_sub(str::String)
+
+    o = undo_small(str::String)
+
+    if occursin("/", o)
+        n = findfirst('/', o)
+        l = length(o)
+        i1 = Meta.parse(o[1:n-1])
+        i2 = Meta.parse(o[n+1:l])
+        o = i1 // i2
+    else
+        o = Meta.parse(o)
+    end
+
+    return o
+    
+end
+
+
+@doc raw"""
+    undo_small(str::String)
+
+Reset to normal size String
+
+Examples:
+```
+julia> undo_small("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ")
+"superscript"
+
+julia> undo_small("⁻⁵ᐟ²")
+"-5/2"
+
+julia> undo_small("₋₅⸝₂")
+"-5/2"
+```
+"""
+function undo_small(str::String)
+    
+    o = [get(dictUndoSmall, str[i], nothing) for i ∈ eachindex(str)]
+    
+    return  join(o)
+    
+end
+
 
 # ------------------------------------------------------------------------------
 #                                frac(i) 
