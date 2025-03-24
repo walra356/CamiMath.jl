@@ -34,10 +34,10 @@ export dictSubscript
 export dictUndoSmall
 
 export sup
-export undo_sup
+export undosup
 export sub
-export undo_sub
-export undo_small
+export undosub
+export undosmall
 export frac
 export strRational
 export fwd

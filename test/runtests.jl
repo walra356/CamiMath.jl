@@ -39,15 +39,23 @@ using Test
     @test isregular(reg)
     @test isreversed(rev)
     @test !isreversed(reg)
-    
+      
     @test sup(-5 // 2) == "⁻⁵ᐟ²"
-    @test undo_sup("⁻⁵ᐟ²") == -5//2
+    @test sup(5) == '⁵'
+    @test sup("-5/2") == "⁻⁵ᐟ²"
+    @test sup('u') == 'ᵘ'
+    @test undosup("⁻⁵ᐟ²") == -5//2
+    @test undosup('⁵') == 5
+    @test undosup('ᵘ') == 'u'
     @test 'D' * sup("superscript") == "Dˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
-    @test undo_small("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ") == "superscript"
+    @test undosmall("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ") == "superscript"
     @test sub(-5 // 2) == "₋₅⸝₂"
+    @test sub(5) == '₅'
     @test sub("-5/2") == "₋₅⸝₂"
     @test sub("e") == "ₑ"
-    @test undo_sub("₋₅⸝₂") == -5//2
+    @test undosub("₋₅⸝₂") == -5//2
+    @test undosub('ₑ') == 'e'
+    @test undosub('₅') == 5
     @test frac(-5 // 2) == "-⁵/₂"
     @test strRational(-5) == "-5"
     @test strRational(-5 // 2) == "-5/2"

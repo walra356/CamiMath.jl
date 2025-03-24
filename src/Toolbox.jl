@@ -112,47 +112,57 @@ function sup(i::T) where T<:Real
     num = join([get(dictSuperscript, num[k], "unknown") for k ∈ eachindex(num)])
     den = join([get(dictSuperscript, den[k], "unknown") for k ∈ eachindex(den)])
 
-    return T == Rational{Int} ? (sgn * num * 'ᐟ' * den) : (sgn * num)
+    return T == Rational{Int} ? (sgn * num * 'ᐟ' * den) : length(sgn * num) > 1 ? sgn * num : num[1]
 
 end
-function sup(str::String)
+function sup(str::Union{Char, String})
 
-    U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    if isa(str, String)
 
-    c = collect(str)
+        U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
-    for i ∈ eachindex(c)
-        c[i] ∈ U || error("Error: superscript $(c[i]) not part of Unicode")
-    end
+        c = collect(str)
 
-    o = join([get(dictSuperscript, c[k], "unknown") for k ∈ eachindex(c)])   
+        for i ∈ eachindex(c)
+            c[i] ∈ U || error("Error: superscript $(c[i]) not part of Unicode")
+        end
+
+        o = join([get(dictSuperscript, c[k], "unknown") for k ∈ eachindex(c)])   
+
+    else
+        o = get(dictSuperscript, str, nothing)
+    end 
 
     return o
 
 end
 
 @doc raw"""
-    undo_sup(str::String)
+    undosup(str::Union{Char, String})
 
 Undo conversion of Integer or Rational{Int} to superscript String
 Examples:
 ```
-julia> undo_sup("⁻⁵ᐟ²")
+julia> undosup("⁻⁵ᐟ²")
 -5//2
 ```
 """
-function undo_sup(str::String)
+function undosup(str::Union{Char, String})
 
-    o = undo_small(str::String)
+    o = undosmall(str)
 
-    if occursin("/", o)
-        n = findfirst('/', o)
-        l = length(o)
-        i1 = Meta.parse(o[1:n-1])
-        i2 = Meta.parse(o[n+1:l])
-        o = i1 // i2
+    if isa(str, String)
+        if occursin("/", o)
+            n = findfirst('/', o)
+            l = length(o)
+            i1 = Meta.parse(o[1:n-1])
+            i2 = Meta.parse(o[n+1:l])
+            o = i1 // i2
+        else
+            return o
+        end
     else
-        o = Meta.parse(o)
+        return isnumeric(o) ? parse(Int, o) : o
     end
 
     return o
@@ -200,20 +210,26 @@ function sub(i::T) where T<:Real
     num = join([get(dictSubscript, num[k], nothing) for k ∈ eachindex(num)])
     den = join([get(dictSubscript, den[k], nothing) for k ∈ eachindex(den)])
 
-    return T == Rational{Int} ? (sgn * num * '⸝' * den) : (sgn * num)
+    return T == Rational{Int} ? (sgn * num * '⸝' * den) : length(sgn * num) > 1 ? sgn * num : num[1]
 
 end
-function sub(str::String)
+function sub(str::Union{Char, String})
 
-    U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','e','h','k','l','m','n','o','p','r','s','t','x']
+    if isa(str, String)
 
-    c = collect(str)
+        U = ['-','0','1','2','3','4','5','6','7','8','9','/','a','e','h','k','l','m','n','o','p','r','s','t','x']
 
-    for i ∈ eachindex(c)
-        c[i] ∈ U || error("Error: subscript $(c[i]) not part of Unicode")
+        c = collect(str)
+
+        for i ∈ eachindex(c)
+            c[i] ∈ U || error("Error: subscript $(c[i]) not part of Unicode")
+        end
+
+        o = join([get(dictSubscript, c[k], "unknown") for k ∈ eachindex(c)])   
+
+    else
+        o = get(dictSubscript, str, nothing)
     end
-
-    o = join([get(dictSubscript, c[k], "unknown") for k ∈ eachindex(c)])   
 
     return o
 
@@ -221,27 +237,31 @@ end
 
 
 @doc raw"""
-    undo_sub(str::String)
+    undosub(str::Union{Char, String})
 
 Undo conversion of Integer or Rational{Int} to subscript String
 Examples:
 ```
-undo_sub("₋₅⸝₂")
+undosub("₋₅⸝₂")
 -5//2
 ```
 """
-function undo_sub(str::String)
+function undosub(str::Union{Char, String})
 
-    o = undo_small(str::String)
+    o = undosmall(str)
 
-    if occursin("/", o)
-        n = findfirst('/', o)
-        l = length(o)
-        i1 = Meta.parse(o[1:n-1])
-        i2 = Meta.parse(o[n+1:l])
-        o = i1 // i2
+    if isa(str, String)
+        if occursin("/", o)
+            n = findfirst('/', o)
+            l = length(o)
+            i1 = Meta.parse(o[1:n-1])
+            i2 = Meta.parse(o[n+1:l])
+            o = i1 // i2
+        else
+            o = Meta.parse(o)
+        end
     else
-        o = Meta.parse(o)
+        return isnumeric(o) ? parse(Int, o) : o
     end
 
     return o
@@ -250,27 +270,31 @@ end
 
 
 @doc raw"""
-    undo_small(str::String)
+    undosmall(str::Union{Char, String})
 
 Reset to normal size String
 
 Examples:
 ```
-julia> undo_small("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ")
+julia> undosmall("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ")
 "superscript"
 
-julia> undo_small("⁻⁵ᐟ²")
+julia> undosmall("⁻⁵ᐟ²")
 "-5/2"
 
-julia> undo_small("₋₅⸝₂")
+julia> undosmall("₋₅⸝₂")
 "-5/2"
 ```
 """
-function undo_small(str::String)
+function undosmall(str::Union{Char, String})
+
+    if isa(str, Char)
+        o = get(dictUndoSmall, str, nothing)
+    else
+        o = join([get(dictUndoSmall, str[i], nothing) for i ∈ eachindex(str)])
+    end
     
-    o = [get(dictUndoSmall, str[i], nothing) for i ∈ eachindex(str)]
-    
-    return  join(o)
+    return  o
     
 end
 

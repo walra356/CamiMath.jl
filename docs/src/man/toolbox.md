@@ -12,20 +12,20 @@ dictUndoSmall
 
 ```@docs
 sup(i::T) where T<:Real
-undo_sup(str::String)
+undosup(str::String)
 ```
 
 #### Subscript tools
 
 ```@docs
 sub(i::T) where T<:Real
-undo_sub(str::String)
+undosub(str::String)
 ```
 
 #### Tiny character tools
 
 ```@docs
-undo_small(str::String)
+undosmall(str::Union{Char, String})
 frac(i::Rational{Int})
 ```
 
