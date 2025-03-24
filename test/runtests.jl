@@ -25,7 +25,7 @@ using Test
 
 @testset "CamiMath.jl" begin
 
-    println("CamiMath.jl | 169 runtests | runtume 60s (estimated) | start")
+    println("CamiMath.jl | 179 runtests | runtume 60s (estimated) | start")
     
     @test Type_IOP(1, 1) == Int64 
     @test Type_IOP(big(1), 1) == BigInt
@@ -46,6 +46,7 @@ using Test
     @test sup('u') == 'ᵘ'
     @test undosup("⁻⁵ᐟ²") == -5//2
     @test undosup('⁵') == 5
+    @test undosup("⁵⁰") == 50
     @test undosup('ᵘ') == 'u'
     @test 'D' * sup("superscript") == "Dˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
     @test undosmall("ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ") == "superscript"
@@ -56,6 +57,7 @@ using Test
     @test undosub("₋₅⸝₂") == -5//2
     @test undosub('ₑ') == 'e'
     @test undosub('₅') == 5
+    @test undosub("₅₀") == 50
     @test frac(-5 // 2) == "-⁵/₂"
     @test strRational(-5) == "-5"
     @test strRational(-5 // 2) == "-5/2"

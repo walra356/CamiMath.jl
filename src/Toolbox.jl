@@ -159,7 +159,7 @@ function undosup(str::Union{Char, String})
             i2 = Meta.parse(o[n+1:l])
             o = i1 // i2
         else
-            return o
+            o = Meta.parse(o)
         end
     else
         return isnumeric(o) ? parse(Int, o) : o
