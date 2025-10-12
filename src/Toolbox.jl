@@ -71,7 +71,7 @@ dictSub = Dict(
     'r' => Char(0x1D63),
     's' => Char(0x209B),
     't' => Char(0x209C),
-    't' => Char(0x2093)
+    'x' => Char(0x2093)
     
     )
     
