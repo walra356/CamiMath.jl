@@ -153,7 +153,8 @@ end
 `count`                        : The number of integer partitions of `n`
 
 `transpose` = `false` (`m` > 0): partitions restricted to maximum part `m`
-            = `true`  (`m` > 0): partitions restricted to maximum length `m``
+
+            = `true`  (`m` > 0): partitions restricted to maximum length `m`
 
 definitions:
 
